@@ -1,6 +1,6 @@
-import React from "react";
-import { Controller } from "react-hook-form";
-import InputField from "./inputField";
+import React from 'react';
+import { Controller } from 'react-hook-form';
+import InputField from './inputField';
 
 const ControlledInputs = ({
   name,
@@ -18,10 +18,6 @@ const ControlledInputs = ({
         value={value}
         placeholder={placeholder}
         onChange={onChange}
-        // otherStyles={{
-        //   width: "100%",
-        //   height: 40,
-        // }}
         {...props}
       />
     )}
