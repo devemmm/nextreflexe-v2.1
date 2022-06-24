@@ -1,24 +1,34 @@
-import React from 'react';
 import { Box, Typography } from '@mui/material';
+import { useState } from 'react';
 
-import AboveNavbar from '../components/home-page/AboveNavbar';
 import NavBar from '../components/NavBar';
 
 function HomePage() {
+	const [sticked, setSticked] = useState(false);
+	console.log(sticked, 'sticked');
+
+	const getStickData = (e) => {
+		if (e.target.scrollTop >= 32) {
+			if (sticked !== true) {
+				setSticked(true);
+			}
+		} else {
+			if (sticked !== false) {
+				setSticked(false);
+			}
+		}
+	};
+
 	return (
-		<>
-			<Box
-				height='200vh'
-				sx={{
-					display: 'flex',
-					flexDirection: 'column',
-					alignItems: 'center',
-					width: '100%',
-					position: 'relative',
-				}}>
-				<AboveNavbar />
-				<NavBar />
-			</Box>
+		<Box
+			onScroll={getStickData}
+			height='100%'
+			sx={{
+				width: '100%',
+				overflowY: 'scroll',
+				overflowX: 'hidden',
+			}}>
+			<NavBar sticked={sticked} />
 			<Box height='200vh'>
 				<Box component='div' id='about-us'>
 					<Typography>About us</Typography>
@@ -29,7 +39,7 @@ function HomePage() {
 					<Typography>About us</Typography>
 				</Box>
 			</Box>
-		</>
+		</Box>
 	);
 }
 

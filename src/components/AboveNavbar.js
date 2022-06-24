@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 import { Stack, Typography, styled, Box } from '@mui/material';
 
-import locationIcon from '../../assets/icons/location-icon.svg';
-import clockIcon from '../../assets/icons/clock-icon.svg';
-import instagramIcon from '../../assets/icons/instagram-icon.svg';
-import facebookIcon from '../../assets/icons/facebook-icon.svg';
-import twitterIcon from '../../assets/icons/twitter-icon.svg';
-import linkedinIcon from '../../assets/icons/linkedin-icon.svg';
+import locationIcon from '../assets/icons/location-icon.svg';
+import clockIcon from '../assets/icons/clock-icon.svg';
+import instagramIcon from '../assets/icons/instagram-icon.svg';
+import facebookIcon from '../assets/icons/facebook-icon.svg';
+import twitterIcon from '../assets/icons/twitter-icon.svg';
+import linkedinIcon from '../assets/icons/linkedin-icon.svg';
 
 const CustomTypography = styled(Typography)(() => ({
 	fontSize: '12px',
@@ -30,7 +30,7 @@ function AboveNavbar({ otherStyles, ...props }) {
 				justifyContent: 'center',
 				gap: '55px',
 				...otherStyles,
-				'@media (max-width: 644px)': {
+				'@media (max-width: 768px)': {
 					'&': {
 						display: 'none !important',
 					},
