@@ -29,7 +29,7 @@ const CustomLine = styled('div')(({ theme, side, ...props }) => ({
 	margin: side === 'left' ? '0px 0px 0px 20px' : '0px 20px 0px 0px',
 }));
 
-function HeaderTitle({ data }) {
+function HeaderTitle({ data, sx, ...props }) {
 	return (
 		<Box
 			sx={{
@@ -42,7 +42,9 @@ function HeaderTitle({ data }) {
 					md: '30px',
 					lg: '35px',
 				},
-			}}>
+				...sx,
+			}}
+			{...props}>
 			<CustomLine side='left' />
 			<Typography
 				color='primary'
@@ -65,6 +67,8 @@ function HeaderTitle({ data }) {
 }
 HeaderTitle.propTypes = {
 	data: PropTypes.string.isRequired,
+	sx: PropTypes.object,
+	[PropTypes.string]: PropTypes.any,
 };
 
 export default HeaderTitle;
