@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 
 import { Link } from 'react-router-dom';
-import logo from '../assets/images/logo.svg';
+import logo from '../../assets/images/logo.svg';
 import AboveNavbar from './AboveNavbar';
 
 const HeaderLinkTypography = ({ props: { currentPathName, to, linkName, props, activeColor } }) => (
@@ -79,7 +79,7 @@ const CustomIdLink = ({
 	return (
 		<a
 			href={to}
-			onClick={() => {
+			onClick={(e) => {
 				onClick(to);
 				setOpenDrawer(false);
 			}}
@@ -135,10 +135,10 @@ const CustomMenuIcon = ({ setOpenDrawer, iconStyles, ...props }) => (
 
 function NavBar({ sticked }) {
 	const theme = useTheme();
-	const [selectedLink, setSelectedLink] = useState(
-		window.location.hash === '' ? window.location.pathname : window.location.hash,
-	);
+	const [selectedLink, setSelectedLink] = useState(window.location.pathname + window.location.hash);
 	const [openDrawer, setOpenDrawer] = useState(false);
+
+	console.log(window.location);
 
 	const LinkList = ({ activeColor, props, CustomTypography }) => [
 		<CustomLink
@@ -154,7 +154,7 @@ function NavBar({ sticked }) {
 		<CustomIdLink
 			currentPathName={selectedLink}
 			onClick={setSelectedLink}
-			to='#about-us'
+			to='/home#about-us'
 			linkName='About us'
 			activeColor={activeColor}
 			props={props}
@@ -164,7 +164,7 @@ function NavBar({ sticked }) {
 		<CustomIdLink
 			currentPathName={selectedLink}
 			onClick={setSelectedLink}
-			to='#services'
+			to='/home#services'
 			linkName='SERVICES'
 			activeColor={activeColor}
 			props={props}
@@ -174,7 +174,7 @@ function NavBar({ sticked }) {
 		<CustomIdLink
 			currentPathName={selectedLink}
 			onClick={setSelectedLink}
-			to='#our-methods'
+			to='/home#our-methods'
 			linkName='OUR METHODS'
 			activeColor={activeColor}
 			props={props}
@@ -184,7 +184,7 @@ function NavBar({ sticked }) {
 		<CustomIdLink
 			currentPathName={selectedLink}
 			onClick={setSelectedLink}
-			to='#gallery'
+			to='/home#gallery'
 			linkName='GALLERY'
 			activeColor={activeColor}
 			props={props}
@@ -194,7 +194,7 @@ function NavBar({ sticked }) {
 		<CustomIdLink
 			currentPathName={selectedLink}
 			onClick={setSelectedLink}
-			to='#our-people'
+			to='/home#our-people'
 			linkName='OUR PEOPLE'
 			activeColor={activeColor}
 			props={props}
@@ -204,7 +204,7 @@ function NavBar({ sticked }) {
 		<CustomIdLink
 			currentPathName={selectedLink}
 			onClick={setSelectedLink}
-			to='#get-in-touch'
+			to='/home#get-in-touch'
 			linkName='GET IN TOUCH'
 			activeColor={activeColor}
 			props={props}
@@ -244,12 +244,13 @@ function NavBar({ sticked }) {
 					width: '100%',
 					alignItems: 'center',
 					padding: sticked ? '0px 0px' : '0px 20px',
-					position: 'sticky',
-					willChange: 'transform',
+					position: sticked ? 'fixed' : 'static',
+					left: 0,
 					top: '-10px',
+					willChange: 'transform',
 					'@media (max-width: 768px)': {
 						'&': {
-							position: 'absolute',
+							position: 'fixed',
 							top: '0px',
 							left: '0px',
 							willChange: 'auto',
@@ -260,7 +261,6 @@ function NavBar({ sticked }) {
 				<Box
 					component='div'
 					sx={{
-						position: 'sticky',
 						willChange: 'transform',
 						display: 'flex',
 						height: '80px',
@@ -270,7 +270,7 @@ function NavBar({ sticked }) {
 						padding: sticked ? '0px 10px 0px 0px' : '0px 66.5px 0px 0px',
 						background: theme.colors.grey,
 						borderRadius: sticked ? '0px' : '53px',
-						boxShadow: sticked ? '' : 'none',
+						boxShadow: sticked ? '0px 4px 4px rgba(0, 0, 0, 0.25)' : 'none',
 						zIndex: 100,
 						'@media (max-width: 1035px)': {
 							'&': {

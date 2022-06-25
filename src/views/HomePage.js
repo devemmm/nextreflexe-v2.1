@@ -1,45 +1,29 @@
 import { Box, Typography } from '@mui/material';
-import { useState } from 'react';
 
-import NavBar from '../components/NavBar';
+import NavBarContainer from '../components/NavBar/NavBarContainer';
 
 function HomePage() {
-	const [sticked, setSticked] = useState(false);
-	console.log(sticked, 'sticked');
-
-	const getStickData = (e) => {
-		if (e.target.scrollTop >= 32) {
-			if (sticked !== true) {
-				setSticked(true);
-			}
-		} else {
-			if (sticked !== false) {
-				setSticked(false);
-			}
-		}
-	};
-
 	return (
-		<Box
-			onScroll={getStickData}
-			height='100%'
-			sx={{
-				width: '100%',
-				overflowY: 'scroll',
-				overflowX: 'hidden',
-			}}>
-			<NavBar sticked={sticked} />
-			<Box height='200vh'>
-				<Box component='div' id='about-us'>
-					<Typography>About us</Typography>
-				</Box>
+		<NavBarContainer>
+			<Box height='200vh' component='div' id='about-us'>
+				<Typography>About us</Typography>
 			</Box>
-			<Box height='200vh'>
-				<Box component='div' id='services'>
-					<Typography>About us</Typography>
-				</Box>
+			<Box height='200vh' component='div' id='services'>
+				<Typography>services</Typography>
 			</Box>
-		</Box>
+			<Box height='200vh' component='div' id='our-methods'>
+				<Typography>our methods</Typography>
+			</Box>
+			<Box height='200vh' component='div' id='gallery'>
+				<Typography>gallery</Typography>
+			</Box>
+			<Box height='200vh' component='div' id='our-people'>
+				<Typography>our people</Typography>
+			</Box>
+			<Box height='200vh' component='div' id='get-in-touch'>
+				<Typography>get in touch</Typography>
+			</Box>
+		</NavBarContainer>
 	);
 }
 
