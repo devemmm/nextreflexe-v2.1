@@ -1,0 +1,19 @@
+.slide_container {
+	height: 100vh;
+	min-height: 350px;
+}
+.slide_container .images-wrap,
+.slide_container .images-wrap > div {
+	height: 100%;
+}
+
+@media (max-width: 600px) {
+	.slide_container {
+		min-height: 300px;
+	}
+}
+@media (max-width: 900px) {
+	.slide_container {
+		min-height: 250px;
+	}
+}

@@ -1,8 +1,9 @@
-import { Box } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 import React, { useState } from 'react';
 import NavBar from './NavBar';
 
 function NavBarContainer({ children, ...props }) {
+	const theme = useTheme();
 	const [sticked, setSticked] = useState(false);
 
 	const getStickData = (e) => {
@@ -26,6 +27,15 @@ function NavBarContainer({ children, ...props }) {
 				overflowY: 'scroll',
 				position: 'absolute',
 				...props.sx,
+				zIndex: 100,
+				'&::-webkit-scrollbar': {
+					width: '5px',
+					background: theme.colors.grey,
+				},
+				'&::-webkit-scrollbar-thumb': {
+					background: theme.palette.primary.main,
+					borderRadius: '15px',
+				},
 			}}
 			{...props}>
 			<NavBar sticked={sticked} />

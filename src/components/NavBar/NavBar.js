@@ -138,8 +138,6 @@ function NavBar({ sticked }) {
 	const [selectedLink, setSelectedLink] = useState(window.location.pathname + window.location.hash);
 	const [openDrawer, setOpenDrawer] = useState(false);
 
-	console.log(window.location);
-
 	const LinkList = ({ activeColor, props, CustomTypography }) => [
 		<CustomLink
 			currentPathName={selectedLink}
@@ -239,6 +237,7 @@ function NavBar({ sticked }) {
 			<Box
 				component='div'
 				sx={{
+					zIndex: 100,
 					display: 'flex',
 					flexFlow: 'column nowrap',
 					width: '100%',
@@ -271,7 +270,6 @@ function NavBar({ sticked }) {
 						background: theme.colors.grey,
 						borderRadius: sticked ? '0px' : '53px',
 						boxShadow: sticked ? '0px 4px 4px rgba(0, 0, 0, 0.25)' : 'none',
-						zIndex: 100,
 						'@media (max-width: 1035px)': {
 							'&': {
 								height: '70px',
