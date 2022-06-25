@@ -11,6 +11,7 @@ function ScrollImageInnerBox({ data }) {
 			sx={{
 				backgroundImage: `url(${data.image})`,
 				backgroundSize: 'cover',
+				backgroundPosition: '0% 30%',
 				height: '100%',
 				display: 'flex',
 				alignItems: 'center',
@@ -65,6 +66,8 @@ function ScrollImageInnerBox({ data }) {
 					textAlign='center'
 					sx={{
 						fontSize: { xs: '12px', sm: '14px', md: '16px' },
+						fontFamily: 'Titillium Web',
+						fontWeight: 300,
 					}}>
 					{data.body}
 				</Typography>
