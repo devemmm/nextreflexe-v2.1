@@ -52,17 +52,24 @@ function Services() {
 				}}
 				sx={{
 					padding: {
-						xs: '20px',
-						sm: '30px',
-						md: '40px',
-						lg: '50px',
+						xs: '25px 20px',
+						sm: '35px 30px',
+						md: '50px 40px',
+						lg: '65px 50px',
 					},
 					alignItems: 'center',
 					justifyContent: 'center',
 				}}>
 				{services.map((service) => {
 					return (
-						<Grid item xs={12} sm={6} md={4} alignItems='center' justifyContent='center'>
+						<Grid
+							key={service.header}
+							item
+							xs={12}
+							sm={6}
+							md={4}
+							alignItems='center'
+							justifyContent='center'>
 							<Box
 								sx={{
 									height: '355px',
@@ -127,7 +134,7 @@ function Services() {
 										},
 										textOverflow: 'clip',
 										fontWeight: 300,
-										textAlign: 'center',
+										textAlign: 'justify',
 									}}>
 									{service.body}
 								</Typography>

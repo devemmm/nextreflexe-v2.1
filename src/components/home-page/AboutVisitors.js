@@ -45,7 +45,7 @@ function AboutVisitors() {
 			marginX='auto'>
 			{datas.map((data) => {
 				return (
-					<Grid item xs={12} sm={6} md={3} marginY={{ xs: '10px', sm: '0px' }}>
+					<Grid key={data.title} item xs={12} sm={6} md={3} marginY={{ xs: '10px', sm: '0px' }}>
 						<Box
 							display='flex'
 							flexDirection='column'

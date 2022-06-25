@@ -26,7 +26,7 @@ const CustomLine = styled('div')(({ theme, side, ...props }) => ({
 	},
 	borderStyle: 'solid',
 	borderColor: theme.palette.primary.main,
-	margin: side === 'left' ? '0px 0px 0px 20px' : '0px 20px 0px 0px',
+	margin: side === 'left' ? '0px 0px 0px 10px' : '0px 10px 0px 0px',
 }));
 
 function HeaderTitle({ data, sx, ...props }) {

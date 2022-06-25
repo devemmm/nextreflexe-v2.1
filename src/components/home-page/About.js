@@ -35,7 +35,7 @@ function About() {
 					sx={{
 						marginX: 'auto',
 						fontWeight: 300,
-						textAlign: 'center',
+						textAlign: 'justify',
 						fontSize: {
 							xs: '14px',
 							md: '16px',

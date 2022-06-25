@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import About from '../components/home-page/About';
+import OurMethods from '../components/home-page/OurMethods';
 
 import ScrollImage from '../components/home-page/ScrollImage';
 import Services from '../components/home-page/Services';
@@ -18,8 +19,8 @@ function HomePage() {
 				<Box component='div' id='services'>
 					<Services />
 				</Box>
-				<Box height='100vh' component='div' id='our-methods'>
-					<Typography>our methods</Typography>
+				<Box component='div' id='our-methods'>
+					<OurMethods />
 				</Box>
 				<Box height='100vh' component='div' id='gallery'>
 					<Typography>gallery</Typography>

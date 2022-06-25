@@ -63,7 +63,7 @@ function ScrollImageInnerBox({ data }) {
 				</Typography>
 				<Typography
 					color='white'
-					textAlign='center'
+					textAlign='justify'
 					sx={{
 						fontSize: { xs: '12px', sm: '14px', md: '16px' },
 						fontFamily: 'Titillium Web',
