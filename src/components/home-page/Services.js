@@ -52,23 +52,23 @@ function Services() {
 				}}
 				sx={{
 					padding: {
-						xs: '30px',
-						sm: '40px',
-						md: '50px',
-						lg: '60px',
+						xs: '20px',
+						sm: '30px',
+						md: '40px',
+						lg: '50px',
 					},
 					alignItems: 'center',
 					justifyContent: 'center',
 				}}>
 				{services.map((service) => {
 					return (
-						<Grid item xs={12} md={6} lg={4}>
+						<Grid item xs={12} sm={6} md={4} alignItems='center' justifyContent='center'>
 							<Box
 								sx={{
 									height: '355px',
 									width: '100%',
-									// minWidth: '',
-									// maxWidth: '',
+									marginX: 'auto',
+									maxWidth: '400px',
 									background: theme.colors.grey,
 									border: '0.5px solid rgba(1, 143, 85, 0.25)',
 									borderRadius: '7px',
@@ -80,13 +80,13 @@ function Services() {
 										sm: '20px',
 									},
 									padding: '20px',
-									overrflowY: 'hidden',
+									overflowY: 'hidden',
 								}}>
 								<Box
 									sx={{
-										width: { xs: '60px', sm: '108px' },
-										height: { xs: '60px', sm: '108px' },
-										padding: { xs: '10px', sm: '20px' },
+										width: { xs: '108px' },
+										height: { xs: '108px' },
+										padding: { xs: '20px' },
 										flexShrink: 0,
 										border: `1px solid ${theme.palette.primary.main}`,
 										borderRadius: '50%',
@@ -122,10 +122,10 @@ function Services() {
 									sx={{
 										flexShrink: 1,
 										fontSize: {
-											xs: '12px',
-											sm: '14px',
-											md: '16px',
+											xs: '14px',
+											sm: '16px',
 										},
+										textOverflow: 'clip',
 										fontWeight: 300,
 										textAlign: 'center',
 									}}>
