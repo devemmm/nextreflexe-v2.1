@@ -87,10 +87,11 @@ function ScrollImage() {
 				Icon: ArrowBackIosNewIcon,
 				margin: { xs: '0px -30px 0px 0px !important', sm: '0px -50px 0px 0px !important' },
 			})}
-			autoplay={false}
+			autoplay={true}
+			pauseOnHover={false}
 			cssClass='slide_container'>
 			{slideImages.map((data) => (
-				<ScrollImageInnerBox data={data} />
+				<ScrollImageInnerBox key={data.header} data={data} />
 			))}
 		</Slide>
 	);
