@@ -212,7 +212,7 @@ function NavBar({ sticked }) {
 		<CustomLink
 			currentPathName={selectedLink}
 			onClick={setSelectedLink}
-			to='/sign-in'
+			to='/signin'
 			linkName='SIGN IN'
 			activeColor={activeColor}
 			props={props}
@@ -222,7 +222,7 @@ function NavBar({ sticked }) {
 		<CustomLink
 			currentPathName={selectedLink}
 			onClick={setSelectedLink}
-			to='/sign-up'
+			to='/signup'
 			linkName='SIGN UP'
 			activeColor={activeColor}
 			props={props}

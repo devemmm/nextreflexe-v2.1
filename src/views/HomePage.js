@@ -9,7 +9,7 @@ import NavBarContainer from '../components/NavBar/NavBarContainer';
 function HomePage() {
 	return (
 		<NavBarContainer>
-			<Box maxWidth='1440px' width='100%' margin='0px auto'>
+			<Box maxWidth='2560px' width='100%' margin='0px auto'>
 				<Box height='max-content' component='div' marginTop='30px'>
 					<ScrollImage />
 				</Box>

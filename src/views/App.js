@@ -4,7 +4,8 @@ import '../styles/App.css';
 import { CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Routes, Route, Navigate } from 'react-router';
-
+import Signin from './Signin';
+import Signup from './Signup';
 import HomePage from './HomePage';
 import NotFound from './NotFound';
 
@@ -37,6 +38,8 @@ function App() {
 				<Routes>
 					<Route path='home' element={<HomePage />}></Route>
 					<Route path='' element={<Navigate to='/home' replace={true} />}></Route>
+					<Route path="/signin" element={<Signin />}></Route>
+					<Route path="/signup" element={<Signup />}></Route>
 					<Route path='*' element={<NotFound />}></Route>
 				</Routes>
 			</ThemeProvider>
