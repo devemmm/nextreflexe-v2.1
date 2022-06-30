@@ -12,34 +12,16 @@ import { IconButton, useTheme } from '@mui/material';
 const slideImages = [
 	{
 		image:
-			'https://res.cloudinary.com/tsa2341/image/upload/v1648134443/my-brand-images/ak9goouqpmocqk607chx.jpg',
+			'https://res.cloudinary.com/nextreflexe/image/upload/v1656436764/page/home_bg1_enqgeq.jpg',
 		header: 'GENUINE KUNGA',
 		body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolor',
 	},
 	{
 		image:
-			'https://res.cloudinary.com/tsa2341/image/upload/v1648133085/my-brand-images/np7jlrkn80jjmicvgrul.png',
+			'https://res.cloudinary.com/nextreflexe/image/upload/v1656436758/page/home_bg2_z322jw.jpg',
 		header: 'JOINT TREATMENT',
 		body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-	},
-	{
-		image:
-			'https://res.cloudinary.com/tsa2341/image/upload/v1647979220/my-brand-images/kmhwvigvpjqrupzdaooq.png',
-		header: 'image 3',
-		body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolor Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua mmodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolor Lorem ipsum dolor sit amet, consectetur adipiscing .',
-	},
-	{
-		image:
-			'https://res.cloudinary.com/tsa2341/image/upload/v1644967369/my-brand-images/oqraxborurwmjyxgwab7.jpg',
-		header: 'image 4',
-		body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-	},
-	{
-		image:
-			'https://res.cloudinary.com/tsa2341/image/upload/v1644953995/my-brand-images/w9wbet5ydmiuvclwzpza.jpg',
-		header: 'image 5',
-		body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolor',
-	},
+	}
 ];
 
 const NextPrevButton = ({ Icon, margin, sx, ...props }) => {
