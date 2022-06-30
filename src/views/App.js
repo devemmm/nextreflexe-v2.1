@@ -9,6 +9,7 @@ import Signup from "./Signup";
 import HomePage from "./HomePage";
 import NotFound from "./NotFound";
 import Gallery from "./Gallery";
+import OurPeople from "./OurPeople";
 
 function App() {
   const theme = createTheme({
@@ -45,6 +46,7 @@ function App() {
           <Route path="/signin" element={<Signin />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="/gallery" element={<Gallery />}></Route>
+          <Route path="our-people" element={<OurPeople />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
       </ThemeProvider>

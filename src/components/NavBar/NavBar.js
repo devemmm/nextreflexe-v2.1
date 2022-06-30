@@ -207,7 +207,7 @@ function NavBar({ sticked }) {
     <CustomIdLink
       currentPathName={selectedLink}
       onClick={setSelectedLink}
-      to="/home#our-people"
+      to="/our-people"
       linkName="OUR PEOPLE"
       activeColor={activeColor}
       props={props}
