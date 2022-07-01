@@ -28,7 +28,8 @@ function NavBarContainer({ children, ...props }) {
 				position: 'absolute',
 				...props.sx,
 				zIndex: 100,
-				'&::-webkit-scrollbar': {
+				'& *::-webkit-scrollbar': {
+					height: '2px',
 					width: '5px',
 					background: theme.colors.grey,
 				},
