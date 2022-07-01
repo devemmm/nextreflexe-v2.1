@@ -24,7 +24,7 @@ export const homePageSlice = createSlice({
 
 export const {
   getData: getDataAction,
-  loadingGetData: lodingGetDataAction,
-  error: errorAction,
+  loadingGetData: loadingGetDataAction,
+  error: HomePageErrorAction,
 } = homePageSlice.actions;
 export const homePageReducer = homePageSlice.reducer;
