@@ -35,7 +35,7 @@ function DashboardWrapper() {
 			margin='0px auto'
 			sx={{
 				background: theme.colors.grey,
-				overflowX: 'scroll',
+				overflowX: 'auto',
 				'& *::-webkit-scrollbar': {
 					height: '2px',
 					width: '5px',

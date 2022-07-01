@@ -23,8 +23,8 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const CustomTableHeaderCell = ({ title }) => {
 	return (
-		<TableCell align='center' th>
-			<Typography
+		<TableCell align='center'>
+			{/* <Typography
 				variant='p'
 				component='div'
 				sx={{
@@ -32,14 +32,14 @@ const CustomTableHeaderCell = ({ title }) => {
 					fontWeight: 700,
 				}}>
 				{title}
-			</Typography>
+			</Typography> */}
 		</TableCell>
 	);
 };
 const CustomTableBodyCell = ({ text }) => {
 	return (
-		<TableCell align='center' th>
-			<Typography
+		<TableCell align='center'>
+			{/* <Typography
 				variant='p'
 				component='div'
 				sx={{
@@ -47,12 +47,12 @@ const CustomTableBodyCell = ({ text }) => {
 					fontWeight: 300,
 				}}>
 				{text}
-			</Typography>
+			</Typography> */}
 		</TableCell>
 	);
 };
 
-const Row = ({ data: { id, email, phone, status, diagnosis }, ...props }) => {
+const Row = ({ data: { id, email, phone, status, diagnosis }, setOpenEditModal, ...props }) => {
 	const theme = useTheme();
 	const [showDetails, setShowDetails] = useState(false);
 
@@ -81,7 +81,12 @@ const Row = ({ data: { id, email, phone, status, diagnosis }, ...props }) => {
 				<CustomTableBodyCell text={status} />
 				<CustomTableBodyCell text={diagnosis} />
 				<TableCell align='center'>
-					<IconButton size='small' color='primary'>
+					<IconButton
+						size='small'
+						color='primary'
+						onClick={() => {
+							setOpenEditModal(true);
+						}}>
 						<EditIcon />
 					</IconButton>
 				</TableCell>
@@ -114,7 +119,18 @@ const Row = ({ data: { id, email, phone, status, diagnosis }, ...props }) => {
 	);
 };
 
-function PatientsTable({ datas, ...props }) {
+function PatientsTable({ datas, setOpenEditModal, ...props }) {
+	const modifiedDatas = [
+		...datas,
+		...datas,
+		...datas,
+		...datas,
+		...datas,
+		...datas,
+		...datas,
+		...datas,
+	];
+
 	return (
 		<Box
 			sx={{
@@ -138,8 +154,8 @@ function PatientsTable({ datas, ...props }) {
 						<TableCell />
 					</TableHead>
 					<TableBody>
-						{datas.map((data) => {
-							return <Row data={data} />;
+						{modifiedDatas.map((data, index) => {
+							return <Row key={data.id + index} data={data} setOpenEditModal={setOpenEditModal} />;
 						})}
 					</TableBody>
 				</Table>
@@ -149,7 +165,8 @@ function PatientsTable({ datas, ...props }) {
 }
 
 PatientsTable.propTypes = {
-	datas: PropTypes.object.isRequired,
+	datas: PropTypes.any.isRequired,
+	setOpenEditModal: PropTypes.func.isRequired,
 };
 
 export default PatientsTable;
