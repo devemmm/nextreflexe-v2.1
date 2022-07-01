@@ -18,7 +18,7 @@ function App() {
 	const theme = createTheme({
 		colors: {
 			primary: '#018F55',
-			grey: '#F5F5F5',
+			grey: '#F4F4F4',
 		},
 		palette: {
 			primary: {
