@@ -1,30 +1,31 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { useEffect, useRef } from 'react';
 
 import { Box, Stack, useTheme } from '@mui/material';
 
-import axiosInstance from '../axios.instance';
-import { loadingGetUserAction } from '../redux/reducers/user.reducer';
 import DashboardNavBar from '../components/dashboard-wrapper/DashboardNavBar';
 import DashboardSideBar from '../components/dashboard-wrapper/DashboardSideBar';
 import DashboardContent from './DashboardContent';
 
-function DashboardWrapper({ title }) {
+function DashboardWrapper() {
 	const theme = useTheme();
+	const sideBarRef = useRef();
 	// const dispatch = useDispatch();
 
-	// useEffect(() => {
-	// 	const userCredentials = {
-	// 		token:
-	// 			'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlJXQjEwMSIsImlhdCI6MTY1NjY2NDI2Nn0.-gLaVJx610CYF0P5S8AyUycuKS93gKObq7Ai0pnFd10',
-	// 	};
+	function toogleShowSideBar() {
+		sideBarRef.current.toogleShowSideBar();
+	}
 
-	// 	localStorage.setItem('userCredentials', JSON.stringify(userCredentials));
+	useEffect(() => {
+		const userCredentials = {
+			token:
+				'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlJXQjEwMSIsImlhdCI6MTY1NjY2NDI2Nn0.-gLaVJx610CYF0P5S8AyUycuKS93gKObq7Ai0pnFd10',
+		};
 
-	// 	dispatch(loadingGetUserAction({}));
-	// 	axiosInstance.get('/users');
-	// });
+		localStorage.setItem('userCredentials', JSON.stringify(userCredentials));
+
+		// dispatch(loadingGetUserAction({}));
+		// axiosInstance.get('/users');
+	});
 
 	return (
 		<Box
@@ -32,17 +33,13 @@ function DashboardWrapper({ title }) {
 			width='100%'
 			height='100%'
 			margin='0px auto'
-			marginTop={{
-				xs: '41px',
-				sm: '46px',
-				md: '52px',
-			}}
 			sx={{
 				background: theme.colors.grey,
+				overflowX: 'scroll',
 				'& *::-webkit-scrollbar': {
 					height: '2px',
 					width: '5px',
-					background: theme.colors.grey,
+					background: 'transparent',
 				},
 				'& *::-webkit-scrollbar-thumb': {
 					background: theme.palette.primary.main,
@@ -50,17 +47,21 @@ function DashboardWrapper({ title }) {
 				},
 			}}>
 			<DashboardNavBar />
-			<Stack direction='row'>
-				<DashboardSideBar />
-				<DashboardContent />
+			<Stack
+				position='relative'
+				direction='row'
+				width='100%'
+				height={{
+					xs: 'calc(100% - 41px)',
+					sm: 'calc(100% - 46px)',
+					md: 'calc(100% - 52px)',
+				}}
+				zIndex={8}>
+				<DashboardSideBar ref={sideBarRef} />
+				<DashboardContent toogleShowSideBar={toogleShowSideBar} />
 			</Stack>
 		</Box>
 	);
 }
-
-DashboardWrapper.propTypes = {
-	title: PropTypes.string.isRequired,
-	[PropTypes.string]: PropTypes.any,
-};
 
 export default DashboardWrapper;

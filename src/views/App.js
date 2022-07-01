@@ -1,9 +1,10 @@
 import * as React from 'react';
+import { Routes, Route, Navigate } from 'react-router';
 import '../styles/App.css';
 
 import { CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Routes, Route, Navigate } from 'react-router';
+
 import Signin from './Signin';
 import Signup from './Signup';
 import HomePage from './HomePage';

@@ -9,10 +9,6 @@ function DashboardNavBar({ sx, ...props }) {
 		<Box
 			sx={{
 				maxWidth: '1440px',
-				position: 'fixed',
-				top: 0,
-				left: '50%',
-				transform: 'translate(-50%, 0%)',
 				transformOrigin: 'center',
 				width: '100%',
 				display: 'flex',
@@ -23,8 +19,8 @@ function DashboardNavBar({ sx, ...props }) {
 					sm: '5px 30px',
 					md: '5px 40px',
 				},
-
 				background: 'white',
+				zIndex: 1000,
 			}}>
 			<Box
 				component='img'

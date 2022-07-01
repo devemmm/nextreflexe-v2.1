@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 import { Box, Stack, Typography, useTheme } from '@mui/material';
 
 import homeIcon from '../../assets/icons/home-icon.svg';
@@ -11,12 +12,13 @@ import servicesIcon from '../../assets/icons/services-icon.svg';
 import branchesIcon from '../../assets/icons/branches-icon-dashboard.svg';
 import paymentsIcon from '../../assets/icons/payments-icon.svg';
 
-const CustomLink = ({ to, icon, currentPath, setcurrentPath, theme, linkName }) => {
+const CustomLink = ({ to, icon, currentPath, setcurrentPath, setShowSideBar, theme, linkName }) => {
 	return (
 		<Link
 			to={to}
-			style={{ textDecoration: 'none' }}
-			onClick={() => {
+			style={{ textDecoration: 'none', userSelect: 'none' }}
+			onClick={async () => {
+				setShowSideBar(false);
 				setcurrentPath(to);
 			}}>
 			<Stack
@@ -43,12 +45,12 @@ const CustomLink = ({ to, icon, currentPath, setcurrentPath, theme, linkName }) 
 	);
 };
 
-function DashboardSideBarLinks({ sx, ...props }) {
+function DashboardSideBarLinks({ setShowSideBar, sx, ...props }) {
 	const theme = useTheme();
 	const [currentPath, setcurrentPath] = useState(window.location.pathname);
 
 	return (
-		<Box sx={{ paddingX: '20px', paddingY: '40px', ...sx }} {...props}>
+		<Box sx={{ ...sx }} {...props}>
 			<CustomLink
 				to='/dashboard'
 				linkName={'Dashboard'}
@@ -56,6 +58,7 @@ function DashboardSideBarLinks({ sx, ...props }) {
 				currentPath={currentPath}
 				setcurrentPath={setcurrentPath}
 				theme={theme}
+				setShowSideBar={setShowSideBar}
 			/>
 			<CustomLink
 				to='/dashboard/patients'
@@ -64,6 +67,7 @@ function DashboardSideBarLinks({ sx, ...props }) {
 				currentPath={currentPath}
 				setcurrentPath={setcurrentPath}
 				theme={theme}
+				setShowSideBar={setShowSideBar}
 			/>
 			<CustomLink
 				to='/Dashboard/appointments'
@@ -72,6 +76,7 @@ function DashboardSideBarLinks({ sx, ...props }) {
 				currentPath={currentPath}
 				setcurrentPath={setcurrentPath}
 				theme={theme}
+				setShowSideBar={setShowSideBar}
 			/>
 			<CustomLink
 				to='/Dashboard/visits'
@@ -80,6 +85,7 @@ function DashboardSideBarLinks({ sx, ...props }) {
 				currentPath={currentPath}
 				setcurrentPath={setcurrentPath}
 				theme={theme}
+				setShowSideBar={setShowSideBar}
 			/>
 			<CustomLink
 				to='/Dashboard/services'
@@ -88,6 +94,7 @@ function DashboardSideBarLinks({ sx, ...props }) {
 				currentPath={currentPath}
 				setcurrentPath={setcurrentPath}
 				theme={theme}
+				setShowSideBar={setShowSideBar}
 			/>
 			<CustomLink
 				to='/Dashboard/branches'
@@ -96,6 +103,7 @@ function DashboardSideBarLinks({ sx, ...props }) {
 				currentPath={currentPath}
 				setcurrentPath={setcurrentPath}
 				theme={theme}
+				setShowSideBar={setShowSideBar}
 			/>
 			<CustomLink
 				to='/Dashboard/payments'
@@ -104,6 +112,7 @@ function DashboardSideBarLinks({ sx, ...props }) {
 				currentPath={currentPath}
 				setcurrentPath={setcurrentPath}
 				theme={theme}
+				setShowSideBar={setShowSideBar}
 			/>
 			<CustomLink
 				to='/Dashboard/users'
@@ -112,9 +121,15 @@ function DashboardSideBarLinks({ sx, ...props }) {
 				currentPath={currentPath}
 				setcurrentPath={setcurrentPath}
 				theme={theme}
+				setShowSideBar={setShowSideBar}
 			/>
 		</Box>
 	);
 }
+
+DashboardSideBarLinks.propTypes = {
+	setShowSideBar: PropTypes.func.isRequired,
+	[PropTypes.string]: PropTypes.any,
+};
 
 export default DashboardSideBarLinks;
