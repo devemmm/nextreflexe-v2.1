@@ -13,16 +13,7 @@ import {
 import ThinTableBodyCell from '../ThinTableBodyCell';
 import BoldTableHeaderCell from '../BoldTableHeaderCell';
 import Loading from '../Loading';
-import { format } from 'date-fns';
-
-const formatDateRow = (date, showTime = true) => {
-	let formatter = 'yyyy-MM-dd';
-	if (showTime) {
-		formatter = `k:m ${formatter}`;
-	}
-
-	return format(new Date(date), formatter);
-};
+import formatDateRow from '../../utils/formatDate_hourFirst';
 
 const Row = ({
 	data: {
