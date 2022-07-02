@@ -2,9 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
 	data: {},
-	loadingSignIn: false,
-	loadingSignUp: false,
-	loadingGetUser: false,
+	loadingSignIn: true,
+	loadingSignUp: true,
+	loadingGetUser: true,
 	error: null,
 };
 

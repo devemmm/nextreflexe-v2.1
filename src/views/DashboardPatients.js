@@ -16,6 +16,8 @@ import {
 	patientsErrorAction,
 } from '../redux/reducers/patients.reducer';
 import InputFieldFilled from '../components/InputFieldFilled';
+import Loading from '../components/Loading';
+import FlatCreateButton from '../components/FlatCreateButton';
 
 function DashboardPatients() {
 	let modifiedData;
@@ -33,7 +35,6 @@ function DashboardPatients() {
 		axiosInstance
 			.get('/patients')
 			.then(({ data }) => {
-				console.log(data, 'in patients');
 				dispatch(getPatientsAction(data.data));
 			})
 			.catch((error) => {
@@ -43,48 +44,28 @@ function DashboardPatients() {
 	}, []);
 
 	return (
-		<Box
-			sx={{
-				width: '100%',
-				height: '100%',
-				display: 'flex',
-				flexFlow: 'column nowrap',
-			}}>
-			<DashboardHeader title='Patients' />
-			<Button
-				variant='contained'
-				color='primary'
-				disableElevation
+		<>
+			<Box
 				sx={{
-					paddingY: '10px',
-					marginY: '10px',
-					marginLeft: 'auto',
-					borderRadius: '0px',
+					width: '100%',
+					height: '100%',
+					display: 'flex',
+					flexFlow: 'column nowrap',
 				}}>
-				<Stack direction='row' alignItems='center'>
-					<AddRoundedIcon
-						sx={{
-							color: 'white',
-							padding: 0,
-						}}
-					/>
-					<Typography
-						sx={{
-							fontFamily: 'Titillium Web',
-							fontWeight: 700,
-						}}>
-						Register a Patient
-					</Typography>
-				</Stack>
-			</Button>
-			<PatientsTable datas={modifiedData} setOpenEditModal={setOpenEditModal} />
+				<DashboardHeader title='Patients' />
+				<FlatCreateButton text='Register a Patient' />
+				<PatientsTable
+					datas={modifiedData}
+					loadingGet={loadingGet}
+					setOpenEditModal={setOpenEditModal}
+				/>
+			</Box>
 			<Modal
 				open={openEditModal}
 				onClose={() => {
 					setOpenEditModal(false);
 				}}
 				sx={{
-					position: 'relative',
 					width: '100%',
 					height: '100%',
 					display: 'flex',
@@ -120,7 +101,7 @@ function DashboardPatients() {
 					<InputFieldFilled label='Last Name *' theme={theme} sx={{ width: '100%' }} />
 				</Box>
 			</Modal>
-		</Box>
+		</>
 	);
 }
 

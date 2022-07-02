@@ -20,37 +20,9 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-
-const CustomTableHeaderCell = ({ title }) => {
-	return (
-		<TableCell align='center'>
-			{/* <Typography
-				variant='p'
-				component='div'
-				sx={{
-					fontFamily: 'Titillium Web',
-					fontWeight: 700,
-				}}>
-				{title}
-			</Typography> */}
-		</TableCell>
-	);
-};
-const CustomTableBodyCell = ({ text }) => {
-	return (
-		<TableCell align='center'>
-			{/* <Typography
-				variant='p'
-				component='div'
-				sx={{
-					fontSize: '12px',
-					fontWeight: 300,
-				}}>
-				{text}
-			</Typography> */}
-		</TableCell>
-	);
-};
+import BoldTableHeaderCell from '../BoldTableHeaderCell';
+import ThinTableBodyCell from '../ThinTableBodyCell';
+import Loading from '../Loading';
 
 const Row = ({ data: { id, email, phone, status, diagnosis }, setOpenEditModal, ...props }) => {
 	const theme = useTheme();
@@ -75,11 +47,11 @@ const Row = ({ data: { id, email, phone, status, diagnosis }, setOpenEditModal, 
 						{showDetails ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
 					</IconButton>
 				</TableCell>
-				<CustomTableBodyCell text={id} />
-				<CustomTableBodyCell text={email} />
-				<CustomTableBodyCell text={phone} />
-				<CustomTableBodyCell text={status} />
-				<CustomTableBodyCell text={diagnosis} />
+				<ThinTableBodyCell text={id} />
+				<ThinTableBodyCell text={email} />
+				<ThinTableBodyCell text={phone} />
+				<ThinTableBodyCell text={status} />
+				<ThinTableBodyCell text={diagnosis} />
 				<TableCell align='center'>
 					<IconButton
 						size='small'
@@ -119,7 +91,7 @@ const Row = ({ data: { id, email, phone, status, diagnosis }, setOpenEditModal, 
 	);
 };
 
-function PatientsTable({ datas, setOpenEditModal, ...props }) {
+function PatientsTable({ datas, setOpenEditModal, loadingGet, ...props }) {
 	const modifiedDatas = [
 		...datas,
 		...datas,
@@ -135,37 +107,53 @@ function PatientsTable({ datas, setOpenEditModal, ...props }) {
 		<Box
 			sx={{
 				paddingX: '10px',
+				paddingBottom: '10px',
 				width: '100%',
 				height: '100%',
+				overflow: 'auto',
+				position: 'relative',
 			}}>
-			<TableContainer
-				sx={{
-					background: 'white',
-				}}>
-				<Table>
-					<TableHead>
-						<TableCell />
-						<CustomTableHeaderCell title='Id' />
-						<CustomTableHeaderCell title='Email' />
-						<CustomTableHeaderCell title='Phone' />
-						<CustomTableHeaderCell title='Status' />
-						<CustomTableHeaderCell title='Diagnosis' />
-						<TableCell />
-						<TableCell />
-					</TableHead>
-					<TableBody>
-						{modifiedDatas.map((data, index) => {
-							return <Row key={data.id + index} data={data} setOpenEditModal={setOpenEditModal} />;
-						})}
-					</TableBody>
-				</Table>
-			</TableContainer>
+			{loadingGet ? (
+				<Loading />
+			) : (
+				<TableContainer
+					sx={{
+						background: 'white',
+					}}>
+					<Table>
+						<TableHead>
+							<TableRow>
+								<TableCell />
+								<BoldTableHeaderCell title='Id' />
+								<BoldTableHeaderCell title='Email' />
+								<BoldTableHeaderCell title='Phone' />
+								<BoldTableHeaderCell title='Status' />
+								<BoldTableHeaderCell title='Diagnosis' />
+								<TableCell />
+								<TableCell />
+							</TableRow>
+						</TableHead>
+						<TableBody>
+							{modifiedDatas.map((data, index) => {
+								return (
+									<Row
+										key={data.id + ' ' + index}
+										data={data}
+										setOpenEditModal={setOpenEditModal}
+									/>
+								);
+							})}
+						</TableBody>
+					</Table>
+				</TableContainer>
+			)}
 		</Box>
 	);
 }
 
 PatientsTable.propTypes = {
 	datas: PropTypes.any.isRequired,
+	loadingGet: PropTypes.bool.isRequired,
 	setOpenEditModal: PropTypes.func.isRequired,
 };
 
