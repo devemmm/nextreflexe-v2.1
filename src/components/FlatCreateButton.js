@@ -30,7 +30,7 @@ function FlatCreateButton({ text, sx, ...props }) {
 						fontFamily: 'Titillium Web',
 						fontWeight: 700,
 					}}>
-					Register a Patient
+					{text}
 				</Typography>
 			</Stack>
 		</Button>
