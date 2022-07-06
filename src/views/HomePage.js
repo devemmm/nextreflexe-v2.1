@@ -22,9 +22,6 @@ function HomePage() {
         <Box component="div" id="our-methods">
           <OurMethods />
         </Box>
-        <Box height="100vh" component="div" id="our-people">
-          <Typography>our people</Typography>
-        </Box>
         <Box height="100vh" component="div" id="get-in-touch">
           <Typography>get in touch</Typography>
         </Box>
