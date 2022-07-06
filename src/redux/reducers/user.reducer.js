@@ -3,7 +3,9 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   data: {},
   loadingSignIn: false,
+  loadingSignOut: false,
   loadingSignUp: false,
+  loadingGetUser: true,
   error: null,
 };
 
@@ -11,8 +13,20 @@ export const userSlice = createSlice({
   name: 'User',
   initialState,
   reducers: {
+    getUser: (state, { type, payload }) => {
+      return { ...state, loadingGetUser: false, error: null, data: payload };
+    },
+    loadingGetUser: (state, { type, payload }) => {
+      return { ...state, loadingGetUser: true };
+    },
     signInUser: (state, { type, payload }) => {
       return { ...state, loadingSignIn: false, error: null, data: payload };
+    },
+    loadingSignOutUser: (state, { type, payload }) => {
+      return { ...state, loadingSignOut: true };
+    },
+    signOutUser: (state, { type, payload }) => {
+      return { ...state, loadingSignOut: false, error: null, data: payload };
     },
     loadingSignInUser: (state, { type, payload }) => {
       return { ...state, loadingSignIn: true };
@@ -24,14 +38,26 @@ export const userSlice = createSlice({
       return { ...state, loadingSignUp: true };
     },
     userError: (state, { type, payload }) => {
-      return { ...state, loadingSignIn: false, error: payload };
+      return {
+        ...state,
+        loadingSignIn: false,
+        loadingGetUser: false,
+        loadingSignUp: false,
+        loadingSignOut: false,
+        error: payload,
+        data: {},
+      };
     },
   },
 });
 
 export const {
+  getUser: getUserAction,
+  loadingGetUser: loadingGetUserAction,
   signInUser: signInUserAction,
-  loadingSignInUser: loadingSignInAction,
+  loadingSignOutUser: loadingSignOutAction,
+  signOutUser: signOutUserAction,
+  loadingSignInUser: loadingSignInUserAction,
   signUpUser: signUpUserAction,
   loadingSignUpUser: loadingSignUpUserAction,
   userError: userErrorAction,
