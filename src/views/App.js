@@ -1,34 +1,34 @@
-import * as React from "react";
-import "../styles/App.css";
+import * as React from 'react';
+import '../styles/App.css';
 
-import { CssBaseline } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Routes, Route, Navigate } from "react-router";
-import Signin from "./Signin";
-import Signup from "./Signup";
-import HomePage from "./HomePage";
-import NotFound from "./NotFound";
-import Gallery from "./Gallery";
-import OurPeople from "./OurPeople";
+import { CssBaseline } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Routes, Route, Navigate } from 'react-router';
+import Signin from './Signin';
+import Signup from './Signup';
+import HomePage from './HomePage';
+import NotFound from './NotFound';
+import Gallery from './Gallery';
+import OurPeople from './OurPeople';
 
 function App() {
   const theme = createTheme({
     colors: {
-      primary: "#018F55",
-      grey: "#F5F5F5",
+      primary: '#018F55',
+      grey: '#F5F5F5',
     },
     palette: {
       primary: {
-        main: "#018F55",
+        main: '#018F55',
       },
       text: {
-        primary: "#fffff",
+        primary: '#fffff',
       },
     },
     typography: {
-      fontFamily: "Open Sans",
+      fontFamily: 'Open Sans',
       button: {
-        fontVariant: "normal",
+        fontVariant: 'normal',
       },
     },
   });
@@ -55,3 +55,4 @@ function App() {
 }
 
 export default App;
+

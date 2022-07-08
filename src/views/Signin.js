@@ -1,6 +1,6 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { yupResolver } from '@hookform/resolvers/yup';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import {
   Box,
   CssBaseline,
@@ -8,15 +8,15 @@ import {
   IconButton,
   InputAdornment,
   Typography,
-} from "@mui/material";
-import { Container } from "@mui/system";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import Buttons from "../components/buttons";
-import ControlledInputs from "../components/controlledInput";
-import NavBarContainer from "../components/NavBar/NavBarContainer";
-import { loginSchema } from "../validations/login.validation";
+} from '@mui/material';
+import { Container } from '@mui/system';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import Buttons from '../components/buttons';
+import ControlledInputs from '../components/controlledInput';
+import NavBarContainer from '../components/NavBar/NavBarContainer';
+import { loginSchema } from '../validations/login.validation';
 
 export default function Signin() {
   const [showPassword, setShowPassword] = useState(false);
@@ -30,9 +30,9 @@ export default function Signin() {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      email: "",
-      password: "",
-      confirmPassword: "",
+      email: '',
+      password: '',
+      confirmPassword: '',
     },
     resolver: yupResolver(loginSchema),
   });
@@ -45,8 +45,8 @@ export default function Signin() {
         component="main"
         maxWidth="xs"
         sx={{
-          display: "flex",
-          justifyContent: "center",
+          display: 'flex',
+          justifyContent: 'center',
           marginTop: 10,
         }}
       >
@@ -54,10 +54,10 @@ export default function Signin() {
 
         <Box
           sx={{
-            display: "flex",
-            marginTop: "20px",
-            flexDirection: "column",
-            alignItems: "center",
+            display: 'flex',
+            marginTop: '20px',
+            flexDirection: 'column',
+            alignItems: 'center',
             width: {
               xs: 350,
               sm: 420,
@@ -66,9 +66,9 @@ export default function Signin() {
               xl: 420,
             },
             minHeight: 350,
-            bgcolor: "background.paper",
-            border: "2px solid #fff",
-            borderRadius: "10px",
+            bgcolor: 'background.paper',
+            border: '2px solid #fff',
+            borderRadius: '10px',
             boxShadow: 24,
           }}
         >
@@ -77,11 +77,11 @@ export default function Signin() {
               id="loginTitle"
               variant="h5"
               sx={{
-                fontSize: { xs: "20px", md: "26px" },
-                fontWeight: "800",
-                fontFamily: "Josefin Sans, sans-serif",
-                color: "#018F55",
-                margin: "30px 10px 10px 30px",
+                fontSize: { xs: '20px', md: '26px' },
+                fontWeight: '800',
+                fontFamily: 'Josefin Sans, sans-serif',
+                color: '#018F55',
+                margin: '30px 10px 10px 30px',
               }}
             >
               Signin
@@ -91,7 +91,7 @@ export default function Signin() {
             <Grid
               container
               direction="column"
-              sx={{ display: "flex" }}
+              sx={{ display: 'flex' }}
               justifyContent="space-between"
               alignItems="center"
             >
@@ -110,7 +110,7 @@ export default function Signin() {
                 <ControlledInputs
                   name="password"
                   label="Password"
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
                   control={control}
                   {...(errors?.password && {
                     error: true,
@@ -126,9 +126,9 @@ export default function Signin() {
                           data-testid="visibility-button"
                         >
                           {showPassword ? (
-                            <VisibilityIcon sx={{ color: "#018F55" }} />
+                            <VisibilityIcon sx={{ color: '#018F55' }} />
                           ) : (
-                            <VisibilityOffIcon sx={{ color: "#018F55" }} />
+                            <VisibilityOffIcon sx={{ color: '#018F55' }} />
                           )}
                         </IconButton>
                       </InputAdornment>
@@ -140,10 +140,10 @@ export default function Signin() {
                 <Link
                   to="#"
                   style={{
-                    color: "#018F55",
-                    fontFamily: "Roboto, sans-serif",
-                    fontSize: "12px",
-                    marginTop: "20px",
+                    color: '#018F55',
+                    fontFamily: 'Roboto, sans-serif',
+                    fontSize: '12px',
+                    marginTop: '20px',
                   }}
                 >
                   Forgot your password?
@@ -159,12 +159,12 @@ export default function Signin() {
                       sm: 350,
                     },
                     height: 50,
-                    backgroundColor: "#018F55",
-                    fontSize: "18px",
-                    color: "white",
-                    textTransform: "none",
-                    "&:hover": {
-                      backgroundColor: "#018F55",
+                    backgroundColor: '#018F55',
+                    fontSize: '18px',
+                    color: 'white',
+                    textTransform: 'none',
+                    '&:hover': {
+                      backgroundColor: '#018F55',
                     },
                   }}
                   type="submit"
@@ -177,14 +177,14 @@ export default function Signin() {
                     <Link
                       to="/signup"
                       style={{
-                        fontFamily: "Open sans, sans-serif",
-                        textDecoration: "none",
+                        fontFamily: 'Open sans, sans-serif',
+                        textDecoration: 'none',
                       }}
                     >
-                      <span style={{ fontWeight: 100, color: "#000" }}>
+                      <span style={{ fontWeight: 100, color: '#000' }}>
                         Not a member?
                       </span>
-                      <span style={{ color: "#018F55" }}> Signup Now</span>
+                      <span style={{ color: '#018F55' }}> Signup Now</span>
                     </Link>
                   </Grid>
                 </Grid>
