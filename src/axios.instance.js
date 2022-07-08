@@ -1,15 +1,12 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_BACKEND_URL,
-  // headers: {
-  //   'Content-Security-Policy': 'upgrade-insecure-requests',
-  // },
+  baseURL: `${process.env.REACT_APP_BACKEND_URL}api/v1/`,
 });
 
 axiosInstance.interceptors.request.use(
   (request) => {
-    request.headers.authorization = `Bearer ${
+    request.headers.authorization = `${
       JSON.parse(localStorage.getItem('userCredentials'))?.token
     }`;
     return request;
@@ -22,7 +19,7 @@ axiosInstance.interceptors.response.use(
   (error) => {
     if (error.response.status === 401) {
       localStorage.removeItem('userCredentials');
-      window.location.href = '/Signin';
+      window.location.href = '/signin';
     }
     return Promise.reject(error);
   },

@@ -21,7 +21,7 @@ import Buttons from '../components/buttons';
 import ControlledInputs from '../components/controlledInput';
 import NavBarContainer from '../components/NavBar/NavBarContainer';
 import {
-  loadingSignInAction,
+  loadingSignInUserAction,
   signInUserAction,
   userErrorAction,
 } from '../redux/reducers/user.reducer';
@@ -47,7 +47,7 @@ export default function Signin() {
     resolver: yupResolver(loginSchema),
   });
   const onsubmit = (data) => {
-    dispatch(loadingSignInAction({}));
+    dispatch(loadingSignInUserAction({}));
     axiosInstance
       .post('/users/signin', data)
       .then((res) => {
