@@ -2,6 +2,9 @@ import axios from 'axios';
 
 const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
+  // headers: {
+  //   'Content-Security-Policy': 'upgrade-insecure-requests',
+  // },
 });
 
 axiosInstance.interceptors.request.use(
@@ -26,3 +29,4 @@ axiosInstance.interceptors.response.use(
 );
 
 export default axiosInstance;
+

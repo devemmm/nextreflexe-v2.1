@@ -9,18 +9,29 @@ import {
   InputAdornment,
   Typography,
 } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import { Container } from '@mui/system';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import axiosInstance from '../axios.instance';
 import Buttons from '../components/buttons';
 import ControlledInputs from '../components/controlledInput';
 import NavBarContainer from '../components/NavBar/NavBarContainer';
+import {
+  loadingSignInAction,
+  signInUserAction,
+  userErrorAction,
+} from '../redux/reducers/user.reducer';
 import { loginSchema } from '../validations/login.validation';
 
 export default function Signin() {
   const [showPassword, setShowPassword] = useState(false);
-
+  const { loadingSignIn } = useSelector((state) => state.userReducer);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -32,12 +43,23 @@ export default function Signin() {
     defaultValues: {
       email: '',
       password: '',
-      confirmPassword: '',
     },
     resolver: yupResolver(loginSchema),
   });
   const onsubmit = (data) => {
-    console.log(data);
+    dispatch(loadingSignInAction({}));
+    axiosInstance
+      .post('/users/signin', data)
+      .then((res) => {
+        localStorage.setItem('userCredentials', JSON.stringify(res.data.data));
+        dispatch(signInUserAction(res.data));
+        navigate('/dashboard');
+      })
+      .catch((error) => {
+        console.log(errors);
+        dispatch(userErrorAction(error.message));
+        toast.error(error.message);
+      });
   };
   return (
     <NavBarContainer>
@@ -168,7 +190,13 @@ export default function Signin() {
                     },
                   }}
                   type="submit"
-                  value="Signin"
+                  value={
+                    loadingSignIn ? (
+                      <CircularProgress sx={{ color: 'white' }} />
+                    ) : (
+                      'Signin'
+                    )
+                  }
                 />
               </Grid>
               <Grid item>
@@ -196,3 +224,4 @@ export default function Signin() {
     </NavBarContainer>
   );
 }
+

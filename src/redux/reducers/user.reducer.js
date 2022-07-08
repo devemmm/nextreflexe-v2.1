@@ -30,10 +30,11 @@ export const userSlice = createSlice({
 });
 
 export const {
-  signInUser,
-  loadingSignInUser,
-  signUpUser,
-  loadingSignUpUser,
-  userError,
+  signInUser: signInUserAction,
+  loadingSignInUser: loadingSignInAction,
+  signUpUser: signUpUserAction,
+  loadingSignUpUser: loadingSignUpUserAction,
+  userError: userErrorAction,
 } = userSlice.actions;
 export const userReducer = userSlice.reducer;
+
