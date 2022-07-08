@@ -9,10 +9,13 @@ import {
   InputAdornment,
   Typography,
 } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import { Container } from '@mui/system';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Buttons from '../components/buttons';
 import ControlledInputs from '../components/controlledInput';
 import NavBarContainer from '../components/NavBar/NavBarContainer';
@@ -20,7 +23,7 @@ import { signupSchema } from '../validations/login.validation';
 
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
-
+  const { loadingSignUp } = useSelector((state) => state.userReducer);
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -41,6 +44,7 @@ export default function Signup() {
   });
   const onsubmit = (data) => {
     console.log(data);
+    toast.success('User registered successfully 👍. Please login to proceed.');
   };
   return (
     <NavBarContainer>
@@ -212,7 +216,13 @@ export default function Signup() {
                     },
                   }}
                   type="submit"
-                  value="Signup"
+                  value={
+                    loadingSignUp ? (
+                      <CircularProgress sx={{ color: 'white' }} />
+                    ) : (
+                      'Signup'
+                    )
+                  }
                 />
               </Grid>
               <Grid item>
@@ -240,3 +250,4 @@ export default function Signup() {
     </NavBarContainer>
   );
 }
+

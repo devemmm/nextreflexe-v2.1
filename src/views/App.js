@@ -1,15 +1,15 @@
-import * as React from 'react';
-import '../styles/App.css';
-
 import { CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Routes, Route, Navigate } from 'react-router';
-import Signin from './Signin';
-import Signup from './Signup';
+import { Navigate, Route, Routes } from 'react-router';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import '../styles/App.css';
+import Gallery from './Gallery';
 import HomePage from './HomePage';
 import NotFound from './NotFound';
-import Gallery from './Gallery';
 import OurPeople from './OurPeople';
+import Signin from './Signin';
+import Signup from './Signup';
 
 function App() {
   const theme = createTheme({
@@ -49,6 +49,7 @@ function App() {
           <Route path="our-people" element={<OurPeople />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
+        <ToastContainer />
       </ThemeProvider>
     </>
   );
