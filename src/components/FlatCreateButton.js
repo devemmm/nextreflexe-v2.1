@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Button, Stack, Typography } from '@mui/material';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 
-function FlatCreateButton({ text, sx, ...props }) {
+function FlatCreateButton({ Icon = AddRoundedIcon, text, sx, ...props }) {
 	return (
 		<Button
 			variant='contained'
@@ -19,7 +19,7 @@ function FlatCreateButton({ text, sx, ...props }) {
 			}}
 			{...props}>
 			<Stack direction='row' alignItems='center'>
-				<AddRoundedIcon
+				<Icon
 					sx={{
 						color: 'white',
 						padding: 0,

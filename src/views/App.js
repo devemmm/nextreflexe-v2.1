@@ -16,6 +16,7 @@ import DashboardPatients from './DashboardPatients';
 import DashboardAppointments from './DashboardAppointments';
 import DashboardServices from './DashboardServices';
 import DashboardBranches from './DashboardBranches';
+import DashboardPayments from './DashboardPayments';
 
 function App() {
 	const theme = createTheme({
@@ -55,6 +56,7 @@ function App() {
 						<Route path='appointments' element={<DashboardAppointments />}></Route>
 						<Route path='services' element={<DashboardServices />}></Route>
 						<Route path='branches' element={<DashboardBranches />}></Route>
+						<Route path='payments' element={<DashboardPayments />}></Route>
 					</Route>
 					<Route path='*' element={<NotFound />}></Route>
 				</Routes>
