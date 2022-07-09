@@ -1,6 +1,6 @@
-import React from "react";
-import { Controller } from "react-hook-form";
-import InputField from "./inputField";
+import React from 'react';
+import { Controller } from 'react-hook-form';
+import InputField from './inputField';
 
 const ControlledInputs = ({
   name,
