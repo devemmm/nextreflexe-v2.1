@@ -64,7 +64,7 @@ function HomePage() {
     </Box>
   ) : (
     <NavBarContainer>
-      <Box maxWidth="1440px" width="100%" margin="0px auto">
+      <Box width="100%" margin="0px auto">
         <Box height="max-content" component="div" marginTop="30px">
           <ScrollImage />
         </Box>
