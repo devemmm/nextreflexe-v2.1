@@ -8,12 +8,7 @@ import profileImage from '../../assets/images/profile-image.svg';
 const slides = [
   {
     image: profileImage,
-    names: 'RESTAURANT Owner',
-    body: 'Mwiriwe neza!, nkomeje gushima umuryango mugari wa Genuine KUNGA Therapy kubafasha imaze gutanga kubanyarwanda even no muri Africa',
-  },
-  {
-    image: profileImage,
-    names: 'RESTAURANT Owner ahahahhahah',
+    names: 'THERAPIST',
     body: 'Mwiriwe neza!, nkomeje gushima umuryango mugari wa Genuine KUNGA Therapy kubafasha imaze gutanga kubanyarwanda even no muri Africa',
   },
   {
@@ -23,8 +18,13 @@ const slides = [
   },
   {
     image: profileImage,
-    names: 'RESTAURANT Owner',
-    body: 'Mwiriwe neza!, nkomeje gushima umuryango mugari wa Genuine KUNGA Therapy kubafasha imaze gutanga kubanyarwanda even no muri Africa',
+    names: 'Geeky Medussa',
+    body: 'Genuine Kunga services are really genuine',
+  },
+  {
+    image: profileImage,
+    names: 'CONTENT Developer',
+    body: 'We really love your services and we pray that you keep going on and expand your reach.',
   },
 ];
 
@@ -164,7 +164,7 @@ function Testimonials() {
       />
       <Carousel
         slides={Slide(slides)}
-        autoplay={false}
+        autoplay={true}
         interval={5000}
         arrows={true}
       />
@@ -173,3 +173,4 @@ function Testimonials() {
 }
 
 export default Testimonials;
+
