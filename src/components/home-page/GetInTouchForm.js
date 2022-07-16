@@ -1,4 +1,5 @@
 import { Box, TextField, Typography, useTheme } from '@mui/material';
+import Buttons from '../buttons';
 
 const CustomTextField = ({ label, sx, theme, ...props }) => {
   return (
@@ -73,8 +74,26 @@ function GetInTouchForm() {
       <CustomTextField label="Email Address *" theme={theme} />
       <CustomTextField label="Your Phone *" theme={theme} />
       <CustomTextField label="Message *" theme={theme} multiline />
+      <Buttons
+        variant="contained"
+        fullWidth
+        color="primary"
+        sx={{
+          height: 50,
+          backgroundColor: '#018F55',
+          fontSize: '18px',
+          color: 'white',
+          textTransform: 'none',
+          '&:hover': {
+            backgroundColor: '#018F55',
+          },
+        }}
+        type="button"
+        value="Send Message"
+      />
     </Box>
   );
 }
 
 export default GetInTouchForm;
+

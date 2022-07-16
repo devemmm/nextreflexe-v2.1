@@ -1,152 +1,133 @@
-import React from 'react';
-import { Box, Grid, Typography, useTheme } from '@mui/material';
 import { Carousel } from '3d-react-carousal';
+import { Box, Grid, Typography, useTheme } from '@mui/material';
+import React from 'react';
 
+import { useSelector } from 'react-redux';
 import HeaderTitle from './HeaderTitle';
-import profileImage from '../../assets/images/profile-image.svg';
-
-const slides = [
-  {
-    image: profileImage,
-    names: 'THERAPIST',
-    body: 'Mwiriwe neza!, nkomeje gushima umuryango mugari wa Genuine KUNGA Therapy kubafasha imaze gutanga kubanyarwanda even no muri Africa',
-  },
-  {
-    image: profileImage,
-    names: 'RESTAURANT Owner',
-    body: 'Mwiriwe neza!, nkomeje gushima umuryango mugari wa Genuine KUNGA Therapy kubafasha imaze gutanga kubanyarwanda even no muri Africa',
-  },
-  {
-    image: profileImage,
-    names: 'Geeky Medussa',
-    body: 'Genuine Kunga services are really genuine',
-  },
-  {
-    image: profileImage,
-    names: 'CONTENT Developer',
-    body: 'We really love your services and we pray that you keep going on and expand your reach.',
-  },
-];
 
 const Slide = (sliders) => {
   const theme = useTheme();
-
-  return sliders.map((data) => (
-    <Grid
-      container
-      sx={{
-        backgroundColor: theme.colors.grey,
-      }}
-    >
+  return (
+    sliders !== undefined &&
+    sliders.map((data) => (
       <Grid
-        width="100%"
-        item
-        xs={12}
-        sm={4}
-        alignItems="center"
-        justifyContent="center"
-        p={{
-          xs: '10px',
-          sm: '20px',
-          md: '30px',
+        container
+        sx={{
+          backgroundColor: theme.colors.grey,
         }}
       >
-        <Box
-          sx={{
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+        <Grid
+          width="100%"
+          item
+          xs={12}
+          sm={4}
+          alignItems="center"
+          justifyContent="center"
+          p={{
+            xs: '10px',
+            sm: '20px',
+            md: '30px',
           }}
         >
           <Box
-            component="img"
-            src={data.image}
-            alt={`${data.names} pic`}
             sx={{
-              width: {
-                xs: '50%',
-                sm: '100%',
-              },
-              maxWidth: '150px',
-              margin: '0px auto 0px auto',
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
-          />
-        </Box>
-      </Grid>
-      <Grid
-        item
-        xs={12}
-        sm={8}
-        p={{
-          xs: '10px',
-          sm: '20px',
-          md: '30px',
-        }}
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        sx={{
-          overflowX: 'auto',
-          '&::-webkit-scrollbar': {
-            height: '5px',
-            background: theme.colors.grey,
-          },
-          '&::-webkit-scrollbar-thumb': {
-            background: theme.palette.primary.main,
-            borderRadius: '15px',
-          },
-        }}
-      >
-        <Box
+          >
+            <Box
+              component="img"
+              src={data.image}
+              alt={`${data.names} pic`}
+              sx={{
+                width: {
+                  xs: '50%',
+                  sm: '100%',
+                },
+                maxWidth: '150px',
+                margin: '0px auto 0px auto',
+              }}
+            />
+          </Box>
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          sm={8}
+          p={{
+            xs: '10px',
+            sm: '20px',
+            md: '30px',
+          }}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
           sx={{
-            display: 'flex',
-            flexFlow: 'column nowrap',
-            alignItems: 'center',
-            gap: '10px',
+            overflowX: 'auto',
+            '&::-webkit-scrollbar': {
+              height: '5px',
+              background: theme.colors.grey,
+            },
+            '&::-webkit-scrollbar-thumb': {
+              background: theme.palette.primary.main,
+              borderRadius: '15px',
+            },
           }}
         >
-          <Typography
+          <Box
             sx={{
-              fontFamily: 'Titillium Web',
-              fontWeight: 700,
-              fontSize: {
-                xs: '16px',
-                sm: '24px',
-              },
-              textAlign: {
-                xs: 'center',
-                sm: 'left',
-              },
-              width: '100%',
-              overflow: 'hidden',
-              whiteSpace: 'nowrap',
-              textOverflow: 'ellipsis',
+              display: 'flex',
+              flexFlow: 'column nowrap',
+              alignItems: 'center',
+              gap: '10px',
             }}
           >
-            {data.names}
-          </Typography>
-          <Typography
-            sx={{
-              fontFamily: 'Open Sans',
-              fontWeight: 300,
-              fontSize: {
-                xs: '12px',
-                sm: '14px',
-              },
-              textAlign: 'justify',
-            }}
-          >
-            {data.body}
-          </Typography>
-        </Box>
+            <Typography
+              sx={{
+                fontFamily: 'Titillium Web',
+                fontWeight: 700,
+                fontSize: {
+                  xs: '16px',
+                  sm: '24px',
+                },
+                textAlign: {
+                  xs: 'center',
+                  sm: 'left',
+                },
+                width: '100%',
+                overflow: 'hidden',
+                whiteSpace: 'nowrap',
+                textOverflow: 'ellipsis',
+              }}
+            >
+              {data.names}
+            </Typography>
+            <Typography
+              sx={{
+                fontFamily: 'Open Sans',
+                fontWeight: 300,
+                fontSize: {
+                  xs: '12px',
+                  sm: '14px',
+                },
+                textAlign: 'justify',
+              }}
+            >
+              {data.body}
+            </Typography>
+          </Box>
+        </Grid>
       </Grid>
-    </Grid>
-  ));
+    ))
+  );
 };
 
 function Testimonials() {
+  const { data } = useSelector((state) => state.homePageReducer);
+
   return (
     <Box
       sx={{
@@ -162,12 +143,14 @@ function Testimonials() {
         data="Testimonials"
         sx={{ marginBottom: { xs: '10px', sm: '20px', md: '30px' } }}
       />
-      <Carousel
-        slides={Slide(slides)}
-        autoplay={true}
-        interval={5000}
-        arrows={true}
-      />
+      {data.testimonials !== undefined && (
+        <Carousel
+          slides={Slide(data.testimonials)}
+          autoplay={true}
+          interval={5000}
+          arrows={true}
+        />
+      )}
     </Box>
   );
 }

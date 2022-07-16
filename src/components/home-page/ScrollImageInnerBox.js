@@ -6,7 +6,7 @@ function ScrollImageInnerBox({ data }) {
 
   return (
     <Box
-      key={data.header}
+      key={data.id}
       component="div"
       sx={{
         backgroundImage: `url(${data.image})`,
@@ -62,7 +62,7 @@ function ScrollImageInnerBox({ data }) {
             md: '15px',
           }}
         >
-          {data.header}
+          {data.title}
         </Typography>
         <Typography
           color="white"
@@ -73,7 +73,7 @@ function ScrollImageInnerBox({ data }) {
             fontWeight: 300,
           }}
         >
-          {data.body}
+          {data.description}
         </Typography>
       </Box>
     </Box>
@@ -81,3 +81,4 @@ function ScrollImageInnerBox({ data }) {
 }
 
 export default ScrollImageInnerBox;
+
