@@ -17,6 +17,15 @@ function GetInTouch() {
           lg: '65px',
         },
         background: theme.colors.grey,
+        '& *::-webkit-scrollbar': {
+          height: '2px',
+          width: '5px',
+          background: 'transparent',
+        },
+        '& *::-webkit-scrollbar-thumb': {
+          background: theme.palette.primary.main,
+          borderRadius: '15px',
+        },
       }}
     >
       <HeaderTitle
