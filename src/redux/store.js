@@ -22,4 +22,3 @@ export const store = configureStore({
     paymentsReducer: paymentsReducer,
   },
 });
-

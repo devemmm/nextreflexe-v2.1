@@ -127,4 +127,3 @@ PatientsTable.propTypes = {
 };
 
 export default PatientsTable;
-

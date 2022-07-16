@@ -65,4 +65,3 @@ function DashboardBranches() {
 }
 
 export default DashboardBranches;
-
