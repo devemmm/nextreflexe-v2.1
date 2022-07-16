@@ -57,7 +57,6 @@ export default function Signin() {
         navigate('/dashboard');
       })
       .catch((error) => {
-        console.log(errors);
         dispatch(userErrorAction(error.message));
         toast.error(error.message);
       });
@@ -229,3 +228,4 @@ export default function Signin() {
     </NavBarContainer>
   );
 }
+

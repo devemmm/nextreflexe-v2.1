@@ -11,7 +11,7 @@ import NavBarContainer from '../components/NavBar/NavBarContainer';
 import {
   getDataAction,
   HomePageErrorAction,
-  loadingGetDataAction,
+  loadingGetDataAction
 } from '../redux/reducers/home.reducer';
 
 export default function Gallery() {
@@ -26,7 +26,6 @@ export default function Gallery() {
         dispatch(getDataAction(data.data.data));
       })
       .catch((error) => {
-        console.log(error);
         dispatch(HomePageErrorAction(error.message));
       });
   }, [dispatch]);

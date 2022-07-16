@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import EditIcon from '@mui/icons-material/Edit';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import {
@@ -15,18 +13,18 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
   useTheme,
 } from '@mui/material';
+
 import BoldTableHeaderCell from '../BoldTableHeaderCell';
 import Loading from '../Loading';
 import ThinTableBodyCell from '../ThinTableBodyCell';
+import { formatName_surname } from '../../utils/formatName_surname';
+import PatientsDetails from './PatientsDetails';
+import formatDateRow from '../../utils/formatDate_hourFirst';
 
-const Row = ({
-  data: { id, email, phone, status, diagnosis },
-  setOpenEditModal,
-  ...props
-}) => {
+const Row = ({ data, ...props }) => {
+  const { fname, lname, email, phone, status, dob, nid, createdAt } = data;
   const theme = useTheme();
   const [showDetails, setShowDetails] = useState(false);
 
@@ -35,9 +33,8 @@ const Row = ({
       <TableRow
         sx={{
           background: '#FFFFFF',
-          border: `1.1px solid ${theme.palette.primary.light}`,
+          borderTop: `1.1px solid ${theme.palette.primary.light}`,
           borderRadius: '30px',
-          '& > *': { borderBottom: 'unset' },
         }}
       >
         <TableCell align="center">
@@ -51,44 +48,26 @@ const Row = ({
             {showDetails ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <ThinTableBodyCell text={id} />
-        <ThinTableBodyCell text={email} />
+        <ThinTableBodyCell text={formatName_surname(fname, lname)} />
+        <ThinTableBodyCell text={email.trim()} />
         <ThinTableBodyCell text={phone} />
         <ThinTableBodyCell text={status} />
-        <ThinTableBodyCell text={diagnosis} />
-        <TableCell align="center">
-          <IconButton
-            size="small"
-            color="primary"
-            onClick={() => {
-              setOpenEditModal(true);
-            }}
-          >
-            <EditIcon />
-          </IconButton>
-        </TableCell>
-        <TableCell align="center">
-          <IconButton size="small" color="error">
-            <DeleteForeverIcon />
-          </IconButton>
-        </TableCell>
+        <ThinTableBodyCell text={formatDateRow(dob, false)} />
+        <ThinTableBodyCell text={nid} />
+        <ThinTableBodyCell text={formatDateRow(createdAt, false)} />
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
+        <TableCell
+          style={{
+            paddingBottom: 0,
+            paddingTop: 0,
+            border: '0px',
+          }}
+          colSpan={10}
+        >
           <Collapse in={showDetails} unmountOnExit>
             <Box sx={{ margin: 1 }}>
-              <Typography variant="p" gutterBottom component="div">
-                "Details
-              </Typography>
-              <Box
-                sx={{
-                  background: theme.colors.grey,
-                  paddingX: { xs: '20px', md: '35px' },
-                  paddingY: '15px',
-                  width: '100%',
-                  height: '300px',
-                }}
-              ></Box>
+              <PatientsDetails data={data} />
             </Box>
           </Collapse>
         </TableCell>
@@ -97,18 +76,7 @@ const Row = ({
   );
 };
 
-function PatientsTable({ datas, setOpenEditModal, loadingGet, ...props }) {
-  const modifiedDatas = [
-    ...datas,
-    ...datas,
-    ...datas,
-    ...datas,
-    ...datas,
-    ...datas,
-    ...datas,
-    ...datas,
-  ];
-
+function PatientsTable({ datas, loadingGet, ...props }) {
   return (
     <Box
       sx={{
@@ -132,24 +100,18 @@ function PatientsTable({ datas, setOpenEditModal, loadingGet, ...props }) {
             <TableHead>
               <TableRow>
                 <TableCell />
-                <BoldTableHeaderCell title="Id" />
+                <BoldTableHeaderCell title="Name" />
                 <BoldTableHeaderCell title="Email" />
                 <BoldTableHeaderCell title="Phone" />
                 <BoldTableHeaderCell title="Status" />
-                <BoldTableHeaderCell title="Diagnosis" />
-                <TableCell />
-                <TableCell />
+                <BoldTableHeaderCell title="Birth Date" />
+                <BoldTableHeaderCell title="National ID" />
+                <BoldTableHeaderCell title="Created At" />
               </TableRow>
             </TableHead>
             <TableBody>
-              {modifiedDatas.map((data, index) => {
-                return (
-                  <Row
-                    key={data.id + ' ' + index}
-                    data={data}
-                    setOpenEditModal={setOpenEditModal}
-                  />
-                );
+              {datas.map((data, index) => {
+                return <Row key={data.id} data={data} />;
               })}
             </TableBody>
           </Table>
@@ -162,8 +124,6 @@ function PatientsTable({ datas, setOpenEditModal, loadingGet, ...props }) {
 PatientsTable.propTypes = {
   datas: PropTypes.any.isRequired,
   loadingGet: PropTypes.bool.isRequired,
-  setOpenEditModal: PropTypes.func.isRequired,
 };
 
 export default PatientsTable;
-

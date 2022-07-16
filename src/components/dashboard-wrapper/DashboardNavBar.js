@@ -18,7 +18,6 @@ function DashboardNavBar({ sx, ...props }) {
     axiosInstance
       .post('/users/signout')
       .then((res) => {
-        console.log(res);
         localStorage.removeItem('userCredentials');
         toast.success('You have been signed out');
         navigate('/home');
