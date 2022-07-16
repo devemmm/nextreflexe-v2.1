@@ -39,4 +39,3 @@ PatientsHome.propTypes = {
 };
 
 export default PatientsHome;
-
