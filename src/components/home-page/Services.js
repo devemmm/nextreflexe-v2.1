@@ -78,7 +78,7 @@ function Services() {
                   height: '355px',
                   width: '100%',
                   marginX: 'auto',
-                  maxWidth: '350px',
+                  // maxWidth: '350px',
                   background: theme.colors.grey,
                   border: '0.5px solid rgba(1, 143, 85, 0.25)',
                   borderRadius: '7px',
@@ -169,3 +169,4 @@ function Services() {
 }
 
 export default Services;
+
