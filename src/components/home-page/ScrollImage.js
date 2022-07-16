@@ -1,28 +1,14 @@
 import React from 'react';
-import 'react-slideshow-image/dist/styles.css';
 import { Slide } from 'react-slideshow-image';
+import 'react-slideshow-image/dist/styles.css';
 import '../../styles/ScrollImage.css';
 
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-import ScrollImageInnerBox from './ScrollImageInnerBox';
 import { IconButton, useTheme } from '@mui/material';
-
-const slideImages = [
-  {
-    image:
-      'https://res.cloudinary.com/nextreflexe/image/upload/v1656436764/page/home_bg1_enqgeq.jpg',
-    header: 'GENUINE KUNGA',
-    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolor',
-  },
-  {
-    image:
-      'https://res.cloudinary.com/nextreflexe/image/upload/v1656436758/page/home_bg2_z322jw.jpg',
-    header: 'JOINT TREATMENT',
-    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  },
-];
+import { useSelector } from 'react-redux';
+import ScrollImageInnerBox from './ScrollImageInnerBox';
 
 const NextPrevButton = ({ Icon, margin, sx, ...props }) => {
   const theme = useTheme();
@@ -59,32 +45,39 @@ const NextPrevButton = ({ Icon, margin, sx, ...props }) => {
 };
 
 function ScrollImage() {
+  const homePageState = useSelector((state) => state.homePageReducer);
+  const { loading, data } = homePageState;
   return (
-    <Slide
-      easing="ease"
-      nextArrow={NextPrevButton({
-        Icon: ArrowForwardIosIcon,
-        margin: {
-          xs: '0px 0px 0px -30px !important',
-          sm: '0px 0px 0px -50px !important',
-        },
-      })}
-      prevArrow={NextPrevButton({
-        Icon: ArrowBackIosNewIcon,
-        margin: {
-          xs: '0px -30px 0px 0px !important',
-          sm: '0px -50px 0px 0px !important',
-        },
-      })}
-      autoplay={true}
-      pauseOnHover={false}
-      cssClass="slide_container"
-    >
-      {slideImages.map((data) => (
-        <ScrollImageInnerBox key={data.header} data={data} />
-      ))}
-    </Slide>
+    !loading &&
+    data.scrollData !== undefined && (
+      <Slide
+        easing="ease"
+        nextArrow={NextPrevButton({
+          Icon: ArrowForwardIosIcon,
+          margin: {
+            xs: '0px 0px 0px -30px !important',
+            sm: '0px 0px 0px -50px !important',
+          },
+        })}
+        prevArrow={NextPrevButton({
+          Icon: ArrowBackIosNewIcon,
+          margin: {
+            xs: '0px -30px 0px 0px !important',
+            sm: '0px -50px 0px 0px !important',
+          },
+        })}
+        autoplay={true}
+        pauseOnHover={false}
+        cssClass="slide_container"
+      >
+        {data &&
+          data.scrollData.map((data) => (
+            <ScrollImageInnerBox key={data.id} data={data} />
+          ))}
+      </Slide>
+    )
   );
 }
 
 export default ScrollImage;
+

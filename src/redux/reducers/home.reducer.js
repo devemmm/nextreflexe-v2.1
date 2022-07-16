@@ -10,14 +10,14 @@ export const homePageSlice = createSlice({
   name: 'HomePage',
   initialState,
   reducers: {
-    getData: (state, { type, payload }) => {
-      return { ...state, loading: false, error: null, data: payload };
-    },
     loadingGetData: (state, { type, payload }) => {
       return { ...state, loading: true, error: null };
     },
+    getData: (state, { type, payload }) => {
+      return { ...state, loading: false, error: null, data: payload };
+    },
     error: (state, { type, payload }) => {
-      return { ...state, loading: true, error: payload };
+      return { ...state, loading: false, error: payload };
     },
   },
 });
@@ -28,3 +28,4 @@ export const {
   error: HomePageErrorAction,
 } = homePageSlice.actions;
 export const homePageReducer = homePageSlice.reducer;
+

@@ -1,74 +1,69 @@
-import { Box } from '@mui/material';
+import { Box, Skeleton } from '@mui/material';
+import { useEffect } from 'react';
 import ImageGallery from 'react-image-gallery';
+import { useDispatch, useSelector } from 'react-redux';
 import '../../src/styles/ScrollImage.css';
+import axiosInstance from '../axios.instance';
 import HeaderTitle from '../components/home-page/HeaderTitle';
+import Loading from '../components/Loading';
 import NavBarContainer from '../components/NavBar/NavBarContainer';
-const data = {
-  gallery: [
-    {
-      original:
-        'https://media.istockphoto.com/photos/success-picture-id912928582?b=1&k=20&m=912928582&s=170667a&w=0&h=DVRQz_Dq4HLr0rJ02uvVPZr6MOK7_TtbeRkWFcKifu4=',
-      thumbnail:
-        'https://media.istockphoto.com/photos/success-picture-id912928582?b=1&k=20&m=912928582&s=170667a&w=0&h=DVRQz_Dq4HLr0rJ02uvVPZr6MOK7_TtbeRkWFcKifu4=',
-    },
-    {
-      original:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_L6zqvKijy3UpsxdVdQO8ygcpUy4yzIh-hQ&usqp=CAU',
-      thumbnail:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_L6zqvKijy3UpsxdVdQO8ygcpUy4yzIh-hQ&usqp=CAU',
-    },
-    {
-      original:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbrNoJWs5MIAdjGvFTmyke82LSMT1MEezibw&usqp=CAU',
-      thumbnail:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbrNoJWs5MIAdjGvFTmyke82LSMT1MEezibw&usqp=CAU',
-    },
-    {
-      original:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRL77hcfFpNY7zrePlelBEDjp2x2t4Eu9oG6g&usqp=CAU',
-      thumbnail:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRL77hcfFpNY7zrePlelBEDjp2x2t4Eu9oG6g&usqp=CAU',
-    },
-    {
-      original:
-        'https://media.istockphoto.com/photos/success-picture-id912928582?b=1&k=20&m=912928582&s=170667a&w=0&h=DVRQz_Dq4HLr0rJ02uvVPZr6MOK7_TtbeRkWFcKifu4=',
-      thumbnail:
-        'https://media.istockphoto.com/photos/success-picture-id912928582?b=1&k=20&m=912928582&s=170667a&w=0&h=DVRQz_Dq4HLr0rJ02uvVPZr6MOK7_TtbeRkWFcKifu4=',
-    },
-    {
-      original:
-        'https://res.cloudinary.com/nextreflexe/image/upload/v1656436764/page/home_bg1_enqgeq.jpg',
-      thumbnail:
-        'https://res.cloudinary.com/nextreflexe/image/upload/v1656436764/page/home_bg1_enqgeq.jpg',
-    },
-    {
-      original:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbrNoJWs5MIAdjGvFTmyke82LSMT1MEezibw&usqp=CAU',
-      thumbnail:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbrNoJWs5MIAdjGvFTmyke82LSMT1MEezibw&usqp=CAU',
-    },
-    {
-      original:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRL77hcfFpNY7zrePlelBEDjp2x2t4Eu9oG6g&usqp=CAU',
-      thumbnail:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRL77hcfFpNY7zrePlelBEDjp2x2t4Eu9oG6g&usqp=CAU',
-    },
-  ],
-};
+import {
+  getDataAction,
+  HomePageErrorAction,
+  loadingGetDataAction,
+} from '../redux/reducers/home.reducer';
 
 export default function Gallery() {
+  const homePageState = useSelector((state) => state.homePageReducer);
+  const { loading, data } = homePageState;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(loadingGetDataAction({}));
+    axiosInstance
+      .get('/branches/basic')
+      .then((data) => {
+        dispatch(getDataAction(data.data.data));
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch(HomePageErrorAction(error.message));
+      });
+  }, [dispatch]);
   return (
-    <NavBarContainer>
-      <HeaderTitle
-        data="Gallery"
-        sx={{
-          paddingY: { xs: '20px', sm: '25px', md: '30px', lg: '35pxpx' },
-        }}
-        marginTop={{ xs: '30px', md: '0px' }}
-      />
-      <Box>
-        <ImageGallery items={data.gallery} additionalClass="gallery_img" />
-      </Box>
-    </NavBarContainer>
+    data.gallery !== undefined && (
+      <NavBarContainer>
+        <HeaderTitle
+          data="Gallery"
+          sx={{
+            paddingY: { xs: '20px', sm: '25px', md: '30px', lg: '35pxpx' },
+          }}
+          marginTop={{ xs: '30px', md: '0px' }}
+        />
+        {loading ? (
+          <Box
+            sx={{
+              position: 'relative',
+              width: '100%',
+              height: '100%',
+              // background: '#65FFC0',
+            }}
+          >
+            <Loading sx={{ zIndex: 10 }} />
+            <Skeleton
+              animation="pulse"
+              variant="rectangular"
+              width="100%"
+              height="100%"
+              style={{ background: 'rgba(0,0,0,0.1)' }}
+            />
+          </Box>
+        ) : (
+          <Box>
+            <ImageGallery items={data.gallery} additionalClass="gallery_img" />
+          </Box>
+        )}
+      </NavBarContainer>
+    )
   );
 }
+

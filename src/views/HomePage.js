@@ -1,7 +1,7 @@
 import { Box, Skeleton } from '@mui/material';
-import axios from 'axios';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import axiosInstance from '../axios.instance';
 import About from '../components/home-page/About';
 import GetInTouch from '../components/home-page/GetInTouch';
 import OurMethods from '../components/home-page/OurMethods';
@@ -19,30 +19,20 @@ import {
 } from '../redux/reducers/home.reducer';
 
 function HomePage() {
-  const loading = false;
+  const { data, loading } = useSelector((state) => state.homePageReducer);
   const dispatch = useDispatch();
-
-  const config = {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-    },
-  };
-
   useEffect(() => {
     dispatch(loadingGetDataAction({}));
-    console.log(process.env.REACT_APP_HOMEPAGE_DATA_URL);
-    axios
-      .get(process.env.REACT_APP_HOMEPAGE_DATA_URL, config)
+    axiosInstance
+      .get('/branches/basic')
       .then((data) => {
-        console.log(data);
-        dispatch(getDataAction(data));
+        dispatch(getDataAction(data.data.data));
       })
       .catch((error) => {
         console.log(error);
         dispatch(HomePageErrorAction(error.message));
       });
-  });
+  }, [dispatch]);
 
   return loading ? (
     <Box
@@ -66,7 +56,7 @@ function HomePage() {
     <NavBarContainer>
       <Box width="100%" margin="0px auto">
         <Box height="max-content" component="div" marginTop="30px">
-          <ScrollImage />
+          <ScrollImage data={data} />
         </Box>
         <Box component="div" id="about-us">
           <About />
