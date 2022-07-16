@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {
   Box,
   Collapse,
@@ -18,11 +18,11 @@ import {
 } from '@mui/material';
 
 import formatDateRow from '../../utils/formatDate_hourFirst';
+import { formatName_surname } from '../../utils/formatName_surname';
 import BoldTableHeaderCell from '../BoldTableHeaderCell';
+import DeleteModal from '../DeleteModal';
 import Loading from '../Loading';
 import ThinTableBodyCell from '../ThinTableBodyCell';
-import DeleteModal from '../DeleteModal';
-import { formatName_surname } from '../../utils/formatName_surname';
 import AppointmentsDetails from './AppointmentsDetails';
 
 const Row = ({ data, setOpenDeleteModal }) => {
@@ -185,3 +185,4 @@ AppointmentsTable.propTypes = {
 };
 
 export default AppointmentsTable;
+

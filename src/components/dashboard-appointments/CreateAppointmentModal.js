@@ -240,3 +240,4 @@ CreateAppointmentModal.propTypes = {
 };
 
 export default CreateAppointmentModal;
+
