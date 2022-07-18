@@ -1,4 +1,4 @@
-import { Box, useTheme } from '@mui/material';
+import { Box, CssBaseline, useTheme } from '@mui/material';
 import React, { useRef, useState } from 'react';
 import NavBar from './NavBar';
 
@@ -45,8 +45,19 @@ function NavBarContainer({ children, ...props }) {
       }}
       {...props}
     >
+      <CssBaseline />
       <NavBar sticked={sticked} getToTop={getToTop} />
-      {children}
+      <Box
+        sx={{
+          width: '100%',
+          paddingTop: sticked ? '90px' : '0px',
+          '@media (max-width: 765px)': {
+            paddingTop: '50px',
+          },
+        }}
+      >
+        {children}
+      </Box>
     </Box>
   );
 }

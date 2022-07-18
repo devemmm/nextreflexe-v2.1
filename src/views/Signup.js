@@ -66,44 +66,50 @@ export default function Signup() {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            width: {
+            maxWidth: {
               xs: 350,
               sm: 420,
               md: 420,
               lg: 420,
               xl: 420,
             },
-            minHeight: 350,
+            width: '100%',
+            // minHeight: 350,
+            height: 'max-content',
             bgcolor: 'background.paper',
             border: '2px solid #fff',
             borderRadius: '10px',
             boxShadow: 24,
+            padding: {
+              xs: '15px',
+              sm: '20px',
+              md: '30px',
+            },
           }}
         >
-          <Grid container alignItems="center">
-            <Typography
-              id="signinTitle"
-              variant="h5"
-              sx={{
-                fontSize: { xs: '20px', md: '26px' },
-                fontWeight: '800',
-                fontFamily: 'Josefin Sans, sans-serif',
-                color: '#018F55',
-                padding: '30px 30px 10px 30px',
-              }}
-            >
-              Signup
-            </Typography>
-          </Grid>
+          <Typography
+            id="signinTitle"
+            variant="h5"
+            sx={{
+              alignSelf: 'start',
+              fontSize: { xs: '20px', md: '26px' },
+              fontWeight: '800',
+              fontFamily: 'Josefin Sans, sans-serif',
+              color: '#018F55',
+              marginY: '10px',
+            }}
+          >
+            Signup
+          </Typography>
           <form onSubmit={handleSubmit(onsubmit)} style={{ mt: 1 }}>
             <Grid
               container
               direction="column"
-              sx={{ display: 'flex' }}
+              // sx={{ display: 'flex' }}
               justifyContent="space-between"
               alignItems="center"
             >
-              <Grid item>
+              <Grid item width="100%">
                 <ControlledInputs
                   name="firstName"
                   label="First Name"
@@ -115,7 +121,7 @@ export default function Signup() {
                   sx={{ maxWidth: '250px' }}
                 />
               </Grid>
-              <Grid item>
+              <Grid item width="100%">
                 <ControlledInputs
                   name="lastName"
                   label="Last Name"
@@ -126,7 +132,7 @@ export default function Signup() {
                   })}
                 />
               </Grid>
-              <Grid item>
+              <Grid item width="100%">
                 <ControlledInputs
                   name="email"
                   label="Email"
@@ -137,7 +143,7 @@ export default function Signup() {
                   })}
                 />
               </Grid>
-              <Grid item>
+              <Grid item width="100%">
                 <ControlledInputs
                   name="password"
                   label="Password"
@@ -167,7 +173,7 @@ export default function Signup() {
                   }}
                 />
               </Grid>
-              <Grid item>
+              <Grid item width="100%">
                 <ControlledInputs
                   name="confirmPassword"
                   label="Confirm Password"
@@ -198,14 +204,15 @@ export default function Signup() {
                 />
               </Grid>
 
-              <Grid item margin="20px 0px">
+              <Grid item margin="20px 0px" width="100%">
                 <Buttons
                   variant="contained"
                   sx={{
-                    width: {
+                    maxWidth: {
                       xs: 280,
                       sm: 350,
                     },
+                    width: '100%',
                     height: 50,
                     backgroundColor: '#018F55',
                     fontSize: '18px',
@@ -225,8 +232,8 @@ export default function Signup() {
                   }
                 />
               </Grid>
-              <Grid item>
-                <Grid container justifyContent="center" marginBottom="40px">
+              <Grid item width="100%">
+                <Grid container justifyContent="center" marginBottom="10px">
                   <Grid item>
                     <Link
                       to="/signin"
@@ -250,4 +257,3 @@ export default function Signup() {
     </NavBarContainer>
   );
 }
-

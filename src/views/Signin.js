@@ -46,6 +46,7 @@ export default function Signin() {
     },
     resolver: yupResolver(loginSchema),
   });
+
   const onsubmit = (data) => {
     dispatch(loadingSignInUserAction({}));
     axiosInstance
@@ -61,6 +62,7 @@ export default function Signin() {
         toast.error(error.message);
       });
   };
+
   return (
     <NavBarContainer>
       <Container
@@ -69,55 +71,63 @@ export default function Signin() {
         sx={{
           display: 'flex',
           justifyContent: 'center',
-          marginTop: 10,
+          // marginTop: 10,
         }}
       >
         <CssBaseline />
-
         <Box
           sx={{
             display: 'flex',
             marginTop: '20px',
             flexDirection: 'column',
             alignItems: 'center',
-            width: {
+            maxWidth: {
               xs: 350,
               sm: 420,
               md: 420,
               lg: 420,
               xl: 420,
             },
-            minHeight: 350,
+            width: '100%',
+            // minHeight: 350,
+            height: 'max-content',
             bgcolor: 'background.paper',
             border: '2px solid #fff',
             borderRadius: '10px',
             boxShadow: 24,
+            padding: {
+              xs: '15px',
+              sm: '20px',
+              md: '30px',
+            },
           }}
         >
-          <Grid container>
-            <Typography
-              id="loginTitle"
-              variant="h5"
-              sx={{
-                fontSize: { xs: '20px', md: '26px' },
-                fontWeight: '800',
-                fontFamily: 'Josefin Sans, sans-serif',
-                color: '#018F55',
-                margin: '30px 10px 10px 30px',
-              }}
-            >
-              Signin
-            </Typography>
-          </Grid>
-          <form onSubmit={handleSubmit(onsubmit)} style={{ mt: 1 }}>
+          <Typography
+            id="loginTitle"
+            variant="h5"
+            sx={{
+              alignSelf: 'start',
+              fontSize: { xs: '20px', md: '26px' },
+              fontWeight: '800',
+              fontFamily: 'Josefin Sans, sans-serif',
+              color: '#018F55',
+              marginY: '10px',
+            }}
+          >
+            Signin
+          </Typography>
+          <form
+            onSubmit={handleSubmit(onsubmit)}
+            style={{ mt: 1, width: '100%' }}
+          >
             <Grid
               container
               direction="column"
-              sx={{ display: 'flex' }}
+              // sx={{ display: 'flex' }}
               justifyContent="space-between"
               alignItems="center"
             >
-              <Grid item>
+              <Grid item width="100%">
                 <ControlledInputs
                   name="email"
                   label="Email"
@@ -128,7 +138,7 @@ export default function Signin() {
                   })}
                 />
               </Grid>
-              <Grid item>
+              <Grid item width="100%">
                 <ControlledInputs
                   name="password"
                   label="Password"
@@ -158,7 +168,7 @@ export default function Signin() {
                   }}
                 />
               </Grid>
-              <Grid item>
+              <Grid item width="100%">
                 <Link
                   to="#"
                   style={{
@@ -172,14 +182,15 @@ export default function Signin() {
                 </Link>
               </Grid>
 
-              <Grid item margin="20px 0px">
+              <Grid item margin="20px 0px" width="100%">
                 <Buttons
                   variant="contained"
                   sx={{
-                    width: {
+                    maxWidth: {
                       xs: 280,
                       sm: 350,
                     },
+                    width: '100%',
                     height: 50,
                     backgroundColor: '#018F55',
                     fontSize: '18px',
@@ -199,8 +210,8 @@ export default function Signin() {
                   }
                 />
               </Grid>
-              <Grid item>
-                <Grid container justifyContent="center" marginBottom="40px">
+              <Grid item width="100%">
+                <Grid container justifyContent="center" marginBottom="10px">
                   <Grid item>
                     <Link
                       to="/signup"
@@ -224,4 +235,3 @@ export default function Signin() {
     </NavBarContainer>
   );
 }
-
