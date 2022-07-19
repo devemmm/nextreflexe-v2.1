@@ -23,8 +23,12 @@ import { formatName_surname } from '../../utils/formatName_surname';
 import PatientsDetails from './PatientsDetails';
 import formatDateRow from '../../utils/formatDate_hourFirst';
 
+<<<<<<< HEAD
 const Row = ({ data, ...props }) => {
   const { fname, lname, email, phone, status, dob, nid, createdAt } = data;
+=======
+const Row = ({ data: { id, email, phone, status, diagnosis }, ...props }) => {
+>>>>>>> a421c4f (added a register stepper)
   const theme = useTheme();
   const [showDetails, setShowDetails] = useState(false);
 
@@ -52,9 +56,13 @@ const Row = ({ data, ...props }) => {
         <ThinTableBodyCell text={email.trim()} />
         <ThinTableBodyCell text={phone} />
         <ThinTableBodyCell text={status} />
+<<<<<<< HEAD
         <ThinTableBodyCell text={formatDateRow(dob, false)} />
         <ThinTableBodyCell text={nid} />
         <ThinTableBodyCell text={formatDateRow(createdAt, false)} />
+=======
+        <ThinTableBodyCell text={diagnosis} />
+>>>>>>> a421c4f (added a register stepper)
       </TableRow>
       <TableRow>
         <TableCell
@@ -77,6 +85,20 @@ const Row = ({ data, ...props }) => {
 };
 
 function PatientsTable({ datas, loadingGet, ...props }) {
+<<<<<<< HEAD
+=======
+  const modifiedDatas = [
+    ...datas,
+    ...datas,
+    ...datas,
+    ...datas,
+    ...datas,
+    ...datas,
+    ...datas,
+    ...datas,
+  ];
+
+>>>>>>> a421c4f (added a register stepper)
   return (
     <Box
       sx={{
@@ -110,8 +132,13 @@ function PatientsTable({ datas, loadingGet, ...props }) {
               </TableRow>
             </TableHead>
             <TableBody>
+<<<<<<< HEAD
               {datas.map((data, index) => {
                 return <Row key={data.id} data={data} />;
+=======
+              {modifiedDatas.map((data, index) => {
+                return <Row key={data.id + ' ' + index} data={data} />;
+>>>>>>> a421c4f (added a register stepper)
               })}
             </TableBody>
           </Table>
@@ -127,4 +154,3 @@ PatientsTable.propTypes = {
 };
 
 export default PatientsTable;
-

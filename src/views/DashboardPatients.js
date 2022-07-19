@@ -24,3 +24,4 @@ function DashboardPatients() {
 }
 
 export default DashboardPatients;
+
