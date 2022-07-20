@@ -61,6 +61,7 @@ const StepperButton = ({ Icon, Text, direction, children, ...props }) => {
 function RegisterPatientsStepper() {
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
+  const [birthDate, setBirthDate] = useState();
   const {
     getValues,
     control,
