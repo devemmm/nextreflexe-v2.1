@@ -182,9 +182,9 @@ function RegisterPatientsStepper() {
                   'nationalId',
                 ]).then((value) => {
                   if (value) {
-                    setActiveStep((state) => state + 1);
                   }
                 });
+                setActiveStep((state) => state + 1);
               }
             }}
           />
