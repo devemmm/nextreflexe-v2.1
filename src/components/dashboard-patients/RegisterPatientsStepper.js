@@ -61,7 +61,6 @@ const StepperButton = ({ Icon, Text, direction, children, ...props }) => {
 function RegisterPatientsStepper() {
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
-  const [birthDate, setBirthDate] = useState();
   const {
     getValues,
     control,
@@ -182,9 +181,9 @@ function RegisterPatientsStepper() {
                   'nationalId',
                 ]).then((value) => {
                   if (value) {
+                    setActiveStep((state) => state + 1);
                   }
                 });
-                setActiveStep((state) => state + 1);
               }
             }}
           />

@@ -7,3 +7,4 @@ export function formatName_surname(fname, lname) {
 
   return [fnameMod, '. ', lnameMod].join('');
 }
+
