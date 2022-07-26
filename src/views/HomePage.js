@@ -2,6 +2,7 @@ import { Box, Skeleton } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axiosInstance from '../axios.instance';
+import Footer from '../components/Footer';
 import About from '../components/home-page/About';
 import GetInTouch from '../components/home-page/GetInTouch';
 import OurMethods from '../components/home-page/OurMethods';
@@ -50,36 +51,38 @@ function HomePage() {
         width="100%"
         height="100%"
         style={{ background: 'rgba(0,0,0,0.1)' }}
-      />
+      ></Skeleton>
     </Box>
   ) : (
-    <NavBarContainer>
-      <Box width="100%" margin="0px auto">
-        <Box height="max-content" component="div" marginTop="30px">
-          <ScrollImage data={data} />
+    <>
+      <NavBarContainer>
+        <Box width="100%" margin="0px auto">
+          <Box height="max-content" component="div" marginTop="30px">
+            <ScrollImage data={data} />
+          </Box>
+          <Box component="div" id="about-us">
+            <About />
+          </Box>
+          <Box component="div" id="services">
+            <Services />
+          </Box>
+          <Box component="div" id="our-methods">
+            <OurMethods />
+          </Box>
+          <Box component="div">
+            <WorkHours />
+          </Box>
+          <Box component="div" id="get-in-touch">
+            <GetInTouch />
+          </Box>
+          <Box component="div">
+            <Testimonials />
+          </Box>
         </Box>
-        <Box component="div" id="about-us">
-          <About />
-        </Box>
-        <Box component="div" id="services">
-          <Services />
-        </Box>
-        <Box component="div" id="our-methods">
-          <OurMethods />
-        </Box>
-        <Box component="div">
-          <WorkHours />
-        </Box>
-        <Box component="div" id="get-in-touch">
-          <GetInTouch />
-        </Box>
-        <Box component="div">
-          <Testimonials />
-        </Box>
-      </Box>
-    </NavBarContainer>
+        <Footer />
+      </NavBarContainer>
+    </>
   );
 }
 
 export default HomePage;
-

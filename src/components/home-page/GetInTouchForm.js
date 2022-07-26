@@ -1,7 +1,52 @@
-import { Box, TextField, Typography, useTheme } from '@mui/material';
+import { Box, MenuItem, TextField, Typography, useTheme } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import axiosInstance from '../../axios.instance';
+import {
+  sendMessageAction,
+  userErrorAction,
+} from '../../redux/reducers/user.reducer';
 import Buttons from '../buttons';
 
-const CustomTextField = ({ label, sx, theme, ...props }) => {
+export const CustomSelect = ({ label, sx, theme, data, ...props }) => {
+  return (
+    <TextField
+      fullWidth
+      select
+      label={label}
+      variant="filled"
+      color="primary"
+      {...props}
+      sx={{
+        ...sx,
+        '& .MuiFilledInput-root:before': {
+          borderBottom: `2px solid ${theme.palette.primary.light}`,
+        },
+        [theme.breakpoints.down(425)]: {
+          '& .MuiFilledInput-root': {
+            fontSize: '12px',
+          },
+          '& .MuiInputLabel-root': {
+            fontSize: '12px',
+          },
+          '& .MuiInputLabel-root.focused': {
+            fontSize: '9px',
+          },
+        },
+      }}
+    >
+      {data.map((option) => (
+        <MenuItem key={option} value={option}>
+          {option}
+        </MenuItem>
+      ))}
+    </TextField>
+  );
+};
+
+export const CustomTextField = ({ label, sx, theme, ...props }) => {
   return (
     <TextField
       fullWidth
@@ -34,7 +79,77 @@ const CustomTextField = ({ label, sx, theme, ...props }) => {
 
 function GetInTouchForm() {
   const theme = useTheme();
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
+  const [formData, setFormData] = useState({
+    names: '',
+    email: '',
+    phone: '',
+    message: '',
+  });
+  const [error, setError] = useState({
+    names: null,
+    email: null,
+    phone: null,
+    message: null,
+  });
+
+  const isValid = () => {
+    // eslint-disable-next-line
+    const pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (formData.names === '') {
+      setError({ ...error, names: 'Name is required' });
+      return false;
+    }
+    if (!formData.email.match(pattern)) {
+      console.log('We are here');
+      setError({ ...error, email: 'Please enter a  valid email' });
+      return false;
+    }
+    if (formData.phone === '') {
+      setError({ ...error, phone: 'Phone number is required' });
+      return false;
+    }
+    if (formData.phone.length < 10 || formData.phone.length > 13) {
+      setError({
+        ...error,
+        phone: 'Please enter a valid phone number',
+      });
+      return false;
+    }
+    if (formData.message === '') {
+      setError({ ...error, message: 'Message is required' });
+      return false;
+    }
+    if (formData.message.length < 5) {
+      setError({
+        ...error,
+        message: 'Message length should be more than 5 characters',
+      });
+      return false;
+    }
+
+    return true;
+  };
+  const submitMessage = () => {
+    if (isValid()) {
+      setLoading(true);
+      axiosInstance
+        .post('/users/contact-us', formData)
+        .then((res) => {
+          setFormData({ names: '', email: '', phone: '', message: '' });
+          setLoading(false);
+          toast.success(res.data.data.message);
+          dispatch(sendMessageAction(res.data));
+        })
+        .catch((err) => {
+          setLoading(false);
+          dispatch(userErrorAction(err.message));
+          toast.error(err.message);
+        });
+    }
+  };
   return (
     <Box
       component="form"
@@ -70,10 +185,55 @@ function GetInTouchForm() {
       >
         Leave for us a Message or a querry !
       </Typography>
-      <CustomTextField label="Full Name *" theme={theme} />
-      <CustomTextField label="Email Address *" theme={theme} />
-      <CustomTextField label="Your Phone *" theme={theme} />
-      <CustomTextField label="Message *" theme={theme} multiline />
+      <CustomTextField
+        label="Full Name *"
+        theme={theme}
+        onChange={(e) => {
+          setError({ ...error, names: null });
+          setFormData({ ...formData, names: e.target.value });
+        }}
+        {...(error?.names && {
+          error: true,
+          helperText: error.names,
+        })}
+      />
+      <CustomTextField
+        label="Email Address *"
+        theme={theme}
+        onChange={(e) => {
+          setError({ ...error, email: null });
+          setFormData({ ...formData, email: e.target.value });
+        }}
+        {...(error?.email && {
+          error: true,
+          helperText: error.email,
+        })}
+      />
+      <CustomTextField
+        label="Your Phone *"
+        theme={theme}
+        onChange={(e) => {
+          setError({ ...error, phone: null });
+          setFormData({ ...formData, phone: e.target.value });
+        }}
+        {...(error?.phone && {
+          error: true,
+          helperText: error.phone,
+        })}
+      />
+      <CustomTextField
+        label="Message *"
+        theme={theme}
+        multiline
+        onChange={(e) => {
+          setError({ ...error, message: null });
+          setFormData({ ...formData, message: e.target.value });
+        }}
+        {...(error?.message && {
+          error: true,
+          helperText: error.message,
+        })}
+      />
       <Buttons
         variant="contained"
         fullWidth
@@ -89,7 +249,14 @@ function GetInTouchForm() {
           },
         }}
         type="button"
-        value="Send Message"
+        value={
+          loading ? (
+            <CircularProgress sx={{ color: 'white' }} />
+          ) : (
+            'Send Message'
+          )
+        }
+        onClick={submitMessage}
       />
     </Box>
   );

@@ -53,7 +53,8 @@ const Row = ({
 
 function AppointmentsTable({ datas, loadingGet, ...props }) {
   let modifiedDatas = [];
-  if (datas.length) {
+  console.log(datas);
+  if (datas?.length) {
     modifiedDatas = [
       ...datas,
       ...datas,

@@ -6,6 +6,7 @@ const initialState = {
   loadingSignOut: false,
   loadingSignUp: false,
   loadingGetUser: true,
+  loadingSendMessage: false,
   error: null,
 };
 
@@ -37,6 +38,17 @@ export const userSlice = createSlice({
     loadingSignUpUser: (state, { type, payload }) => {
       return { ...state, loadingSignUp: true };
     },
+    loadingSendMessage: (state, { type, payload }) => {
+      return { ...state, loadingSendMessage: true };
+    },
+    sendMessage: (state, { type, payload }) => {
+      return {
+        ...state,
+        loadingSendMessage: false,
+        error: null,
+        data: payload,
+      };
+    },
     userError: (state, { type, payload }) => {
       return {
         ...state,
@@ -44,6 +56,7 @@ export const userSlice = createSlice({
         loadingGetUser: false,
         loadingSignUp: false,
         loadingSignOut: false,
+        loadingSendMessage: false,
         error: payload,
         data: {},
       };
@@ -60,6 +73,8 @@ export const {
   loadingSignInUser: loadingSignInUserAction,
   signUpUser: signUpUserAction,
   loadingSignUpUser: loadingSignUpUserAction,
+  loadingSendMessage: loadingSendMessageAction,
+  sendMessage: sendMessageAction,
   userError: userErrorAction,
 } = userSlice.actions;
 export const userReducer = userSlice.reducer;
