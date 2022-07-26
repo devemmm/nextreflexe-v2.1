@@ -14,19 +14,24 @@ const Slide = (sliders) => {
         container
         sx={{
           backgroundColor: theme.colors.grey,
+          cursor: 'grab',
+          '&:active': {
+            cursor: 'grabbing',
+          },
+          justifyContent: 'center',
         }}
       >
         <Grid
           width="100%"
           item
           xs={12}
-          sm={4}
+          sm="auto"
           alignItems="center"
           justifyContent="center"
           p={{
             xs: '10px',
-            sm: '20px',
-            md: '30px',
+            // sm: '20px',
+            // md: '30px',
           }}
         >
           <Box
@@ -44,11 +49,17 @@ const Slide = (sliders) => {
               alt={`${data.names} pic`}
               sx={{
                 width: {
-                  xs: '50%',
-                  sm: '100%',
+                  xs: '80px',
+                  md: '100px',
                 },
-                maxWidth: '150px',
-                margin: '0px auto 0px auto',
+                height: {
+                  xs: '80px',
+                  md: '100px',
+                },
+                objectFit: 'cover',
+                borderRadius: '300px',
+                border: 'none',
+                userSelect: 'none',
               }}
             />
           </Box>
@@ -59,8 +70,8 @@ const Slide = (sliders) => {
           sm={8}
           p={{
             xs: '10px',
-            sm: '20px',
-            md: '30px',
+            // sm: '20px',
+            // md: '30px',
           }}
           display="flex"
           alignItems="center"
@@ -156,4 +167,3 @@ function Testimonials() {
 }
 
 export default Testimonials;
-

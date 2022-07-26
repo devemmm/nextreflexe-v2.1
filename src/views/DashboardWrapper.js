@@ -1,15 +1,26 @@
 import { useEffect, useRef } from 'react';
-import { Box, Stack, useTheme } from '@mui/material';
-import DashboardNavBar from '../components/dashboard-wrapper/DashboardNavBar';
-import DashboardSideBar from '../components/dashboard-wrapper/DashboardSideBar';
-import DashboardContent from './DashboardContent';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
+import { Box, Stack, useTheme } from '@mui/material';
+
+import DashboardNavBar from '../components/dashboard-wrapper/DashboardNavBar';
+import DashboardSideBar from '../components/dashboard-wrapper/DashboardSideBar';
+import fetchAppointmentsData from '../utils/fetchAppointmentsData';
+import fetchBranchesData from '../utils/fetchBranchesData';
+import fetchDoctorsData from '../utils/fetchDoctorsData';
+import fetchPatientsData from '../utils/fetchPatientsData';
+import fetchServicesData from '../utils/fetchServicesData';
+import fetchUsersData from '../utils/fetchUserData';
+import DashboardContent from './DashboardContent';
+import fetchVisitsData from '../utils/fetchVisitsData';
+import fetchPaymentsData from '../utils/fetchPaymentsData';
+
 function DashboardWrapper() {
+  const dispatch = useDispatch();
   const theme = useTheme();
   const navigate = useNavigate();
   const sideBarRef = useRef();
-  // const dispatch = useDispatch();
 
   function toogleShowSideBar() {
     sideBarRef.current.toogleShowSideBar();
@@ -20,7 +31,18 @@ function DashboardWrapper() {
     if (auth_user === null) {
       navigate('/signin');
     }
-  });
+
+    fetchDoctorsData(dispatch);
+    fetchServicesData(dispatch);
+    fetchBranchesData(dispatch);
+    fetchAppointmentsData(dispatch);
+    fetchPatientsData(dispatch);
+    fetchUsersData(dispatch);
+    fetchVisitsData(dispatch);
+    fetchPaymentsData(dispatch);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Box
@@ -62,4 +84,3 @@ function DashboardWrapper() {
 }
 
 export default DashboardWrapper;
-

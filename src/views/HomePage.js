@@ -30,7 +30,6 @@ function HomePage() {
         dispatch(getDataAction(data.data.data));
       })
       .catch((error) => {
-        console.log(error);
         dispatch(HomePageErrorAction(error.message));
       });
   }, [dispatch]);
@@ -86,4 +85,3 @@ function HomePage() {
 }
 
 export default HomePage;
-

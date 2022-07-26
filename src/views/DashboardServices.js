@@ -1,112 +1,91 @@
-import { Box, Grid } from '@mui/material';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import axiosInstance from '../axios.instance';
+import * as React from 'react';
+import { useSelector } from 'react-redux';
+
+import { Box } from '@mui/material';
+
+import ServiceCard from '../components/dashboard-services/ServiceCard';
 import DashboardHeader from '../components/DashboardHeader';
 import FlatCreateButton from '../components/FlatCreateButton';
 import Loading from '../components/Loading';
-import {
-  getServicesAction,
-  loadingGetServicesAction,
-  servicesErrorAction,
-} from '../redux/reducers/services.reducer';
-
-import backTretIcon from '../assets/icons/backTret-icon.svg';
-import disabilityTretIcon from '../assets/icons/disabilityTret-icon.svg';
-import emigrainesIcon from '../assets/icons/emigraines-icon.svg';
-import jointTretIcon from '../assets/icons/jointTret-icon.svg';
-import shoulderTretIcon from '../assets/icons/shoulderTret-icon.svg';
-import ServiceCard from '../components/dashboard-services/ServiceCard';
-
-const dummyData = [
-  {
-    icon: jointTretIcon,
-    header: 'Joint Treatment',
-    body: 'Be they knees, wrists, hip joints and elbow joints, our therapists will diagnose each case and prescribe the requisite therapy and duration.',
-  },
-  {
-    icon: backTretIcon,
-    header: 'Back Treatement',
-    body: 'We do have specific procedures designed to soothe back pain and completely eliminate any discomfort or pain in a very short period.',
-  },
-  {
-    icon: shoulderTretIcon,
-    header: 'Shoulder Treatement',
-    body: 'We offer tailor-made treatment that is structured for the shoulders.',
-  },
-  {
-    icon: disabilityTretIcon,
-    header: 'Disability Treatement',
-    body: 'Through our therapy, people living with disability can have their lives greatly improved through increasing their energy levels, improving blood circulation ...',
-  },
-  {
-    icon: emigrainesIcon,
-    header: 'Migraines',
-    body: 'Be they knees, wrists, hip joints and elbow joints, our therapists will diagnose each case and prescribe the requisite therapy and duration',
-  },
-];
+import CreateServiceModal from '../components/dashboard-services/CreateServiceModal';
+import UpdateServiceModal from '../components/dashboard-services/UpdateServiceModal';
+import DeleteModal from '../components/DeleteModal';
 
 function DashboardServices() {
-  const dispatch = useDispatch();
+  const [openCreateModal, setOpenCreateModal] = React.useState(false);
+  const [openUpdateModal, setOpenUpdateModal] = React.useState(false);
+  const [openDeleteModal, setOpenDeleteModal] = React.useState(false);
   const { data, loadingGet } = useSelector((state) => state.servicesReducer);
 
-  useEffect(() => {
-    dispatch(loadingGetServicesAction({}));
-    axiosInstance
-      .get('/services')
-      .then(({ data }) => {
-        console.log(data, 'in services');
-        dispatch(getServicesAction(dummyData));
-      })
-      .catch((error) => {
-        console.log(error);
-        dispatch(servicesErrorAction(error.message));
-      });
-    // eslint-disable-next-line
-  }, []);
-
   return (
-    <Box
-      sx={{
-        position: 'relative',
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        flexFlow: 'column nowrap',
-      }}
-    >
-      <DashboardHeader title="Services" />
-      <FlatCreateButton text="Create Services" />
-      {loadingGet ? (
-        <Loading />
-      ) : (
-        <Grid
-          container
-          spacing={{
-            xs: 1,
-            sm: 2,
+    <>
+      <Box
+        sx={{
+          position: 'relative',
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          flexFlow: 'column nowrap',
+        }}
+      >
+        <DashboardHeader title="Services" />
+        <FlatCreateButton
+          text="Create Services"
+          onClick={() => {
+            setOpenCreateModal(true);
           }}
-          sx={
-            {
-              // padding: {
-              // 	xs: '25px 20px',
-              // 	sm: '35px 30px',
-              // 	md: '50px 40px',
-              // 	lg: '65px 50px',
-              // },
-            }
-          }
-        >
-          {data.map((service, index) => {
-            return (
-              <ServiceCard key={service.name + ' ' + index} datas={service} />
-            );
-          })}
-        </Grid>
-      )}
-    </Box>
+        />
+        {loadingGet ? (
+          <Loading />
+        ) : (
+          <Box
+            sx={{
+              display: 'grid',
+              rowGap: '20px',
+              columnGap: '10px',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+              paddingY: '10px',
+            }}
+          >
+            {data.map((service, index) => {
+              return (
+                <ServiceCard
+                  key={service.name + ' ' + index}
+                  datas={service}
+                  updateService={() => {
+                    setOpenUpdateModal(true);
+                  }}
+                  deleteService={() => {
+                    setOpenDeleteModal(true);
+                  }}
+                />
+              );
+            })}
+          </Box>
+        )}
+      </Box>
+      <CreateServiceModal
+        createService={(data) => {
+          console.log(data, 'service data');
+        }}
+        openModal={openCreateModal}
+        setOpenModal={setOpenCreateModal}
+      />
+      <UpdateServiceModal
+        updateService={(data) => {
+          console.log(data, 'service data');
+        }}
+        openModal={openUpdateModal}
+        setOpenModal={setOpenUpdateModal}
+      />
+      <DeleteModal
+        open={openDeleteModal}
+        setOpen={setOpenDeleteModal}
+        title="Delete Service"
+        message="Do you really wish to delete this service ?"
+      />
+    </>
   );
 }
 
 export default DashboardServices;
-

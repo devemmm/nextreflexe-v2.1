@@ -17,6 +17,13 @@ import DashboardPatients from './DashboardPatients';
 import DashboardAppointments from './DashboardAppointments';
 import DashboardServices from './DashboardServices';
 import DashboardBranches from './DashboardBranches';
+import PatientsHome from '../components/dashboard-patients/PatientsHome';
+import RegisterPatientsStepper from '../components/dashboard-patients/RegisterPatientsStepper';
+import DashboardVisits from './DashboardVisits';
+import DashboardUsers from './DashboardUsers';
+import UsersHome from '../components/dashboard-users/UsersHome';
+import RegisterUserStepper from '../components/dashboard-users/RegisterUserStepper';
+import DashboardPayments from './DashboardPayments';
 
 function App() {
   const theme = createTheme({
@@ -30,6 +37,9 @@ function App() {
       },
       text: {
         primary: '#fffff',
+      },
+      error: {
+        main: '#FF004C',
       },
     },
     typography: {
@@ -53,16 +63,28 @@ function App() {
           <Route path="/signin" element={<Signin />}></Route>
           <Route path="/signup" element={<Signup />}></Route>
           <Route path="/gallery" element={<Gallery />}></Route>
-          <Route path="our-people" element={<OurPeople />}></Route>
+          <Route path="/our-people" element={<OurPeople />}></Route>
           <Route path="/dashboard" element={<DashboardWrapper />}>
             <Route path="" element={<DashboardHome />}></Route>
-            <Route path="patients" element={<DashboardPatients />}></Route>
+            <Route path="patients" element={<DashboardPatients />}>
+              <Route path="" element={<PatientsHome />}></Route>
+              <Route
+                path="register"
+                element={<RegisterPatientsStepper />}
+              ></Route>
+            </Route>
             <Route
               path="appointments"
               element={<DashboardAppointments />}
             ></Route>
+            <Route path="users" element={<DashboardUsers />}>
+              <Route path="" element={<UsersHome />} />
+              <Route path="register" element={<RegisterUserStepper />} />
+            </Route>
             <Route path="services" element={<DashboardServices />}></Route>
             <Route path="branches" element={<DashboardBranches />}></Route>
+            <Route path="visits" element={<DashboardVisits />}></Route>
+            <Route path="payments" element={<DashboardPayments />}></Route>
           </Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
@@ -73,4 +95,3 @@ function App() {
 }
 
 export default App;
-

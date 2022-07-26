@@ -34,7 +34,6 @@ export default function OurPeople() {
         dispatch(getDataAction(data.data));
       })
       .catch((error) => {
-        console.log(error);
         dispatch(HomePageErrorAction(error.message));
       });
   }, [dispatch]);

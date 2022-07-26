@@ -1,13 +1,12 @@
 import * as yup from 'yup';
-
-const regexPassword = /^(?=.*[A-Z])(?=.*[0-9])\w{8,}$/;
+import { passwordRegexPattern } from '../utils/regexPatterns';
 
 export const loginSchema = yup.object().shape({
   email: yup.string().email('invalid email').required('email is required'),
   password: yup
     .string()
     .matches(
-      regexPassword,
+      passwordRegexPattern,
       'Only letters (lower + upper), and numbers are allowed',
     ),
 });
@@ -19,7 +18,7 @@ export const signupSchema = yup.object().shape({
   password: yup
     .string()
     .matches(
-      regexPassword,
+      passwordRegexPattern,
       'Only letters (lower + upper), and numbers are allowed',
     )
     .required('Password is required'),
