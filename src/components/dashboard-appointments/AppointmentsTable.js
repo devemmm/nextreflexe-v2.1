@@ -185,4 +185,3 @@ AppointmentsTable.propTypes = {
 };
 
 export default AppointmentsTable;
-
