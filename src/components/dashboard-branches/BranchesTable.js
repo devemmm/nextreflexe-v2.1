@@ -115,7 +115,6 @@ const Row = ({
 function BranchesTable({
   datas,
   setOpenUpdateModal,
-  setOpenEditModal,
   setOpenDeleteModal,
   loadingGet,
   ...props
@@ -159,7 +158,6 @@ function BranchesTable({
                     key={data.id + ' ' + index}
                     data={data}
                     setOpenUpdateModal={setOpenUpdateModal}
-                    setOpenEditModal={setOpenEditModal}
                     setOpenDeleteModal={setOpenDeleteModal}
                   />
                 );
