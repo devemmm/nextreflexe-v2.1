@@ -473,3 +473,4 @@ NavBar.propTypes = {
 };
 
 export default NavBar;
+

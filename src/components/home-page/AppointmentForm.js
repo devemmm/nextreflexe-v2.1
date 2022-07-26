@@ -183,3 +183,4 @@ const AppointmentForm = ({ close }) => {
 };
 
 export default AppointmentForm;
+
