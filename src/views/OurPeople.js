@@ -11,6 +11,7 @@ import { Box } from '@mui/system';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axiosInstance from '../axios.instance';
+import Footer from '../components/Footer';
 import HeaderTitle from '../components/home-page/HeaderTitle';
 import Loading from '../components/Loading';
 import NavBarContainer from '../components/NavBar/NavBarContainer';
@@ -28,9 +29,9 @@ export default function OurPeople() {
   useEffect(() => {
     dispatch(loadingGetDataAction({}));
     axiosInstance
-      .get('/branches/basic')
+      .get('/users/team')
       .then((data) => {
-        dispatch(getDataAction(data.data.data));
+        dispatch(getDataAction(data.data));
       })
       .catch((error) => {
         console.log(error);
@@ -79,8 +80,8 @@ export default function OurPeople() {
         >
           <Grid container sx={{ display: 'flex', justifyContent: 'center' }}>
             {!loading &&
-              data.team !== undefined &&
-              data.team.map((person) => (
+              data.data !== undefined &&
+              data.data.map((person) => (
                 <Grid
                   item
                   key={person.id}
@@ -91,11 +92,15 @@ export default function OurPeople() {
                 >
                   <Card
                     sx={{
+                      transition: 'all 0.6s ease-in-out',
                       width: 280,
                       height: 380,
                       borderBottom: 0,
                       ':hover': {
                         borderBottom: '10px solid #018F55',
+                        boxShadow: '0px 20px 20px 3px rgba(0, 0, 0, 0.25)',
+                        transform: 'translate(0px, -3px)',
+                        borderColor: theme.colors.primary,
                       },
                     }}
                   >
@@ -103,6 +108,13 @@ export default function OurPeople() {
                       component="img"
                       height="300"
                       image={person.avatar}
+                      sx={{
+                        transition: 'all 0.6s ease-in-out',
+                        ':hover': {
+                          transform: 'translate(0px, -3px)',
+                          borderColor: theme.colors.primary,
+                        },
+                      }}
                     />
                     <CardContent
                       sx={{
@@ -125,6 +137,7 @@ export default function OurPeople() {
           </Grid>
         </Box>
       )}
+      <Footer />
     </NavBarContainer>
   );
 }

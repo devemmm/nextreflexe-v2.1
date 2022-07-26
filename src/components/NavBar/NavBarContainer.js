@@ -46,7 +46,17 @@ function NavBarContainer({ children, ...props }) {
       {...props}
     >
       <NavBar sticked={sticked} getToTop={getToTop} />
-      {children}
+      <Box
+        sx={{
+          width: '100%',
+          height: '100%',
+          minHeight: 'max-content',
+          maxHeight: sticked ? '100%' : 'calc(100% - 111px)',
+          paddingTop: sticked ? '90px' : '0px',
+        }}
+      >
+        {children}
+      </Box>
     </Box>
   );
 }

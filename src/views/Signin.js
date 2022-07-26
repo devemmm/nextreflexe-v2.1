@@ -19,6 +19,7 @@ import { toast } from 'react-toastify';
 import axiosInstance from '../axios.instance';
 import Buttons from '../components/buttons';
 import ControlledInputs from '../components/controlledInput';
+import InputField from '../components/inputField';
 import NavBarContainer from '../components/NavBar/NavBarContainer';
 import {
   loadingSignInUserAction,
@@ -67,9 +68,11 @@ export default function Signin() {
         component="main"
         maxWidth="xs"
         sx={{
+          height: 'max-content',
           display: 'flex',
           justifyContent: 'center',
-          marginTop: 10,
+          alignItems: 'center',
+          paddingY: 1,
         }}
       >
         <CssBaseline />
@@ -122,6 +125,7 @@ export default function Signin() {
                   name="email"
                   label="Email"
                   control={control}
+                  input={InputField}
                   {...(errors?.email && {
                     error: true,
                     helperText: errors.email.message,
@@ -134,6 +138,7 @@ export default function Signin() {
                   label="Password"
                   type={showPassword ? 'text' : 'password'}
                   control={control}
+                  input={InputField}
                   {...(errors?.password && {
                     error: true,
                     helperText: errors.password.message,
@@ -224,4 +229,3 @@ export default function Signin() {
     </NavBarContainer>
   );
 }
-

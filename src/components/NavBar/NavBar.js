@@ -15,6 +15,7 @@ import { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo.svg';
+import AppointmentForm from '../home-page/AppointmentForm';
 import AboveNavbar from './AboveNavbar';
 
 const HeaderLinkTypography = ({
@@ -162,6 +163,8 @@ function NavBar({ sticked, getToTop }) {
     window.location.pathname + window.location.hash,
   );
   const [openDrawer, setOpenDrawer] = useState(false);
+
+  const [showAppontmentModel, setShowAppontmentModel] = useState(false);
 
   const LinkList = ({ activeColor, props, CustomTypography }) => [
     <CustomLink
@@ -360,6 +363,7 @@ function NavBar({ sticked, getToTop }) {
           <Button
             color="primary"
             variant="contained"
+            onClick={() => setShowAppontmentModel(!showAppontmentModel)}
             size="small"
             sx={{
               padding: '15px 20px',
@@ -402,6 +406,19 @@ function NavBar({ sticked, getToTop }) {
             </Typography>
           </Button>
         </Box>
+        <Modal
+          open={showAppontmentModel}
+          onClose={() => setShowAppontmentModel(!showAppontmentModel)}
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Box sx={{ paddingX: '10px' }}>
+            <AppointmentForm close={setShowAppontmentModel} />
+          </Box>
+        </Modal>
         <Modal
           open={openDrawer}
           onClose={() => setOpenDrawer(false)}

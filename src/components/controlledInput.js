@@ -1,20 +1,20 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import InputField from './inputField';
 
 const ControlledInputs = ({
   name,
   control,
-  variant,
   placeholder,
+  defaultValue,
+  input: Input,
   ...props
 }) => (
   <Controller
     name={name}
     control={control}
+    defaultValue={defaultValue}
     render={({ field: { onChange, value } }) => (
-      <InputField
-        variant="outlined"
+      <Input
         value={value}
         placeholder={placeholder}
         onChange={onChange}

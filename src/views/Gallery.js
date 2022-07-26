@@ -4,6 +4,7 @@ import ImageGallery from 'react-image-gallery';
 import { useDispatch, useSelector } from 'react-redux';
 import '../../src/styles/ScrollImage.css';
 import axiosInstance from '../axios.instance';
+import Footer from '../components/Footer';
 import HeaderTitle from '../components/home-page/HeaderTitle';
 import Loading from '../components/Loading';
 import NavBarContainer from '../components/NavBar/NavBarContainer';
@@ -59,9 +60,14 @@ export default function Gallery() {
           </Box>
         ) : (
           <Box>
-            <ImageGallery items={data.gallery} additionalClass="gallery_img" />
+            <ImageGallery
+              autoPlay={true}
+              items={data.gallery}
+              additionalClass="gallery_img"
+            />
           </Box>
         )}
+        <Footer />
       </NavBarContainer>
     )
   );
