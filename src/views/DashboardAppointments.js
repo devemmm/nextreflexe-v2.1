@@ -48,4 +48,3 @@ function DashboardAppointments() {
 }
 
 export default DashboardAppointments;
-
