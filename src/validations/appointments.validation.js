@@ -14,3 +14,4 @@ export const startVisitSchema = yup.object().shape({
   time: yup.string().required('time is required'),
   service: yup.string().required('service is required'),
 });
+

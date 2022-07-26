@@ -194,3 +194,4 @@ function RegisterPatientsStepper() {
 }
 
 export default RegisterPatientsStepper;
+

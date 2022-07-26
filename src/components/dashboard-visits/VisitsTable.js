@@ -163,3 +163,4 @@ VisitsTable.propTypes = {
 };
 
 export default VisitsTable;
+
