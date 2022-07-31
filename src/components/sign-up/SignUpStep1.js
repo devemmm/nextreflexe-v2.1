@@ -9,7 +9,7 @@ function SignUpStep1({ control, errors }) {
   return (
     <>
       <ControlledInputs
-        name="firstName"
+        name="fname"
         control={control}
         input={InputFieldFilled}
         defaultValue=""
@@ -21,7 +21,7 @@ function SignUpStep1({ control, errors }) {
         })}
       />
       <ControlledInputs
-        name="lastName"
+        name="lname"
         control={control}
         input={InputFieldFilled}
         defaultValue=""
@@ -70,7 +70,7 @@ function SignUpStep1({ control, errors }) {
         })}
       />
       <ControlledInputs
-        name="nationalId"
+        name="nid"
         control={control}
         input={InputFieldFilled}
         defaultValue=""
@@ -82,7 +82,7 @@ function SignUpStep1({ control, errors }) {
         })}
       />
       <ControlledDatePicker
-        name="birthDate"
+        name="dob"
         control={control}
         input={InputFieldFilled}
         defaultValue=""

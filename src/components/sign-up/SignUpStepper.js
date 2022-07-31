@@ -23,6 +23,14 @@ import { registerPatientSchema } from '../../validations/patients.validation';
 import SignUpStep2 from './SignUpStep2';
 import SignUpStep1 from './SignUpStep1';
 import StepperTitle from './StepperTitle';
+import { useDispatch } from 'react-redux';
+import {
+  loadingSignUpUserAction,
+  signUpUserAction,
+  userErrorAction,
+} from '../../redux/reducers/user.reducer';
+import axiosInstance from '../../axios.instance';
+import { toast } from 'react-toastify';
 
 const CustomConnectorLine = styled(StepConnector)(({ theme }) => ({
   [`& .${stepConnectorClasses.line}`]: {
@@ -57,6 +65,7 @@ const StepperButton = ({ Icon, Text, direction, children, ...props }) => {
 
 function SignUpStepper() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [activeStep, setActiveStep] = useState(0);
   const {
     getValues,
@@ -165,17 +174,62 @@ function SignUpStepper() {
                   'cell',
                   'village',
                 ]).then((value) => {
-                  if (value) console.log(getValues());
+                  const {
+                    fname,
+                    lname,
+                    email,
+                    phone,
+                    dob,
+                    nid,
+                    password,
+                    country,
+                    province,
+                    district,
+                    sector,
+                    cell,
+                    village,
+                  } = getValues();
+                  if (value) {
+                    const data = {
+                      fname: fname,
+                      lname: lname,
+                      email: email,
+                      phone: phone,
+                      dob: dob,
+                      nid: nid,
+                      password: password,
+                      location: {
+                        country: country,
+                        province: province,
+                        district: district,
+                        sector: sector,
+                        cell: cell,
+                        village: village,
+                      },
+                    };
+                    dispatch(loadingSignUpUserAction({}));
+                    axiosInstance
+                      .post('/users/signup', data)
+                      .then((res) => {
+                        dispatch(signUpUserAction(res.data));
+                        toast.success('Signup successfull');
+                        navigate('/signin');
+                      })
+                      .catch((error) => {
+                        dispatch(userErrorAction(error.message));
+                        toast.error(error.message);
+                      });
+                  }
                 });
               } else {
                 trigger([
-                  'firstName',
-                  'lastName',
+                  'fname',
+                  'lname',
                   'email',
                   'password',
-                  'birthDate',
+                  'dob',
                   'phone',
-                  'nationalId',
+                  'nid',
                 ]).then((value) => {
                   if (value) {
                     setActiveStep((state) => state + 1);
