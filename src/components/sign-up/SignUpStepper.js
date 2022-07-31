@@ -135,9 +135,9 @@ function SignUpStepper() {
           justifyContent="space-between"
           direction="row"
           padding="10px"
-          sx={{
-            marginTop: 'auto',
-          }}
+          // sx={{
+          //   marginTop: 'auto',
+          // }}
         >
           <StepperButton
             Text={activeStep <= 0 ? 'Back' : 'PREVIOUS'}
