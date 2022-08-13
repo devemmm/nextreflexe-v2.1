@@ -12,7 +12,7 @@ import Buttons from '../buttons';
 
 export const CustomSelect = ({ label, sx, theme, data, ...props }) => {
   return (
-    <TextField
+    <TextField  
       fullWidth
       select
       label={label}
