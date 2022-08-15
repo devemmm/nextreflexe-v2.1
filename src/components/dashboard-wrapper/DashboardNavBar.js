@@ -29,7 +29,7 @@ function DashboardNavBar({ sx, ...props }) {
   return (
     <Box
       sx={{
-        maxWidth: '1440px',
+        // maxWidth: '1440px',
         transformOrigin: 'center',
         width: '100%',
         display: 'flex',

@@ -67,10 +67,10 @@ export default function Signin() {
         component="main"
         maxWidth="xs"
         sx={{
-          height: 'max-content',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+          height: 'max-content',
           paddingY: 1,
         }}
       >

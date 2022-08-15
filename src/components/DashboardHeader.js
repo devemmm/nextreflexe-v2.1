@@ -70,3 +70,4 @@ DashboardHeader.propTypes = {
 };
 
 export default DashboardHeader;
+
