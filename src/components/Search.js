@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { Button, MenuItem, Typography, useTheme } from '@mui/material';
+import { Button, Input, MenuItem, Typography, useTheme } from '@mui/material';
 import { Box } from '@mui/system';
 import { useForm } from 'react-hook-form';
 import ControlledSelectField from './ControlledSelectField';
@@ -10,6 +10,7 @@ import SelectField from './SelectField';
 function Search({ sx, searchFunc, ...props }) {
   const theme = useTheme();
   const { handleSubmit, control, reset } = useForm();
+  const [searchKey, setSearchKey] = useState('')
 
   return (
     <Box
@@ -27,7 +28,7 @@ function Search({ sx, searchFunc, ...props }) {
       }}
       {...props}
     >
-      <ControlledSelectField
+      {/* <ControlledSelectField
         control={control}
         defaultValue=""
         name="name"
@@ -43,7 +44,8 @@ function Search({ sx, searchFunc, ...props }) {
         }}
       >
         <MenuItem value="">Choose name</MenuItem>
-      </ControlledSelectField>
+      </ControlledSelectField> */}
+
       <ControlledSelectField
         control={control}
         defaultValue=""
@@ -65,6 +67,21 @@ function Search({ sx, searchFunc, ...props }) {
         <MenuItem value="SUCCESS">SUCCESS</MenuItem>
         <MenuItem value="FAILED">FAILED</MenuItem>
       </ControlledSelectField>
+      <Input
+        value={searchKey}
+        placeholder="Search"
+        onChange={(e) => {
+          setSearchKey(e.target.value)
+          searchFunc(searchKey)
+        }}
+        sx={{
+          width: '100%',
+          maxWidth: '250px',
+          [theme.breakpoints.down(300)]: {
+            maxWidth: 'none',
+          },
+        }}
+      />
       <Button
         variant="contained"
         size="small"
@@ -83,7 +100,7 @@ function Search({ sx, searchFunc, ...props }) {
         }}
       >
         <Typography color="white" fontSize="12px" fontWeight="bold">
-          Search
+          Reset
         </Typography>
       </Button>
     </Box>
