@@ -25,15 +25,16 @@ import DeleteModal from '../DeleteModal';
 import { formatName_surname } from '../../utils/formatName_surname';
 import VisitsDetails from './VisitsDetails';
 
-const Row = ({ data, setOpenDeleteModal }) => {
+const Row = ({ data, setOpenDeleteModal, setId }) => {
   const {
+    id,
     startTime,
     endTime,
     patient: { fname: fnameP, lname: lnameP },
     user: { fname: fnameD, lname: lnameD },
     status,
     createdAt,
-  } = data;
+  } = data && data;
   const theme = useTheme();
   const [showDetails, setShowDetails] = useState(false);
 
@@ -57,8 +58,8 @@ const Row = ({ data, setOpenDeleteModal }) => {
             {showDetails ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <ThinTableBodyCell text={formatDateRow(startTime)} />
-        <ThinTableBodyCell text={formatDateRow(endTime)} />
+        <ThinTableBodyCell text={startTime} />
+        <ThinTableBodyCell text={endTime} />
         <ThinTableBodyCell text={formatName_surname(fnameP, lnameP)} />
         <ThinTableBodyCell text={formatName_surname(fnameD, lnameD)} />
         <ThinTableBodyCell text={status} />
@@ -69,6 +70,7 @@ const Row = ({ data, setOpenDeleteModal }) => {
             color="error"
             onClick={() => {
               setOpenDeleteModal(true);
+              setId(id);
             }}
           >
             <DeleteForeverIcon />
@@ -97,7 +99,7 @@ const Row = ({ data, setOpenDeleteModal }) => {
 
 function VisitsTable({ datas, loadingGet, ...props }) {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
-
+  const [id, setId] = useState(0);
   return (
     <>
       <Box
@@ -133,15 +135,17 @@ function VisitsTable({ datas, loadingGet, ...props }) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {datas.map((data, index) => {
-                  return (
-                    <Row
-                      key={data.id + ' ' + index}
-                      data={data}
-                      setOpenDeleteModal={setOpenDeleteModal}
-                    />
-                  );
-                })}
+                {datas.length &&
+                  datas.map((data, index) => {
+                    return (
+                      <Row
+                        key={data.id + ' ' + index}
+                        data={data}
+                        setOpenDeleteModal={setOpenDeleteModal}
+                        setId={setId}
+                      />
+                    );
+                  })}
               </TableBody>
             </Table>
           </TableContainer>
@@ -152,6 +156,7 @@ function VisitsTable({ datas, loadingGet, ...props }) {
         setOpen={setOpenDeleteModal}
         title="Delete Visit"
         message="Do you really Want to remove this Visit ?"
+        value={id}
       />
     </>
   );
@@ -163,3 +168,4 @@ VisitsTable.propTypes = {
 };
 
 export default VisitsTable;
+

@@ -24,11 +24,13 @@ import ThinTableBodyCell from '../ThinTableBodyCell';
 import Loading from '../Loading';
 import formatDateRow from '../../utils/formatDate_hourFirst';
 import { formatName_surname } from '../../utils/formatName_surname';
+import DeleteModal from '../DeleteModal';
 
 const Row = ({
   data: { id, name, manager, location, createdAt },
   setOpenUpdateModal,
   setOpenDeleteModal,
+  setId,
   ...props
 }) => {
   let fname;
@@ -82,6 +84,7 @@ const Row = ({
             color="error"
             onClick={() => {
               setOpenDeleteModal(true);
+              setId(id);
             }}
           >
             <DeleteForeverIcon />
@@ -112,61 +115,68 @@ const Row = ({
   );
 };
 
-function BranchesTable({
-  datas,
-  setOpenUpdateModal,
-  setOpenDeleteModal,
-  loadingGet,
-  ...props
-}) {
+function BranchesTable({ datas, setOpenUpdateModal, loadingGet, ...props }) {
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [id, setId] = useState(0);
   return (
-    <Box
-      sx={{
-        paddingX: '10px',
-        paddingBottom: '10px',
-        width: '100%',
-        height: '100%',
-        overflow: 'auto',
-        position: 'relative',
-      }}
-    >
-      {loadingGet ? (
-        <Loading />
-      ) : (
-        <TableContainer
-          sx={{
-            background: 'white',
-          }}
-        >
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell />
-                <BoldTableHeaderCell title="ID" />
-                <BoldTableHeaderCell title="Name" />
-                <BoldTableHeaderCell title="Manager" />
-                <BoldTableHeaderCell title="Location" />
-                <BoldTableHeaderCell title="Created At" />
-                <TableCell />
-                <TableCell />
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {datas.map((data, index) => {
-                return (
-                  <Row
-                    key={data.id + ' ' + index}
-                    data={data}
-                    setOpenUpdateModal={setOpenUpdateModal}
-                    setOpenDeleteModal={setOpenDeleteModal}
-                  />
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )}
-    </Box>
+    <>
+      <Box
+        sx={{
+          paddingX: '10px',
+          paddingBottom: '10px',
+          width: '100%',
+          height: '100%',
+          overflow: 'auto',
+          position: 'relative',
+        }}
+      >
+        {loadingGet ? (
+          <Loading />
+        ) : (
+          <TableContainer
+            sx={{
+              background: 'white',
+            }}
+          >
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell />
+                  <BoldTableHeaderCell title="ID" />
+                  <BoldTableHeaderCell title="Name" />
+                  <BoldTableHeaderCell title="Manager" />
+                  <BoldTableHeaderCell title="Location" />
+                  <BoldTableHeaderCell title="Created At" />
+                  <TableCell />
+                  <TableCell />
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {datas.length &&
+                  datas.map((data, index) => {
+                    return (
+                      <Row
+                        key={data.id + ' ' + index}
+                        data={data}
+                        setOpenUpdateModal={setOpenUpdateModal}
+                        setOpenDeleteModal={setOpenDeleteModal}
+                        setId={setId}
+                      />
+                    );
+                  })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
+      </Box>
+      <DeleteModal
+        open={openDeleteModal}
+        setOpen={setOpenDeleteModal}
+        title="Delete Branch"
+        message="Do you really Want to delete this Branch?"
+        value={id}
+      />
+    </>
   );
 }
 

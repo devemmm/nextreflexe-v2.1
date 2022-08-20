@@ -67,6 +67,9 @@ function RegisterPatientsStepper() {
     trigger,
     formState: { errors },
   } = useForm({
+    defaultValues: {
+      country: '',
+    },
     resolver: yupResolver(registerPatientSchema),
   });
 

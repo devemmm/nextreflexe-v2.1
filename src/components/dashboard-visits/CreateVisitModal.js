@@ -3,12 +3,13 @@ import React from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import {
   Box,
   Button,
+  CircularProgress,
   IconButton,
   MenuItem,
   Modal,
@@ -17,19 +18,27 @@ import {
   useTheme,
 } from '@mui/material';
 
+import { toast } from 'react-toastify';
+import axiosInstance from '../../axios.instance';
+import {
+  pendingVisitAction,
+  startVisitAction,
+  visitsErrorAction,
+} from '../../redux/reducers/visits.reducer';
+import fetchVisitsData from '../../utils/fetchVisitsData';
 import { createVisitSchema } from '../../validations/visits.validation';
-import ControlledDatePicker from '../ControlledDatePicker';
 import ControlledSelectField from '../ControlledSelectField';
-import InputFieldFilled from '../InputFieldFilled';
 import SelectField from '../SelectField';
-import { formatName_surname } from '../../utils/formatName_surname';
 
+const timeSlots = [30, 45, 60, 90, 120];
 function CreateVisitModal({ createVisit, openModal, setOpenModal }) {
   const theme = useTheme();
+  const dispatch = useDispatch();
   const { data: servicesData } = useSelector((state) => state.servicesReducer);
   const { data: branchesData } = useSelector((state) => state.branchesReducer);
   const { data: usersData } = useSelector((state) => state.doctorReducer);
   const { data: patientsData } = useSelector((state) => state.patientsReducer);
+  const { pending } = useSelector((state) => state.visitsReducer);
   const {
     handleSubmit,
     control,
@@ -43,6 +52,24 @@ function CreateVisitModal({ createVisit, openModal, setOpenModal }) {
     reset();
     setOpenModal(false);
   }
+
+  const startVisit = (data) => {
+    dispatch(pendingVisitAction({}));
+    axiosInstance
+      .post('/visits?appointment=false', data)
+      .then((res) => {
+        dispatch(startVisitAction(res.data));
+        toast.success('Visit Started');
+        reset();
+        setOpenModal(false);
+        fetchVisitsData(dispatch);
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(error.response.data.message);
+        dispatch(visitsErrorAction(error.response.data));
+      });
+  };
 
   return (
     <Modal
@@ -116,7 +143,7 @@ function CreateVisitModal({ createVisit, openModal, setOpenModal }) {
             <ControlledSelectField
               input={SelectField}
               defaultValue=""
-              name="patient"
+              name="patientId"
               control={control}
               label="Select a Patient"
               variant="filled"
@@ -129,14 +156,14 @@ function CreateVisitModal({ createVisit, openModal, setOpenModal }) {
               <MenuItem value="">Select a Patient</MenuItem>
               {patientsData.map(({ id, fname, lname }) => (
                 <MenuItem key={id} value={id}>
-                  {formatName_surname(fname, lname)}
+                  {fname} {lname}
                 </MenuItem>
               ))}
             </ControlledSelectField>
             <ControlledSelectField
               input={SelectField}
               defaultValue=""
-              name="branch"
+              name="branchId"
               control={control}
               label="Select a Branch"
               variant="filled"
@@ -156,7 +183,7 @@ function CreateVisitModal({ createVisit, openModal, setOpenModal }) {
             <ControlledSelectField
               input={SelectField}
               defaultValue=""
-              name="doctor"
+              name="userId"
               control={control}
               label="Select a Doctor"
               variant="filled"
@@ -169,30 +196,34 @@ function CreateVisitModal({ createVisit, openModal, setOpenModal }) {
               <MenuItem value="">Select a Doctor</MenuItem>
               {usersData.map(({ id, fname, lname }) => (
                 <MenuItem key={id} value={id}>
-                  {formatName_surname(fname, lname)}
+                  {fname} {lname}
                 </MenuItem>
               ))}
             </ControlledSelectField>
-            <ControlledDatePicker
-              input={InputFieldFilled}
-              name="time"
-              defaultValue=""
-              disablePast={true}
-              control={control}
-              inputProps={{
-                label: 'Time',
-                width: '100%',
-                ...(errors?.time && {
-                  error: true,
-                  helperText: errors.time.message,
-                }),
-              }}
-            />
-
             <ControlledSelectField
               input={SelectField}
               defaultValue=""
-              name="service"
+              name="time"
+              control={control}
+              label="Select Time"
+              variant="filled"
+              sx={{
+                width: '100%',
+              }}
+              helperText={errors?.time && errors.time}
+              error={errors?.time ? true : false}
+            >
+              <MenuItem value="">Select Time</MenuItem>
+              {timeSlots.map((t) => (
+                <MenuItem key={t} value={t}>
+                  {t}
+                </MenuItem>
+              ))}
+            </ControlledSelectField>
+            <ControlledSelectField
+              input={SelectField}
+              defaultValue=""
+              name="serviceId"
               control={control}
               label="Select a Service"
               variant="filled"
@@ -216,18 +247,16 @@ function CreateVisitModal({ createVisit, openModal, setOpenModal }) {
               color="primary"
               sx={{ fontVariant: 'none', width: '100%' }}
               onClick={(e) => {
-                console.log(e, 'event');
-                handleSubmit(
-                  (data) => {
-                    console.log(data);
-                  },
-                  (error) => {
-                    console.log(error);
-                  },
-                )(e);
+                handleSubmit((data) => {
+                  startVisit(data);
+                })(e);
               }}
             >
-              Make Visit
+              {pending ? (
+                <CircularProgress size={20} sx={{ color: 'white' }} />
+              ) : (
+                'Start Visit'
+              )}
             </Button>
           </Stack>
         </Box>
