@@ -25,8 +25,9 @@ import Loading from '../Loading';
 import ThinTableBodyCell from '../ThinTableBodyCell';
 import AppointmentsDetails from './AppointmentsDetails';
 
-const Row = ({ data, setOpenDeleteModal }) => {
+const Row = ({ data, setOpenDeleteModal, setId }) => {
   const {
+    id,
     startTime,
     endTime,
     status,
@@ -90,6 +91,7 @@ const Row = ({ data, setOpenDeleteModal }) => {
             color="error"
             onClick={() => {
               setOpenDeleteModal(true);
+              setId(id);
             }}
           >
             <DeleteForeverIcon />
@@ -118,6 +120,7 @@ const Row = ({ data, setOpenDeleteModal }) => {
 
 function AppointmentsTable({ datas, loadingGet, ...props }) {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const [id, setId] = useState(0);
 
   return (
     <>
@@ -155,15 +158,17 @@ function AppointmentsTable({ datas, loadingGet, ...props }) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {datas.map((data, index) => {
-                  return (
-                    <Row
-                      key={data.id + ' ' + index}
-                      data={data}
-                      setOpenDeleteModal={setOpenDeleteModal}
-                    />
-                  );
-                })}
+                {datas.length &&
+                  datas.map((data, index) => {
+                    return (
+                      <Row
+                        key={data.id + ' ' + index}
+                        data={data}
+                        setOpenDeleteModal={setOpenDeleteModal}
+                        setId={setId}
+                      />
+                    );
+                  })}
               </TableBody>
             </Table>
           </TableContainer>
@@ -174,6 +179,7 @@ function AppointmentsTable({ datas, loadingGet, ...props }) {
         setOpen={setOpenDeleteModal}
         title="Delete Appointment"
         message="Do you really Want to delete this Appointments?"
+        value={id}
       />
     </>
   );

@@ -27,7 +27,6 @@ const Row = ({ data, ...props }) => {
   const { fname, lname, email, phone, status, dob, nid, createdAt } = data;
   const theme = useTheme();
   const [showDetails, setShowDetails] = useState(false);
-
   return (
     <>
       <TableRow

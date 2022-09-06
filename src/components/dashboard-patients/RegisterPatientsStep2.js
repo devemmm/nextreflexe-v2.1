@@ -7,7 +7,7 @@ import mappedLocation from '../../assets/locationMapping.json';
 
 function RegisterPatientsStep2({ control, errors }) {
   const [location, setLocation] = useState({
-    country: '',
+    country: 'Rwanda',
     province: '',
     district: '',
     sector: '',
@@ -15,7 +15,7 @@ function RegisterPatientsStep2({ control, errors }) {
     village: '',
   });
   const [availableLocation, setAvailableLocation] = useState({
-    country: [],
+    country: ['Rwanda'],
     province: [],
     district: [],
     sector: [],

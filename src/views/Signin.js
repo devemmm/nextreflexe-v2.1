@@ -57,8 +57,8 @@ export default function Signin() {
         navigate('/dashboard');
       })
       .catch((error) => {
-        dispatch(userErrorAction(error.message));
-        toast.error(error.message);
+        dispatch(userErrorAction(error.response?.data?.message));
+        toast.error(error.response.data.message);
       });
   };
   return (

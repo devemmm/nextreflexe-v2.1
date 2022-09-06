@@ -9,6 +9,7 @@ import {
   Box,
   Button,
   IconButton,
+  MenuItem,
   Modal,
   Stack,
   Typography,
@@ -19,9 +20,13 @@ import { branchSchema } from '../../validations/branch.validation';
 import ControlledInputs from '../controlledInput';
 import InputFieldFilled from '../InputFieldFilled';
 import BranchesLocationFields from './BranchesLocationFields';
+import ControlledSelectField from '../ControlledSelectField';
+import SelectField from '../SelectField';
+import { useSelector } from 'react-redux';
 
 function CreateBranchModal({ createBranch, openModal, setOpenModal }) {
   const theme = useTheme();
+  const { data: usersData } = useSelector((state) => state.userReducer);
   const {
     handleSubmit,
     control,
@@ -128,6 +133,26 @@ function CreateBranchModal({ createBranch, openModal, setOpenModal }) {
                 helperText: errors.name.message,
               })}
             />
+            <ControlledSelectField
+              input={SelectField}
+              defaultValue=""
+              name="userId"
+              control={control}
+              label="Select a Manager"
+              variant="filled"
+              sx={{
+                width: '100%',
+              }}
+              helperText={errors?.doctor ? errors.doctor.message : undefined}
+              error={errors?.doctor ? true : false}
+            >
+              <MenuItem value="">Select a Manager</MenuItem>
+              {usersData.map(({ id, fname, lname }) => (
+                <MenuItem key={id} value={id}>
+                  {fname} {lname}
+                </MenuItem>
+              ))}
+            </ControlledSelectField>
             <BranchesLocationFields control={control} errors={errors} />
             <Button
               variant="contained"
