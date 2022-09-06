@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useSelector } from 'react-redux';
 import { useNavigate, useOutletContext } from 'react-router';
@@ -11,10 +11,11 @@ function PatientsHome() {
   const { data: patientsData } = useSelector((state) => state.patientsReducer);
   const navigate = useNavigate();
   const { data: context, loadingGet } = useOutletContext();
+  const [filteredData, setFilteredData] = useState([])
 
-  function searchFunc(data) {
-    console.log(data);
-    console.log(patientsData);
+  function searchFunc(searchKey) {
+    let result = patientsData.filter(item => item.fname.includes(searchKey) || item.lname.includes(searchKey) || item.email.includes(searchKey))
+    setFilteredData(result)
     // dispatch(getDataAction());
   }
 
@@ -27,7 +28,7 @@ function PatientsHome() {
         }}
       />
       <Search searchFunc={searchFunc} />
-      <PatientsTable datas={context} loadingGet={loadingGet} />
+      <PatientsTable datas={filteredData.length === 0 ? context : filteredData} loadingGet={loadingGet} />
     </>
   );
 }
