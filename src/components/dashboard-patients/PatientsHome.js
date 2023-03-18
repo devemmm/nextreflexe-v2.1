@@ -14,7 +14,7 @@ function PatientsHome() {
   const [filteredData, setFilteredData] = useState([])
 
   function searchFunc(searchKey) {
-    let result = patientsData.filter(item => item.fname.includes(searchKey) || item.lname.includes(searchKey) || item.email.includes(searchKey))
+    let result = patientsData.filter(item => item.fname.includes(searchKey) || item.lname.includes(searchKey) || item.email.includes(searchKey) || item.nid.includes(searchKey))
     setFilteredData(result)
     // dispatch(getDataAction());
   }

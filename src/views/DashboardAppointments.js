@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 import { useSelector } from 'react-redux';
 
@@ -8,12 +8,19 @@ import AppointmentsTable from '../components/dashboard-appointments/Appointments
 import CreateAppointmentModal from '../components/dashboard-appointments/CreateAppointmentModal';
 import DashboardHeader from '../components/DashboardHeader';
 import FlatCreateButton from '../components/FlatCreateButton';
+import Search from '../components/Search';
 
 function DashboardAppointments() {
   const [openCreateModal, setOpenCreateModal] = useState(false);
   const { data, loadingGet } = useSelector(
     (state) => state.appointmentsReducer,
   );
+  const [filteredData, setFilteredData] = useState([])
+  function searchFunc(searchKey) {
+    let result = data.filter(item => item.patient.nid.includes(searchKey) || item.patient.fname.includes(searchKey) || item.patient.lname.includes(searchKey) || item.patient.email.includes(searchKey) || item.patient.phone.includes(searchKey))
+    setFilteredData(result)
+    // dispatch(getDataAction());
+  }
 
   function createAppointment(data) {
     console.log(data);
@@ -36,7 +43,9 @@ function DashboardAppointments() {
             setOpenCreateModal(true);
           }}
         />
-        <AppointmentsTable datas={data} loadingGet={loadingGet} />
+        <Search searchFunc={searchFunc} />
+
+        <AppointmentsTable datas={filteredData.length === 0 ? data : filteredData} loadingGet={loadingGet} />
         <CreateAppointmentModal
           openModal={openCreateModal}
           setOpenModal={setOpenCreateModal}

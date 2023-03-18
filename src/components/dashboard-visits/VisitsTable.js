@@ -24,6 +24,8 @@ import ThinTableBodyCell from '../ThinTableBodyCell';
 import DeleteModal from '../DeleteModal';
 import { formatName_surname } from '../../utils/formatName_surname';
 import VisitsDetails from './VisitsDetails';
+import Search from '../Search';
+
 
 const Row = ({ data, setOpenDeleteModal, setId }) => {
   const {
@@ -100,6 +102,16 @@ const Row = ({ data, setOpenDeleteModal, setId }) => {
 function VisitsTable({ datas, loadingGet, ...props }) {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [id, setId] = useState(0);
+
+  const [filteredData, setFilteredData] = useState([])
+
+  function searchFunc(searchKey) {
+    let result = datas.filter(item => item.patient.fname.includes(searchKey) || item.patient.lname.includes(searchKey) || item.patient.email.includes(searchKey) || item.patient.phone.includes(searchKey))
+    setFilteredData(result)
+  }
+
+
+
   return (
     <>
       <Box
@@ -116,39 +128,60 @@ function VisitsTable({ datas, loadingGet, ...props }) {
         {loadingGet ? (
           <Loading />
         ) : (
-          <TableContainer
-            sx={{
-              background: 'white',
-            }}
-          >
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell />
-                  <BoldTableHeaderCell title="Start Time" />
-                  <BoldTableHeaderCell title="End Time" />
-                  <BoldTableHeaderCell title="Patient Name" />
-                  <BoldTableHeaderCell title="Doctor Name" />
-                  <BoldTableHeaderCell title="Status" />
-                  <BoldTableHeaderCell title="Created At" />
-                  <TableCell />
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {datas.length &&
-                  datas.map((data, index) => {
-                    return (
-                      <Row
-                        key={data.id + ' ' + index}
-                        data={data}
-                        setOpenDeleteModal={setOpenDeleteModal}
-                        setId={setId}
-                      />
-                    );
-                  })}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <>
+            <Search searchFunc={searchFunc} />
+            <TableContainer
+              sx={{
+                background: 'white',
+              }}
+            >
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell />
+                    <BoldTableHeaderCell title="Start Time" />
+                    <BoldTableHeaderCell title="End Time" />
+                    <BoldTableHeaderCell title="Patient Name" />
+                    <BoldTableHeaderCell title="Doctor Name" />
+                    <BoldTableHeaderCell title="Status" />
+                    <BoldTableHeaderCell title="Created At" />
+                    <TableCell />
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+
+                  {
+                    filteredData.length === 0 ? (
+                      datas.length &&
+                      datas.map((data, index) => {
+                        return (
+                          <Row
+                            key={data.id + ' ' + index}
+                            data={data}
+                            setOpenDeleteModal={setOpenDeleteModal}
+                            setId={setId}
+                          />
+                        );
+                      })
+                    ) : (
+
+                      filteredData.length &&
+                      filteredData.map((data, index) => {
+                        return (
+                          <Row
+                            key={data.id + ' ' + index}
+                            data={data}
+                            setOpenDeleteModal={setOpenDeleteModal}
+                            setId={setId}
+                          />
+                        );
+                      })
+                    )
+                  }
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </>
         )}
       </Box>
       <DeleteModal

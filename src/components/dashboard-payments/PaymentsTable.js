@@ -22,6 +22,8 @@ import BoldTableHeaderCell from '../BoldTableHeaderCell';
 import Loading from '../Loading';
 import ThinTableBodyCell from '../ThinTableBodyCell';
 import { formatName_surname } from '../../utils/formatName_surname';
+import Search from '../Search';
+
 
 const Row = ({
   data: {
@@ -106,6 +108,14 @@ const Row = ({
 };
 
 function PaymentsTable({ datas, loadingGet, ...props }) {
+
+  const [filteredData, setFilteredData] = useState([])
+
+  function searchFunc(searchKey) {
+    let result = datas.filter(item => item.patient.nid.includes(searchKey) || item.patient.fname.includes(searchKey) || item.patient.lname.includes(searchKey) || item.patient.email.includes(searchKey) || item.patient.phone.includes(searchKey))
+    setFilteredData(result)
+  }
+
   return (
     <>
       <Box
@@ -122,32 +132,43 @@ function PaymentsTable({ datas, loadingGet, ...props }) {
         {loadingGet ? (
           <Loading />
         ) : (
-          <TableContainer
-            sx={{
-              background: 'white',
-            }}
-          >
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell />
-                  <BoldTableHeaderCell title="Session Price" />
-                  <BoldTableHeaderCell title="Amount Paid" />
-                  <BoldTableHeaderCell title="Remaining Session" />
-                  <BoldTableHeaderCell title="Payment Method" />
-                  <BoldTableHeaderCell title="Status" />
-                  <BoldTableHeaderCell title="Patient" />
-                  <BoldTableHeaderCell title="Service" />
-                  <BoldTableHeaderCell title="Created At" />
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {datas.map((data, index) => {
-                  return <Row key={data.id + ' ' + index} data={data} />;
-                })}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <>
+            <Search searchFunc={searchFunc} />
+            <TableContainer
+              sx={{
+                background: 'white',
+              }}
+            >
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell />
+                    <BoldTableHeaderCell title="Session Price" />
+                    <BoldTableHeaderCell title="Amount Paid" />
+                    <BoldTableHeaderCell title="Remaining Session" />
+                    <BoldTableHeaderCell title="Payment Method" />
+                    <BoldTableHeaderCell title="Status" />
+                    <BoldTableHeaderCell title="Patient" />
+                    <BoldTableHeaderCell title="Service" />
+                    <BoldTableHeaderCell title="Created At" />
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {
+                    filteredData.length === 0 ? (
+                      datas.map((data, index) => {
+                        return <Row key={data.id + ' ' + index} data={data} />;
+                      })
+                    ) : (
+                      filteredData.map((data, index) => {
+                        return <Row key={data.id + ' ' + index} data={data} />;
+                      })
+                    )
+                  }
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </>
         )}
       </Box>
     </>
