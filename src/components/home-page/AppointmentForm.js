@@ -31,7 +31,7 @@ const reducer = (state, action) => {
     case 'serviceId':
       return { ...state, serviceId: action.payload }
     case 'userId':
-      return { ...state, userId: `${action.payload}` }
+      return { ...state, userId: action.payload }
     case 'dob':
       return { ...state, dob: action.payload }
     case 'startTime':
