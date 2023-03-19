@@ -13,76 +13,76 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import FlatCreateButton from '../FlatCreateButton';
 import axiosInstance from '../../axios.instance';
 
-
 const reducer = (state, action) => {
   switch (action.type) {
     case 'fname':
-      return { ...state, fname: action.payload }
+      return { ...state, fname: action.payload };
     case 'lname':
-      return { ...state, lname: action.payload }
+      return { ...state, lname: action.payload };
     case 'phone':
-      return { ...state, phone: action.payload }
+      return { ...state, phone: action.payload };
     case 'email':
-      return { ...state, email: action.payload }
+      return { ...state, email: action.payload };
     case 'nid':
-      return { ...state, nid: action.payload }
+      return { ...state, nid: action.payload };
     case 'branchId':
-      return { ...state, branchId: action.payload }
+      return { ...state, branchId: action.payload };
     case 'serviceId':
-      return { ...state, serviceId: action.payload }
+      return { ...state, serviceId: action.payload };
     case 'userId':
-      return { ...state, userId: action.payload }
+      return { ...state, userId: action.payload };
     case 'dob':
-      return { ...state, dob: action.payload }
+      return { ...state, dob: action.payload };
     case 'startTime':
-      return { ...state, startTime: action.payload }
+      return { ...state, startTime: action.payload };
     default:
-      return { ...state }
+      return { ...state };
   }
-}
+};
 
-const handleCreateAppointment = async ({patient, setError, close}) => {
+const handleCreateAppointment = async ({ patient, setError, close }) => {
   axiosInstance
     .post(`appointments/unknown?account=false`, {
-      ...patient
+      ...patient,
     })
     .then((res) => {
-        setError('')
-        close();
+      setError('');
+      close();
     })
     .catch((error) => {
-      setError(error?.response?.data?.message)
+      setError(error?.response?.data?.message);
     });
-}
-
+};
 
 const AppointmentForm = ({ close }) => {
   const theme = useTheme();
   const [value, setValue] = useState(new Date());
-  const [services, setServices] = useState([])
-  const [therapist, setTherapist] = useState([])
-  const [servicesToDisplay, setServicesToDisplay] = useState([])
-  const [therapistToDisplay, setTherapistToDisplay] = useState([])
-  const [error, setError] = useState('')
-
+  const [services, setServices] = useState([]);
+  const [therapist, setTherapist] = useState([]);
+  const [servicesToDisplay, setServicesToDisplay] = useState([]);
+  const [therapistToDisplay, setTherapistToDisplay] = useState([]);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     axiosInstance
       .get(`/branches/basic`)
       .then((res) => {
-        setServices(res?.data?.data?.services)
+        setServices(res?.data?.data?.services);
         setTherapist(res?.data?.data?.team);
-        res?.data?.data?.services.map(item => {
-          setServicesToDisplay((prevArray) => [...prevArray, item.name])
-        })
-        res?.data?.data?.team.map(item => {
-          setTherapistToDisplay((prevArray) => [...prevArray, `Thr. ${item.fname} ${item.lname}`])
-        })
+        res?.data?.data?.services.map((item) => {
+          setServicesToDisplay((prevArray) => [...prevArray, item.name]);
+        });
+        res?.data?.data?.team.map((item) => {
+          setTherapistToDisplay((prevArray) => [
+            ...prevArray,
+            `Thr. ${item.fname} ${item.lname}`,
+          ]);
+        });
       })
       .catch((error) => {
-        setServices([])
+        setServices([]);
       });
-  }, [])
+  }, []);
 
   const [state, dispatch] = useReducer(reducer, {
     fname: '',
@@ -93,8 +93,8 @@ const AppointmentForm = ({ close }) => {
     dob: '',
     branchId: '',
     serviceId: '',
-    startTime: ''
-  })
+    startTime: '',
+  });
 
   return (
     <Box
@@ -149,7 +149,11 @@ const AppointmentForm = ({ close }) => {
           </IconButton>
         </Grid>
       </Grid>
-      <Typography variant="p" color={'red'} sx={{ marginBottom: '20px', fontSize: '20px', fontWeight: 'bold' }}>
+      <Typography
+        variant="p"
+        color={'red'}
+        sx={{ marginBottom: '20px', fontSize: '20px', fontWeight: 'bold' }}
+      >
         {error}
       </Typography>
 
@@ -164,17 +168,17 @@ const AppointmentForm = ({ close }) => {
             theme={theme}
             value={state.fname}
             onChange={(e) => {
-              e.preventDefault()
-              dispatch({ type: 'fname', payload: e.target.value })
+              e.preventDefault();
+              dispatch({ type: 'fname', payload: e.target.value });
             }}
-          // onChange={(e) => {
-          //   setError({ ...error, names: null });
-          //   setFormData({ ...formData, names: e.target.value });
-          // }}
-          // {...(error?.names && {
-          //   error: true,
-          //   helperText: error.names,
-          // })}
+            // onChange={(e) => {
+            //   setError({ ...error, names: null });
+            //   setFormData({ ...formData, names: e.target.value });
+            // }}
+            // {...(error?.names && {
+            //   error: true,
+            //   helperText: error.names,
+            // })}
           />
         </Grid>
         <Grid item md={6}>
@@ -182,17 +186,17 @@ const AppointmentForm = ({ close }) => {
             label="Last Name *"
             theme={theme}
             onChange={(e) => {
-              e.preventDefault()
-              dispatch({ type: 'lname', payload: e.target.value })
+              e.preventDefault();
+              dispatch({ type: 'lname', payload: e.target.value });
             }}
-          // onChange={(e) => {
-          //   setError({ ...error, names: null });
-          //   setFormData({ ...formData, names: e.target.value });
-          // }}
-          // {...(error?.names && {
-          //   error: true,
-          //   helperText: error.names,
-          // })}
+            // onChange={(e) => {
+            //   setError({ ...error, names: null });
+            //   setFormData({ ...formData, names: e.target.value });
+            // }}
+            // {...(error?.names && {
+            //   error: true,
+            //   helperText: error.names,
+            // })}
           />
         </Grid>
         <Grid item md={6}>
@@ -200,17 +204,17 @@ const AppointmentForm = ({ close }) => {
             label="Your Phone *"
             theme={theme}
             onChange={(e) => {
-              e.preventDefault()
-              dispatch({ type: 'phone', payload: e.target.value })
+              e.preventDefault();
+              dispatch({ type: 'phone', payload: e.target.value });
             }}
-          // onChange={(e) => {
-          //   setError({ ...error, phone: null });
-          //   setFormData({ ...formData, phone: e.target.value });
-          // }}
-          // {...(error?.phone && {
-          //   error: true,
-          //   helperText: error.phone,
-          // })}
+            // onChange={(e) => {
+            //   setError({ ...error, phone: null });
+            //   setFormData({ ...formData, phone: e.target.value });
+            // }}
+            // {...(error?.phone && {
+            //   error: true,
+            //   helperText: error.phone,
+            // })}
           />
         </Grid>
         <Grid item md={6}>
@@ -218,17 +222,17 @@ const AppointmentForm = ({ close }) => {
             label="Email Address *"
             theme={theme}
             onChange={(e) => {
-              e.preventDefault()
-              dispatch({ type: 'email', payload: e.target.value })
+              e.preventDefault();
+              dispatch({ type: 'email', payload: e.target.value });
             }}
-          // onChange={(e) => {
-          //   setError({ ...error, email: null });
-          //   setFormData({ ...formData, email: e.target.value });
-          // }}
-          // {...(error?.email && {
-          //   error: true,
-          //   helperText: error.email,
-          // })}
+            // onChange={(e) => {
+            //   setError({ ...error, email: null });
+            //   setFormData({ ...formData, email: e.target.value });
+            // }}
+            // {...(error?.email && {
+            //   error: true,
+            //   helperText: error.email,
+            // })}
           />
         </Grid>
         <Grid item md={6}>
@@ -236,8 +240,8 @@ const AppointmentForm = ({ close }) => {
             label="NID"
             theme={theme}
             onChange={(e) => {
-              e.preventDefault()
-              dispatch({ type: 'nid', payload: e.target.value })
+              e.preventDefault();
+              dispatch({ type: 'nid', payload: e.target.value });
             }}
           />
         </Grid>
@@ -248,8 +252,11 @@ const AppointmentForm = ({ close }) => {
             theme={theme}
             data={[...new Set(servicesToDisplay)]}
             onChange={(e) => {
-              e.preventDefault()
-              dispatch({ type: 'serviceId', payload: (services.find(ser => ser.name === e.target.value)).id })
+              e.preventDefault();
+              dispatch({
+                type: 'serviceId',
+                payload: services.find((ser) => ser.name === e.target.value).id,
+              });
             }}
           />
         </Grid>
@@ -259,8 +266,11 @@ const AppointmentForm = ({ close }) => {
             theme={theme}
             data={['..', 'GISHUSHU HQ', 'KIMIRONKO BR', 'RUBAVU BR']}
             onChange={(e) => {
-              e.preventDefault()
-              dispatch({ type: 'branchId', payload: e.target.value === "GISHUSHU HQ" ? "RW01" : "RW02" })
+              e.preventDefault();
+              dispatch({
+                type: 'branchId',
+                payload: e.target.value === 'GISHUSHU HQ' ? 'RW01' : 'RW02',
+              });
             }}
           />
         </Grid>
@@ -270,8 +280,14 @@ const AppointmentForm = ({ close }) => {
             theme={theme}
             data={[...new Set(therapistToDisplay)]}
             onChange={(e) => {
-              e.preventDefault()
-              dispatch({ type: 'userId', payload: (therapist.find(ther => `Thr. ${ther.fname} ${ther.lname}` === e.target.value)).id })
+              e.preventDefault();
+              dispatch({
+                type: 'userId',
+                payload: therapist.find(
+                  (ther) =>
+                    `Thr. ${ther.fname} ${ther.lname}` === e.target.value,
+                ).id,
+              });
             }}
           />
         </Grid>
@@ -282,7 +298,10 @@ const AppointmentForm = ({ close }) => {
               label="Date of Birth"
               value={value}
               onChange={(e) => {
-                dispatch({ type: 'dob', payload: moment(e).format('YYYY-MM-DD HH:mm:ss')})
+                dispatch({
+                  type: 'dob',
+                  payload: moment(e).format('YYYY-MM-DD HH:mm:ss'),
+                });
               }}
               renderInput={(params) => (
                 <TextField {...params} helperText={null} />
@@ -298,7 +317,10 @@ const AppointmentForm = ({ close }) => {
               value={value}
               onChange={(e) => {
                 var d = new Date(e);
-                dispatch({ type: 'startTime', payload: moment(e).format('YYYY-MM-DD HH:mm:ss')})
+                dispatch({
+                  type: 'startTime',
+                  payload: moment(e).format('YYYY-MM-DD HH:mm:ss'),
+                });
               }}
               renderInput={(params) => (
                 <TextField {...params} helperText={null} />
@@ -311,21 +333,27 @@ const AppointmentForm = ({ close }) => {
             label="Details *"
             theme={theme}
             multiline
-          // onChange={(e) => {
-          //   setError({ ...error, message: null });
-          //   setFormData({ ...formData, message: e.target.value });
-          // }}
-          // {...(error?.message && {
-          //   error: true,
-          //   helperText: error.message,
-          // })}
+            // onChange={(e) => {
+            //   setError({ ...error, message: null });
+            //   setFormData({ ...formData, message: e.target.value });
+            // }}
+            // {...(error?.message && {
+            //   error: true,
+            //   helperText: error.message,
+            // })}
           />
         </Grid>
         <FlatCreateButton
           text="Comfirm Appointment"
           postion="center"
-          icon={"none"}
-          onClick={()=>handleCreateAppointment({patient: state, setError, close: () => close(false)})}
+          icon={'none'}
+          onClick={() =>
+            handleCreateAppointment({
+              patient: state,
+              setError,
+              close: () => close(false),
+            })
+          }
         />
       </Grid>
     </Box>

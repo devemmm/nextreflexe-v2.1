@@ -16,13 +16,13 @@ import {
   useTheme,
 } from '@mui/material';
 
-import { directPaymentSchema } from '../../validations/payment.validation';
-import ControlledInputs from '../controlledInput';
-import InputFieldFilled from '../InputFieldFilled';
-import ControlledSelectField from '../ControlledSelectField';
-import SelectField from '../SelectField';
 import { useSelector } from 'react-redux';
 import { formatName_surname } from '../../utils/formatName_surname';
+import { directPaymentSchema } from '../../validations/payment.validation';
+import ControlledInputs from '../controlledInput';
+import ControlledSelectField from '../ControlledSelectField';
+import InputFieldFilled from '../InputFieldFilled';
+import SelectField from '../SelectField';
 
 function DirectPaymentModal({ createPayment, openModal, setOpenModal }) {
   const theme = useTheme();
@@ -115,15 +115,17 @@ function DirectPaymentModal({ createPayment, openModal, setOpenModal }) {
             <ControlledSelectField
               input={SelectField}
               defaultValue=""
-              name="patient"
+              name="patientId"
               control={control}
               label="Select a Patient"
               variant="filled"
               sx={{
                 width: '100%',
               }}
-              helperText={errors?.patient ? errors.patient.message : undefined}
-              error={errors?.patient ? true : false}
+              helperText={
+                errors?.patientId ? errors.patientId.message : undefined
+              }
+              error={errors?.patientId ? true : false}
             >
               <MenuItem value="">Select a Patient</MenuItem>
               {patientsData.map(({ id, fname, lname }) => (
@@ -135,15 +137,17 @@ function DirectPaymentModal({ createPayment, openModal, setOpenModal }) {
             <ControlledSelectField
               input={SelectField}
               defaultValue=""
-              name="service"
+              name="serviceId"
               control={control}
               label="Select a Service"
               variant="filled"
               sx={{
                 width: '100%',
               }}
-              helperText={errors?.service ? errors.service.message : undefined}
-              error={errors?.service ? true : false}
+              helperText={
+                errors?.serviceId ? errors.serviceId.message : undefined
+              }
+              error={errors?.serviceId ? true : false}
             >
               <MenuItem value="">Select a Service</MenuItem>
               {servicesData.map(({ id, name }) => {
@@ -156,13 +160,13 @@ function DirectPaymentModal({ createPayment, openModal, setOpenModal }) {
             </ControlledSelectField>
             <ControlledInputs
               input={InputFieldFilled}
-              name="visitID"
+              name="visitId"
               label="Visit ID"
               control={control}
               defaultValue=""
-              {...(errors?.visitID && {
+              {...(errors?.visitId && {
                 error: true,
-                helperText: errors.visitID.message,
+                helperText: errors.visitId.message,
               })}
             />
             <ControlledInputs

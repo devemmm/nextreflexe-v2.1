@@ -1,15 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import ControlledDatePicker from '../ControlledDatePicker';
 import ControlledInputs from '../controlledInput';
 import InputFieldFilled from '../InputFieldFilled';
+import ControlledSelectField from '../ControlledSelectField';
+import SelectField from '../SelectField';
+import { useDispatch, useSelector } from 'react-redux';
+import { MenuItem } from '@mui/material';
+import fetchDoctorsData from '../../utils/fetchDoctorsData';
+import fetchServicesData from '../../utils/fetchServicesData';
+import fetchBranchesData from '../../utils/fetchBranchesData';
 
 function RegisterPatientsStep1({ control, errors }) {
+  const dispatch = useDispatch();
+  const { data: doctors } = useSelector((state) => state.doctorReducer);
+  const { data: branches } = useSelector((state) => state.branchesReducer);
+  const { data: services } = useSelector((state) => state.servicesReducer);
+  useEffect(() => {
+    fetchDoctorsData(dispatch);
+    fetchServicesData(dispatch);
+    fetchBranchesData(dispatch);
+  }, [dispatch]);
   return (
     <>
       <ControlledInputs
-        name="firstName"
+        name="fname"
         control={control}
         input={InputFieldFilled}
         defaultValue=""
@@ -21,7 +37,7 @@ function RegisterPatientsStep1({ control, errors }) {
         })}
       />
       <ControlledInputs
-        name="lastName"
+        name="lname"
         control={control}
         input={InputFieldFilled}
         defaultValue=""
@@ -45,18 +61,6 @@ function RegisterPatientsStep1({ control, errors }) {
         })}
       />
       <ControlledInputs
-        name="password"
-        control={control}
-        input={InputFieldFilled}
-        defaultValue=""
-        label="Password"
-        sx={{ maxWidth: '942px' }}
-        {...(errors?.password && {
-          error: true,
-          helperText: errors.password.message,
-        })}
-      />
-      <ControlledInputs
         name="phone"
         control={control}
         input={InputFieldFilled}
@@ -70,7 +74,7 @@ function RegisterPatientsStep1({ control, errors }) {
         })}
       />
       <ControlledInputs
-        name="nationalId"
+        name="nid"
         control={control}
         input={InputFieldFilled}
         defaultValue=""
@@ -82,7 +86,7 @@ function RegisterPatientsStep1({ control, errors }) {
         })}
       />
       <ControlledDatePicker
-        name="birthDate"
+        name="dob"
         control={control}
         input={InputFieldFilled}
         defaultValue=""
@@ -97,6 +101,69 @@ function RegisterPatientsStep1({ control, errors }) {
           }),
         }}
       />
+      <ControlledSelectField
+        name="branchId"
+        id="branchId"
+        defaultValue=""
+        control={control}
+        input={SelectField}
+        // customOnChange={handleSelectOption}
+        variant="filled"
+        label="Select Branch"
+        sx={{ width: '100%', maxWidth: '942px' }}
+        helperText={errors?.province ? errors.province.message : undefined}
+        error={errors?.province ? true : false}
+      >
+        {branches?.map((branch) => {
+          return (
+            <MenuItem key={branch.id} value={branch.id}>
+              {branch.name}
+            </MenuItem>
+          );
+        })}
+      </ControlledSelectField>
+      <ControlledSelectField
+        name="userId"
+        id="userId"
+        defaultValue=""
+        control={control}
+        input={SelectField}
+        // customOnChange={handleSelectOption}
+        variant="filled"
+        label="Select Doctor"
+        sx={{ width: '100%', maxWidth: '942px' }}
+        helperText={errors?.province ? errors.province.message : undefined}
+        error={errors?.province ? true : false}
+      >
+        {doctors.map((doctor) => {
+          return (
+            <MenuItem key={doctor.id} value={doctor.id}>
+              {doctor.fname} {doctor.lname}
+            </MenuItem>
+          );
+        })}
+      </ControlledSelectField>
+      <ControlledSelectField
+        name="serviceId"
+        id="serviceId"
+        defaultValue=""
+        control={control}
+        input={SelectField}
+        // customOnChange={handleSelectOption}
+        variant="filled"
+        label="Select Service"
+        sx={{ width: '100%', maxWidth: '942px' }}
+        helperText={errors?.province ? errors.province.message : undefined}
+        error={errors?.province ? true : false}
+      >
+        {services.map((service) => {
+          return (
+            <MenuItem key={service.id} value={service.id}>
+              {service.name}
+            </MenuItem>
+          );
+        })}
+      </ControlledSelectField>
     </>
   );
 }

@@ -20,7 +20,7 @@ function AppointmentsDetails({ data: { id, visit } }) {
   let visitID;
   let visitStartTime;
   let visitEndTime;
-
+  console.log(id, visit);
   if (visit)
     ({ startTime: visitStartTime, id: visitID, endTime: visitEndTime } = visit);
   const theme = useTheme();
@@ -102,10 +102,12 @@ function AppointmentsDetails({ data: { id, visit } }) {
         createVisit={(data) => {
           console.log(data, 'start visit in appointment data');
         }}
+        appointmentId={id}
         openModal={openStartVisitModal}
         setOpenModal={setOpenStartVisitModal}
       />
       <ApproveModal
+        visitId={id}
         open={openStatusModal}
         setOpen={setOpenStatusModal}
         title="Status"
@@ -120,3 +122,4 @@ AppointmentsDetails.propType = {
 };
 
 export default AppointmentsDetails;
+

@@ -3,8 +3,12 @@ import React from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  startVisitAction,
+  loadingGetVisitsAction,
+  visitsErrorAction,
+} from '../../redux/reducers/visits.reducer';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import {
   Box,
@@ -17,17 +21,24 @@ import {
   useTheme,
 } from '@mui/material';
 
+import { formatName_surname } from '../../utils/formatName_surname';
 import { startVisitSchema } from '../../validations/appointments.validation';
-import ControlledDatePicker from '../ControlledDatePicker';
+import ControlledInputs from '../controlledInput';
 import ControlledSelectField from '../ControlledSelectField';
 import InputFieldFilled from '../InputFieldFilled';
 import SelectField from '../SelectField';
-import { formatName_surname } from '../../utils/formatName_surname';
+import axiosInstance from '../../axios.instance';
+import { toast } from 'react-toastify';
+import fetchVisitsData from '../../utils/fetchVisitsData';
 
-function StartVisitModal({ createVisit, openModal, setOpenModal }) {
+function StartVisitModal({
+  createVisit,
+  appointmentId,
+  openModal,
+  setOpenModal,
+}) {
   const theme = useTheme();
   const { data: servicesData } = useSelector((state) => state.servicesReducer);
-  const { data: branchesData } = useSelector((state) => state.branchesReducer);
   const { data: usersData } = useSelector((state) => state.doctorReducer);
   const {
     handleSubmit,
@@ -42,7 +53,23 @@ function StartVisitModal({ createVisit, openModal, setOpenModal }) {
     reset();
     setOpenModal(false);
   }
-
+  const dispatch = useDispatch();
+  const handleStartVisit = (data) => {
+    dispatch(loadingGetVisitsAction({}));
+    axiosInstance
+      .post('/visits?appointment=true', data)
+      .then((res) => {
+        console.log(res);
+        dispatch(startVisitAction(res.data));
+        fetchVisitsData(dispatch);
+        toast.success('Visit Successfully Started');
+        closeModal();
+      })
+      .catch((error) => {
+        dispatch(visitsErrorAction(error.response?.data?.message));
+        toast.error(error.response.data.message);
+      });
+  };
   return (
     <Modal
       open={openModal}
@@ -115,35 +142,15 @@ function StartVisitModal({ createVisit, openModal, setOpenModal }) {
             <ControlledSelectField
               input={SelectField}
               defaultValue=""
-              name="branch"
-              control={control}
-              label="Select a Branch"
-              variant="filled"
-              sx={{
-                width: '100%',
-              }}
-              helperText={errors?.branch ? errors.branch.message : undefined}
-              error={errors?.branch ? true : false}
-            >
-              <MenuItem value="">Select a Branch</MenuItem>
-              {branchesData.map((branch) => (
-                <MenuItem key={branch.id} value={branch.id}>
-                  {branch.name}
-                </MenuItem>
-              ))}
-            </ControlledSelectField>
-            <ControlledSelectField
-              input={SelectField}
-              defaultValue=""
-              name="doctor"
+              name="userId"
               control={control}
               label="Select a Doctor"
               variant="filled"
               sx={{
                 width: '100%',
               }}
-              helperText={errors?.doctor ? errors.doctor.message : undefined}
-              error={errors?.doctor ? true : false}
+              helperText={errors?.userId ? errors.userId.message : undefined}
+              error={errors?.userId ? true : false}
             >
               <MenuItem value="">Select a Doctor</MenuItem>
               {usersData.map(({ id, fname, lname }) => (
@@ -152,34 +159,32 @@ function StartVisitModal({ createVisit, openModal, setOpenModal }) {
                 </MenuItem>
               ))}
             </ControlledSelectField>
-            <ControlledDatePicker
-              input={InputFieldFilled}
+            <ControlledInputs
               name="time"
-              defaultValue=""
-              disablePast={true}
               control={control}
-              inputProps={{
-                label: 'Time',
-                width: '100%',
-                ...(errors?.time && {
-                  error: true,
-                  helperText: errors.time.message,
-                }),
-              }}
+              input={InputFieldFilled}
+              defaultValue=""
+              label="Time"
+              sx={{ maxWidth: '942px' }}
+              {...(errors?.time && {
+                error: true,
+                helperText: errors.time.message,
+              })}
             />
-
             <ControlledSelectField
               input={SelectField}
               defaultValue=""
-              name="service"
+              name="serviceId"
               control={control}
               label="Select a Service"
               variant="filled"
               sx={{
                 width: '100%',
               }}
-              helperText={errors?.service ? errors.service.message : undefined}
-              error={errors?.service ? true : false}
+              helperText={
+                errors?.serviceId ? errors.serviceId.message : undefined
+              }
+              error={errors?.serviceId ? true : false}
             >
               <MenuItem value="">Select a Service</MenuItem>
               {servicesData.map(({ id, name }) => {
@@ -195,10 +200,9 @@ function StartVisitModal({ createVisit, openModal, setOpenModal }) {
               color="primary"
               sx={{ fontVariant: 'none', width: '100%' }}
               onClick={(e) => {
-                console.log(e, 'event');
                 handleSubmit(
                   (data) => {
-                    console.log(data);
+                    handleStartVisit({ ...data, appointmentId });
                   },
                   (error) => {
                     console.log(error);

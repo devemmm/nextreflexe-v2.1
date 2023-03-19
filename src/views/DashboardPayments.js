@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Box, Stack } from '@mui/material';
 
@@ -8,13 +8,31 @@ import PaymentsTable from '../components/dashboard-payments/PaymentsTable';
 import FlatCreateButton from '../components/FlatCreateButton';
 import DirectPaymentModal from '../components/dashboard-payments/DirectPaymentModal';
 import PrePaidPaymentModal from '../components/dashboard-payments/PrePaidPaymentModal';
-
+import axiosInstance from '../axios.instance';
+import { toast } from 'react-toastify';
+import {
+  createPaymentAction,
+  paymentsErrorAction,
+} from '../redux/reducers/payments.reducer';
 function DashboardPayments() {
   const [openCreateDirectPayment, setOpenCreateDirectPayment] = useState(false);
   const [openCreatePrePaidPayment, setOpenCreatePrePaidPayment] =
     useState(false);
   const { data, loadingGet } = useSelector((state) => state.paymentsReducer);
-
+  const dispatch = useDispatch();
+  const sendPayment = (data) => {
+    axiosInstance
+      .post(`/payments`, data)
+      .then((res) => {
+        console.log(res);
+        dispatch(createPaymentAction(res.data));
+        toast.success(`Payment success`);
+      })
+      .catch((error) => {
+        dispatch(paymentsErrorAction(error.response?.data?.message));
+        toast.error(error.response.data.message);
+      });
+  };
   return (
     <>
       <Box
@@ -47,7 +65,7 @@ function DashboardPayments() {
       </Box>
       <DirectPaymentModal
         createPayment={(data) => {
-          console.log(data, 'payment data direct');
+          sendPayment(data);
         }}
         openModal={openCreateDirectPayment}
         setOpenModal={setOpenCreateDirectPayment}
@@ -55,6 +73,7 @@ function DashboardPayments() {
       <PrePaidPaymentModal
         createPayment={(data) => {
           console.log(data, 'payment data prepaid');
+          sendPayment(data);
         }}
         openModal={openCreatePrePaidPayment}
         setOpenModal={setOpenCreatePrePaidPayment}

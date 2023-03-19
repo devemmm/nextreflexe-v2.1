@@ -10,6 +10,12 @@ export const paymentsSlice = createSlice({
   name: 'Payments',
   initialState,
   reducers: {
+    createPayment: (state, { payload }) => ({
+      ...state,
+      pending: false,
+      data: payload,
+      error: null,
+    }),
     getPayments: (state, { _, payload }) => ({
       ...state,
       loadingGet: false,
@@ -29,6 +35,7 @@ export const paymentsSlice = createSlice({
 });
 
 export const {
+  createPayment: createPaymentAction,
   getPayments: getPaymentsAction,
   loadingGetPayments: loadingGetPaymentsAction,
   error: paymentsErrorAction,

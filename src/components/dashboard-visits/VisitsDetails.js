@@ -98,6 +98,7 @@ function VisitsDetails({ data: { id, appointment, branch } }) {
         </Box>
       </Box>
       <ApproveModal
+        visitId={id}
         open={openStatusModal}
         setOpen={setOpenStatusModal}
         title="Status"
@@ -112,3 +113,4 @@ VisitsDetails.propTypes = {
 };
 
 export default VisitsDetails;
+

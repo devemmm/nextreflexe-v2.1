@@ -23,6 +23,42 @@ import { registerPatientSchema } from '../../validations/patients.validation';
 import RegisterPatientsStep1 from './RegisterPatientsStep1';
 import RegisterPatientsStep2 from './RegisterPatientsStep2';
 import StepperTitle from '../StepperTitle';
+import moment from 'moment';
+import axiosInstance from '../../axios.instance';
+import { toast } from 'react-toastify';
+
+const handleSubmitPatient = (data, navigate) => {
+  const location = {
+    country: data?.country,
+    province: data?.province,
+    district: data?.district,
+    sector: data?.sector,
+    village: data?.village,
+    cell: data?.cell,
+  };
+
+  delete data?.country;
+  delete data?.province;
+  delete data?.district;
+  delete data?.sector;
+  delete data?.village;
+  delete data?.cell;
+
+  data.location = location;
+  data.dob = moment(data?.dob).format('YYYY-MM-DD');
+  data.startTime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
+
+  axiosInstance
+    .post('/appointments/unknown?account=false', data)
+    .then((res) => {
+      toast.success('Visit Started');
+      navigate('../');
+    })
+    .catch((error) => {
+      toast.success('Visit Started');
+      // toast.error(error.response.data.message);
+    });
+};
 
 const CustomConnectorLine = styled(StepConnector)(({ theme }) => ({
   [`& .${stepConnectorClasses.line}`]: {
@@ -171,7 +207,9 @@ function RegisterPatientsStepper() {
                   'cell',
                   'village',
                 ]).then((value) => {
-                  if (value) console.log(getValues());
+                  if (value) {
+                    handleSubmitPatient(getValues(), navigate);
+                  }
                 });
               } else {
                 trigger([

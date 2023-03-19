@@ -9,9 +9,8 @@ export const createAppointmentSchema = yup.object().shape({
 });
 
 export const startVisitSchema = yup.object().shape({
-  branch: yup.string().required('branch is required'),
-  doctor: yup.string().required('doctor is required'),
+  userId: yup.string().required('doctor is required'),
   time: yup.string().required('time is required'),
-  service: yup.string().required('service is required'),
+  serviceId: yup.string().required('service is required'),
 });
 

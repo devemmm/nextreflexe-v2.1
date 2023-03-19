@@ -1,9 +1,9 @@
 import * as yup from 'yup';
 
 export const directPaymentSchema = yup.object().shape({
-  patient: yup.string().required('patient is required'),
-  service: yup.string().required('service is required'),
-  visitID: yup.string().required('visit ID is required'),
+  patientId: yup.string().required('patient is required'),
+  serviceId: yup.string().required('service is required'),
+  visitId: yup.string().required('visit ID is required'),
   sessionPrice: yup.string().required('Session Price is required'),
   pay: yup.string().required('amount is required'),
   totalSession: yup.string().required('total session paid is required'),

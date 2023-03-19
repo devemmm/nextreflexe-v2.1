@@ -11,14 +11,51 @@ import {
   useTheme,
 } from '@mui/material';
 import { Box } from '@mui/system';
+import { useDispatch } from 'react-redux';
+import {
+  loadingGetVisitsAction,
+  startVisitAction,
+  visitsErrorAction,
+} from '../redux/reducers/visits.reducer';
+import axiosInstance from '../axios.instance';
+import fetchVisitsData from '../utils/fetchVisitsData';
+import { toast } from 'react-toastify';
 
-function ApproveModal({ open, setOpen, message, title }) {
+function ApproveModal({ open, setOpen, message, title, visitId }) {
   const theme = useTheme();
-
+  const dispatch = useDispatch();
   function closeModal() {
     setOpen(false);
   }
+  const updateStatus = (status) => {
+    axiosInstance
+      .patch(`/visits/update/${visitId}`, { status })
+      .then((res) => {
+        console.log(res);
+        dispatch(startVisitAction(res.data));
+        fetchVisitsData(dispatch);
+        toast.success(`Visit has been ${status}`);
+        closeModal();
+      })
+      .catch((error) => {
+        dispatch(visitsErrorAction(error.response?.data?.message));
+        toast.error(error.response.data.message);
+      });
+  };
+  const handleUpdateStatus = (status) => {
+    dispatch(loadingGetVisitsAction({}));
 
+    switch (status) {
+      case 'APPROVED':
+        updateStatus(status);
+        break;
+      case 'FAILED':
+        updateStatus(status);
+        break;
+      default:
+        return;
+    }
+  };
   return (
     <Modal
       open={open}
@@ -99,6 +136,7 @@ function ApproveModal({ open, setOpen, message, title }) {
                 borderRadius: '0px',
                 fontVariant: 'none',
               }}
+              onClick={() => handleUpdateStatus('FAILED')}
             >
               Reject
             </Button>
@@ -109,6 +147,7 @@ function ApproveModal({ open, setOpen, message, title }) {
                 borderRadius: '0px',
                 fontVariant: 'none',
               }}
+              onClick={() => handleUpdateStatus('APPROVED')}
             >
               Approve
             </Button>
