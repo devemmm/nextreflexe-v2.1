@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Button, Stack, Typography } from '@mui/material';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 
-function FlatCreateButton({ text, icon: Icon = AddRoundedIcon, sx, ...props }) {
+function FlatCreateButton({ text, icon: Icon = AddRoundedIcon, sx, postion, icon, ...props }) {
   return (
     <Button
       variant="contained"
@@ -13,19 +13,26 @@ function FlatCreateButton({ text, icon: Icon = AddRoundedIcon, sx, ...props }) {
       sx={{
         paddingY: '10px',
         marginY: '10px',
-        marginLeft: 'auto',
+        marginLeft: postion === "center" ? '45%' : 'auto',
         borderRadius: '0px',
         ...sx,
       }}
       {...props}
     >
       <Stack direction="row" alignItems="center">
-        <Icon
-          sx={{
-            color: 'white',
-            padding: 0,
-          }}
-        />
+        {
+          icon === "none" ? (
+            null
+          ) : (
+            <Icon
+              sx={{
+                color: 'white',
+                padding: 0,
+              }}
+            />
+          )
+        }
+
         <Typography
           sx={{
             fontFamily: 'Titillium Web',
