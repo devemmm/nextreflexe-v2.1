@@ -1,33 +1,19 @@
 import React from 'react';
-
 import { yupResolver } from '@hookform/resolvers/yup';
-import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
-
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import {
-  Box,
-  Button,
-  IconButton,
-  MenuItem,
-  Modal,
-  Stack,
-  Typography,
-  useTheme,
-} from '@mui/material';
-
 import { useSelector } from 'react-redux';
-import { formatName_surname } from '../../utils/formatName_surname';
+import PropTypes from 'prop-types';
+import { Box, Button, IconButton, MenuItem, Modal, Stack, Typography, useTheme } from '@mui/material';
 import { directPaymentSchema } from '../../validations/payment.validation';
-import ControlledInputs from '../controlledInput';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ControlledSelectField from '../ControlledSelectField';
 import InputFieldFilled from '../InputFieldFilled';
+import ControlledInputs from '../controlledInput';
 import SelectField from '../SelectField';
 
 function DirectPaymentModal({ createPayment, openModal, setOpenModal }) {
   const theme = useTheme();
   const { data: servicesData } = useSelector((state) => state.servicesReducer);
-  const { data: patientsData } = useSelector((state) => state.patientsReducer);
   const {
     handleSubmit,
     control,
@@ -112,28 +98,7 @@ function DirectPaymentModal({ createPayment, openModal, setOpenModal }) {
             padding={0}
             gap="10px"
           >
-            <ControlledSelectField
-              input={SelectField}
-              defaultValue=""
-              name="patientId"
-              control={control}
-              label="Select a Patient"
-              variant="filled"
-              sx={{
-                width: '100%',
-              }}
-              helperText={
-                errors?.patientId ? errors.patientId.message : undefined
-              }
-              error={errors?.patientId ? true : false}
-            >
-              <MenuItem value="">Select a Patient</MenuItem>
-              {patientsData.map(({ id, fname, lname }) => (
-                <MenuItem key={id} value={id}>
-                  {formatName_surname(fname, lname)}
-                </MenuItem>
-              ))}
-            </ControlledSelectField>
+            
             <ControlledSelectField
               input={SelectField}
               defaultValue=""
@@ -158,17 +123,6 @@ function DirectPaymentModal({ createPayment, openModal, setOpenModal }) {
                 );
               })}
             </ControlledSelectField>
-            <ControlledInputs
-              input={InputFieldFilled}
-              name="visitId"
-              label="Visit ID"
-              control={control}
-              defaultValue=""
-              {...(errors?.visitId && {
-                error: true,
-                helperText: errors.visitId.message,
-              })}
-            />
             <ControlledInputs
               input={InputFieldFilled}
               name="sessionPrice"

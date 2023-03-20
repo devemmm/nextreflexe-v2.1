@@ -1,33 +1,19 @@
 import React from 'react';
-
-import { yupResolver } from '@hookform/resolvers/yup';
-import PropTypes from 'prop-types';
-import { useForm } from 'react-hook-form';
-
+import { Box, Button, IconButton, MenuItem,Modal, Stack, Typography, useTheme } from '@mui/material';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import {
-  Box,
-  Button,
-  IconButton,
-  MenuItem,
-  Modal,
-  Stack,
-  Typography,
-  useTheme,
-} from '@mui/material';
-
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import PropTypes from 'prop-types';
 import { prePaidPaymentSchema } from '../../validations/payment.validation';
-import ControlledInputs from '../controlledInput';
-import InputFieldFilled from '../InputFieldFilled';
 import ControlledSelectField from '../ControlledSelectField';
+import InputFieldFilled from '../InputFieldFilled';
+import ControlledInputs from '../controlledInput';
 import SelectField from '../SelectField';
 import { useSelector } from 'react-redux';
-import { formatName_surname } from '../../utils/formatName_surname';
 
 function PrePaidPaymentModal({ createPayment, openModal, setOpenModal }) {
   const theme = useTheme();
   const { data: servicesData } = useSelector((state) => state.servicesReducer);
-  const { data: patientsData } = useSelector((state) => state.patientsReducer);
   const {
     handleSubmit,
     control,
@@ -41,7 +27,6 @@ function PrePaidPaymentModal({ createPayment, openModal, setOpenModal }) {
     reset();
     setOpenModal(false);
   }
-
   return (
     <Modal
       open={openModal}
@@ -115,27 +100,7 @@ function PrePaidPaymentModal({ createPayment, openModal, setOpenModal }) {
             <ControlledSelectField
               input={SelectField}
               defaultValue=""
-              name="patient"
-              control={control}
-              label="Select a Patient"
-              variant="filled"
-              sx={{
-                width: '100%',
-              }}
-              helperText={errors?.patient ? errors.patient.message : undefined}
-              error={errors?.patient ? true : false}
-            >
-              <MenuItem value="">Select a Patient</MenuItem>
-              {patientsData.map(({ id, fname, lname }) => (
-                <MenuItem key={id} value={id}>
-                  {formatName_surname(fname, lname)}
-                </MenuItem>
-              ))}
-            </ControlledSelectField>
-            <ControlledSelectField
-              input={SelectField}
-              defaultValue=""
-              name="service"
+              name="serviceId"
               control={control}
               label="Select a Service"
               variant="filled"
@@ -180,11 +145,23 @@ function PrePaidPaymentModal({ createPayment, openModal, setOpenModal }) {
             >
               <MenuItem value="">Select a Status</MenuItem>
               <MenuItem value="PAY">Pay</MenuItem>
+              <MenuItem value="BEFORE">Before</MenuItem>
               <MenuItem value="AFTER">After</MenuItem>
               <MenuItem value="INSUFFICIENT_FOUND">
                 Insufficient Founds
               </MenuItem>
             </ControlledSelectField>
+            {/* <ControlledInputs
+              input={InputFieldFilled}
+              name="pay"
+              label="Amount"
+              control={control}
+              defaultValue=""
+              {...(errors?.sessionPrice && {
+                error: true,
+                helperText: errors.sessionPrice.message,
+              })}
+            /> */}
             <Button
               variant="contained"
               color="primary"
