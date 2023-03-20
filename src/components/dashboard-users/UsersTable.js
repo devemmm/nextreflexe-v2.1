@@ -89,16 +89,7 @@ const Row = ({
 
 function UsersTable({ datas, loadingGet, ...props }) {
   if (datas && datas.length !== 0) {
-    datas = [
-      ...datas,
-      ...datas,
-      ...datas,
-      ...datas,
-      ...datas,
-      ...datas,
-      ...datas,
-      ...datas,
-    ];
+    datas = [ ...datas ];
   }
   return (
     <>
