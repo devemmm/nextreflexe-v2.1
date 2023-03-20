@@ -46,7 +46,7 @@ function ApproveModal({ open, setOpen, message, title, visitId }) {
     dispatch(loadingGetVisitsAction({}));
 
     switch (status) {
-      case 'APPROVED':
+      case 'SUCCESS':
         updateStatus(status);
         break;
       case 'FAILED':
@@ -147,7 +147,7 @@ function ApproveModal({ open, setOpen, message, title, visitId }) {
                 borderRadius: '0px',
                 fontVariant: 'none',
               }}
-              onClick={() => handleUpdateStatus('APPROVED')}
+              onClick={() => handleUpdateStatus('SUCCESS')}
             >
               Approve
             </Button>
