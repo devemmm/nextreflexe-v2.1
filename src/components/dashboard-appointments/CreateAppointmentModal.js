@@ -4,44 +4,22 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import {
-  Box,
-  Button,
-  IconButton,
-  MenuItem,
-  Modal,
-  Stack,
-  Typography,
-  useTheme,
-} from '@mui/material';
-
+import { Box, Button, IconButton, MenuItem, Modal, Stack, Typography, useTheme } from '@mui/material';
 import { createAppointmentSchema } from '../../validations/appointments.validation';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ControlledDatePicker from '../ControlledDatePicker';
 import ControlledSelectField from '../ControlledSelectField';
 import InputFieldFilled from '../InputFieldFilled';
 import SelectField from '../SelectField';
 import { formatName_surname } from '../../utils/formatName_surname';
 
-function CreateAppointmentModal({
-  createAppointment,
-  openModal,
-  setOpenModal,
-}) {
+const CreateAppointmentModal = ({ createAppointment, openModal, setOpenModal, disableSelectPatient }) => {
   const theme = useTheme();
   const { data: servicesData } = useSelector((state) => state.servicesReducer);
   const { data: branchesData } = useSelector((state) => state.branchesReducer);
   const { data: usersData } = useSelector((state) => state.doctorReducer);
   const { data: patientsData } = useSelector((state) => state.patientsReducer);
-  const {
-    handleSubmit,
-    control,
-    reset,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(createAppointmentSchema),
-  });
+  const { handleSubmit, control, reset, formState: { errors } } = useForm({ resolver: yupResolver(createAppointmentSchema) });
 
   function closeModal() {
     reset();
@@ -136,7 +114,7 @@ function CreateAppointmentModal({
             <ControlledSelectField
               input={SelectField}
               defaultValue=""
-              name="branch"
+              name="branchId"
               control={control}
               label="Select a Branch"
               variant="filled"
@@ -153,30 +131,38 @@ function CreateAppointmentModal({
                 </MenuItem>
               ))}
             </ControlledSelectField>
+
+            {
+              disableSelectPatient ? (
+                null
+              ) : (
+                <ControlledSelectField
+                  input={SelectField}
+                  defaultValue=""
+                  name="patient"
+                  control={control}
+                  label="Select a Patient"
+                  variant="filled"
+                  sx={{
+                    width: '100%',
+                  }}
+                  helperText={errors?.patient ? errors.patient.message : undefined}
+                  error={errors?.patient ? true : false}
+                >
+                  <MenuItem value="">Select a Patient</MenuItem>
+                  {patientsData.map(({ id, fname, lname }) => (
+                    <MenuItem key={id} value={id}>
+                      {formatName_surname(fname, lname)}
+                    </MenuItem>
+                  ))}
+                </ControlledSelectField>
+              )
+            }
+
             <ControlledSelectField
               input={SelectField}
               defaultValue=""
-              name="patient"
-              control={control}
-              label="Select a Patient"
-              variant="filled"
-              sx={{
-                width: '100%',
-              }}
-              helperText={errors?.patient ? errors.patient.message : undefined}
-              error={errors?.patient ? true : false}
-            >
-              <MenuItem value="">Select a Patient</MenuItem>
-              {patientsData.map(({ id, fname, lname }) => (
-                <MenuItem key={id} value={id}>
-                  {formatName_surname(fname, lname)}
-                </MenuItem>
-              ))}
-            </ControlledSelectField>
-            <ControlledSelectField
-              input={SelectField}
-              defaultValue=""
-              name="doctor"
+              name="userId"
               control={control}
               label="Select a Doctor"
               variant="filled"
@@ -196,7 +182,7 @@ function CreateAppointmentModal({
             <ControlledSelectField
               input={SelectField}
               defaultValue=""
-              name="service"
+              name="serviceId"
               control={control}
               label="Select a Service"
               variant="filled"
@@ -220,7 +206,6 @@ function CreateAppointmentModal({
               color="primary"
               sx={{ fontVariant: 'none', width: '100%' }}
               onClick={(e) => {
-                // console.log(e, 'event');
                 handleSubmit(createAppointment)(e);
               }}
             >

@@ -3,18 +3,12 @@ import PropTypes from 'prop-types';
 
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker"
+
 
 import { Controller } from 'react-hook-form';
 
-const ControlledDatePicker = ({
-  name,
-  control,
-  defaultValue,
-  input: Input,
-  inputProps,
-  ...props
-}) => {
+const ControlledDatePicker = ({ name, control, defaultValue, input: Input, inputProps, ...props }) => {
   return (
     <Controller
       name={name}
@@ -22,10 +16,11 @@ const ControlledDatePicker = ({
       defaultValue={defaultValue}
       render={({ field: { onChange, value } }) => (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DatePicker
+          <DateTimePicker
             value={value}
             onChange={onChange}
             {...props}
+            defaultValue = {'2022-04-17T15:30'}
             renderInput={({
               inputRef,
               inputProps: renderInputProps,

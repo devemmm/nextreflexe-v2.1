@@ -1,31 +1,39 @@
-import React from 'react';
-
+import React, { useState } from 'react';
 import { Box, Stack, styled, useTheme } from '@mui/material';
 import DetailsBody from '../DetailsBody';
 import DetailsHeader from '../DetailsHeader';
 import DetailsTitle from '../DetailsTitle';
+import FlatCreateButton from '../FlatCreateButton';
+
+import CreateAppointmentModal from '../../components/dashboard-appointments/CreateAppointmentModal';
+import { toast } from 'react-toastify';
+import axiosInstance from '../../axios.instance';
+import moment from 'moment';
+
 
 const CustomStack = styled(Stack)(({ theme }) => ({
   width: '100%',
   height: 'max-content',
 }));
 
-function PatientsDetails({
-  data: {
-    id,
-    fname,
-    lname,
-    avatar,
-    emailVerified,
-    phoneVerified,
-    diagnosis,
-    observations,
-    location,
-  },
-}) {
+const PatientsDetails = ({ data: { id, fname, lname, avatar, emailVerified, phoneVerified, diagnosis, observations, location } }) => {
   const theme = useTheme();
   const { country, province, district, sector, cell, village } = location;
+  const [openCreateModal, setOpenCreateModal] = useState(false);
 
+  function createAppointment(data) {
+    data.patientId = id
+    data.startTime = moment(data?.startTime).format('YYYY-MM-DD HH:mm:ss');
+    axiosInstance
+      .post('/appointments', data)
+      .then((res) => {
+        toast.success('making appointment successful');
+        setOpenCreateModal(false)
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+      });
+  }
   return (
     <Box
       sx={{
@@ -35,18 +43,35 @@ function PatientsDetails({
         height: 'max-content',
       }}
     >
-      {/* <DetailsHeader text="Additional Actions" />
+      {/* <DetailsHeader text="Additional Actions" /> */}
       <Box
+        sx={{ paddingLeft: '20px', paddingTop: '20px', paddingBottom: '20px', alignSelf: 'center' }}
+      >
+        <FlatCreateButton
+          text="Make an Appointment"
+          onClick={() => {
+            setOpenCreateModal(true);
+          }}
+        />
+      </Box>
+      {/* <Box
         sx={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-          width: '100%',
-          border: `1px solid ${theme.palette.primary.main}`,
+          width: '30%',
+          border: `1px solid ${'orange'}`,
+          alignSelf: 'center'
         }}
       >
-        <Box>
-          <DetailsTitle text="Click here to make an appointment for this user" />
-          <FlatCreateButton />
+        <Box 
+          sx={{paddingLeft: '20px', paddingTop: '20px', paddingBottom: '20px', alignSelf: 'center'}}
+        >
+          <FlatCreateButton
+            text="Make an Appointment"
+            onClick={() => {
+              // setOpenCreateModal(true);
+            }}
+          />
         </Box>
       </Box> */}
       <DetailsHeader />
@@ -60,6 +85,7 @@ function PatientsDetails({
           gap: '2px',
         }}
       >
+
         <Box
           component="img"
           src={avatar}
@@ -73,6 +99,7 @@ function PatientsDetails({
             gridRow: '1/span 4',
           }}
         />
+
         <CustomStack>
           <DetailsTitle text="ID" />
           <DetailsBody text={id} />
@@ -142,6 +169,12 @@ function PatientsDetails({
             <DetailsBody text={`${index}.  ${obs.toString()}`} />
           ))}
       </Box>
+      <CreateAppointmentModal
+        openModal={openCreateModal}
+        setOpenModal={setOpenCreateModal}
+        createAppointment={createAppointment}
+        disableSelectPatient={true}
+      />
     </Box>
   );
 }

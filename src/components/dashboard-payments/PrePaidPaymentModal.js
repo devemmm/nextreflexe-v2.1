@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, IconButton, MenuItem,Modal, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Button, IconButton, MenuItem, Modal, Stack, Typography, useTheme } from '@mui/material';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
@@ -18,10 +18,12 @@ function PrePaidPaymentModal({ createPayment, openModal, setOpenModal }) {
     handleSubmit,
     control,
     reset,
+    getValues,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(prePaidPaymentSchema),
   });
+  const { status } = getValues();
 
   function closeModal() {
     reset();
@@ -151,22 +153,30 @@ function PrePaidPaymentModal({ createPayment, openModal, setOpenModal }) {
                 Insufficient Founds
               </MenuItem>
             </ControlledSelectField>
-            {/* <ControlledInputs
-              input={InputFieldFilled}
-              name="pay"
-              label="Amount"
-              control={control}
-              defaultValue=""
-              {...(errors?.sessionPrice && {
-                error: true,
-                helperText: errors.sessionPrice.message,
-              })}
-            /> */}
+            {
+              
+              status === "INSUFFICIENT_FOUND" ? (
+                <ControlledInputs
+                  input={InputFieldFilled}
+                  name="pay"
+                  label="Amount"
+                  control={control}
+                  defaultValue=""
+                  {...(errors?.sessionPrice && {
+                    error: true,
+                    helperText: errors.sessionPrice.message,
+                  })}
+                />
+              ) : (
+                null
+              )
+            }
+
             <Button
               variant="contained"
               color="primary"
               sx={{ fontVariant: 'none', width: '100%' }}
-              onClick={(e) => {
+              onClick={(e) => { 
                 handleSubmit(createPayment)(e);
               }}
             >
