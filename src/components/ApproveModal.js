@@ -29,7 +29,7 @@ function ApproveModal({ open, setOpen, message, title, visitId }) {
   }
   const updateStatus = (status) => {
     axiosInstance
-      .patch(`/visits/update/${visitId}`, { status })
+      .patch(`/visits/${visitId}`, { status })
       .then((res) => {
         console.log(res);
         dispatch(startVisitAction(res.data));
