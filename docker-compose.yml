@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
 
-  yocast-api:
+  genuine_kunga_therapy:
     image: nextreflexe:local
 
     restart: always
