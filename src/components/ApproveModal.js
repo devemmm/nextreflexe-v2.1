@@ -21,20 +21,20 @@ import axiosInstance from '../axios.instance';
 import fetchVisitsData from '../utils/fetchVisitsData';
 import { toast } from 'react-toastify';
 
-function ApproveModal({ open, setOpen, message, title, visitId }) {
+function ApproveModal({ open, setOpen, message, title, visitId, type }) {
   const theme = useTheme();
   const dispatch = useDispatch();
   function closeModal() {
     setOpen(false);
   }
   const updateStatus = (status) => {
+    console.log({visitId})
     axiosInstance
-      .patch(`/visits/${visitId}`, { status })
+      .patch(`/${type === "appointment" ? "appointments": "visits"}/${visitId}`, { status })
       .then((res) => {
-        console.log(res);
         dispatch(startVisitAction(res.data));
         fetchVisitsData(dispatch);
-        toast.success(`Visit has been ${status}`);
+        toast.success(`${type === "appointment" ? "appointment": "visit"} has been ${status}`);
         closeModal();
       })
       .catch((error) => {

@@ -69,6 +69,7 @@ const Row = ({ data, setOpenDeleteModal, setId }) => {
             onClick={() => {
               setShowDetails(!showDetails);
             }}
+            
           >
             {showDetails ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
@@ -80,6 +81,7 @@ const Row = ({ data, setOpenDeleteModal, setId }) => {
           text={fnameP && lnameP && formatName_surname(fnameP, lnameP)}
         />
         <ThinTableBodyCell
+          type="therapist"
           text={fnameD && lnameD && formatName_surname(fnameD, lnameD)}
         />
         <ThinTableBodyCell text={branchName} />

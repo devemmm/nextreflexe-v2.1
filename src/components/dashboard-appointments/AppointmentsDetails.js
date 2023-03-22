@@ -112,6 +112,7 @@ function AppointmentsDetails({ data: { id, visit } }) {
         setOpen={setOpenStatusModal}
         title="Status"
         message="Approve or Reject this appointment"
+        type="appointment"
       />
     </>
   );
