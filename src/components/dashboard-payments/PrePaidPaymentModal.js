@@ -146,12 +146,12 @@ function PrePaidPaymentModal({ createPayment, openModal, setOpenModal }) {
               error={errors?.status ? true : false}
             >
               <MenuItem value="">Select a Status</MenuItem>
-              <MenuItem value="PAY">Pay</MenuItem>
+              {/* <MenuItem value="PAY">Pay</MenuItem> */}
               <MenuItem value="BEFORE">Before</MenuItem>
-              <MenuItem value="AFTER">After</MenuItem>
+              {/* <MenuItem value="AFTER">After</MenuItem>
               <MenuItem value="INSUFFICIENT_FOUND">
                 Insufficient Founds
-              </MenuItem>
+              </MenuItem> */}
             </ControlledSelectField>
             {
               

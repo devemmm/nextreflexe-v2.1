@@ -191,7 +191,6 @@ function DirectPaymentModal({ createPayment, openModal, setOpenModal }) {
             >
               <MenuItem value="">Select a Status</MenuItem>
               <MenuItem value="PAY">Pay</MenuItem>
-              <MenuItem value="AFTER">After</MenuItem>
               <MenuItem value="INSUFFICIENT_FOUND">
                 Insufficient Founds
               </MenuItem>
