@@ -1,0 +1,10 @@
+version: '3.1'
+
+services:
+
+  genuine_kunga_therapy:
+    image: nextreflexe:local
+
+    restart: always
+    ports:
+      - "9090:80"
