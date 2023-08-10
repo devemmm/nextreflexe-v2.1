@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 
 import { Box } from '@mui/material';
 
-import AppointmentsTable from '../components/dashboard-appointments/AppointmentsTable';
-import CreateAppointmentModal from '../components/dashboard-appointments/CreateAppointmentModal';
+import AppointmentsTable from '../components/dashboard-appointment/AppointmentsTable';
+import CreateAppointmentModal from '../components/dashboard-appointment/CreateAppointmentModal';
 import DashboardHeader from '../components/DashboardHeader';
 import FlatCreateButton from '../components/FlatCreateButton';
 import Search from '../components/Search';
@@ -15,10 +15,17 @@ function DashboardAppointments() {
   const { data, loadingGet } = useSelector(
     (state) => state.appointmentsReducer,
   );
-  const [filteredData, setFilteredData] = useState([])
+  const [filteredData, setFilteredData] = useState([]);
   function searchFunc(searchKey) {
-    let result = data.filter(item => item.patient.nid.includes(searchKey) || item.patient.fname.includes(searchKey) || item.patient.lname.includes(searchKey) || item.patient.email.includes(searchKey) || item.patient.phone.includes(searchKey))
-    setFilteredData(result)
+    let result = data.filter(
+      (item) =>
+        item.patient.nid.includes(searchKey) ||
+        item.patient.fname.includes(searchKey) ||
+        item.patient.lname.includes(searchKey) ||
+        item.patient.email.includes(searchKey) ||
+        item.patient.phone.includes(searchKey),
+    );
+    setFilteredData(result);
     // dispatch(getDataAction());
   }
 
@@ -45,7 +52,10 @@ function DashboardAppointments() {
         />
         <Search searchFunc={searchFunc} />
 
-        <AppointmentsTable datas={filteredData.length === 0 ? data : filteredData} loadingGet={loadingGet} />
+        <AppointmentsTable
+          datas={filteredData.length === 0 ? data : filteredData}
+          loadingGet={loadingGet}
+        />
         <CreateAppointmentModal
           openModal={openCreateModal}
           setOpenModal={setOpenCreateModal}
@@ -57,3 +67,4 @@ function DashboardAppointments() {
 }
 
 export default DashboardAppointments;
+
