@@ -17,6 +17,7 @@ import DetailsHeader from '../DetailsHeader';
 import ApproveModal from '../ApproveModal';
 import DetailsTitle from '../DetailsTitle';
 import DetailsBody from '../DetailsBody';
+import fetchPaymentsData from '../../utils/fetchPaymentsData';
 
 const CustomStack = styled(Stack)(({ theme }) => ({
   width: '100%',
@@ -54,6 +55,7 @@ function VisitsDetails({
         toast.success(`Payment success`);
         setOpenCreateDirectPayment(false);
         setOpenCreatePrePaidPayment(false);
+        fetchPaymentsData(dispatch);
       })
       .catch((error) => {
         dispatch(paymentsErrorAction(error.response?.data?.message));

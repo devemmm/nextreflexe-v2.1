@@ -47,17 +47,16 @@ const handleSubmitPatient = (data, navigate) => {
 
   data.location = location;
   data.dob = moment(data?.dob).format('YYYY-MM-DD');
-  data.startTime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss');
-
+  data.password = '@default';
   axiosInstance
-    .post('/appointments/unknown?account=false', data)
+    .post('/patients', data)
     .then((res) => {
-      toast.success('Visit Started');
+      toast.success('Patient registered successfully');
       navigate('../');
     })
     .catch((error) => {
-      toast.success('Visit Started');
-      // toast.error(error.response.data.message);
+      toast.error('Error occured while registering patient');
+      console.error(error);
     });
 };
 
@@ -97,9 +96,6 @@ const StepperButton = ({
     </Button>
   );
 };
-// const registerPatient = (data) => {
-//   console.log(data);
-// };
 
 function RegisterPatientsStepper() {
   const navigate = useNavigate();
@@ -110,26 +106,6 @@ function RegisterPatientsStepper() {
     trigger,
     formState: { errors },
   } = useForm({
-    defaultValues: {
-      country: '',
-      province: '',
-      district: '',
-      sector: '',
-      village: '',
-      cell: '',
-      name: '',
-      gender: '',
-      dob: '',
-      phone: '',
-      phoneNumber: '',
-      email: '',
-      address: '',
-      firstName: '',
-      lastName: '',
-      password: '',
-      birthDate: '',
-      nationalId: '',
-    },
     resolver: yupResolver(registerPatientSchema),
   });
 
@@ -237,13 +213,12 @@ function RegisterPatientsStepper() {
                 });
               } else {
                 trigger([
-                  'firstName',
-                  'lastName',
+                  'fname',
+                  'lname',
                   'email',
-                  'password',
-                  'birthDate',
+                  'dob',
                   'phone',
-                  'nationalId',
+                  'nid',
                 ]).then((value) => {
                   if (value) {
                     setActiveStep((state) => state + 1);

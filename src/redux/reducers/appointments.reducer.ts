@@ -22,6 +22,16 @@ export const appointmentsSlice = createSlice({
       loadingGet: false,
       pending: true,
     }),
+    pendingCreateAppointment: (state) => ({
+      ...state,
+      pending: true,
+    }),
+    createAppointment: (state, { payload }) => ({
+      ...state,
+      pending: false,
+      data: payload,
+      error: null,
+    }),
     deleteAppointment: (state, { payload }) => ({
       ...state,
       error: null,
@@ -45,6 +55,8 @@ export const appointmentsSlice = createSlice({
 export const {
   getAppointments: getAppointmentsAction,
   loadingGetAppointments: loadingGetAppointmentsAction,
+  pendingCreateAppointment: pendingCreateAppointmentAction,
+  createAppointment: createAppointmentAction,
   pendingDeleteAppointment: pendingDeleteAppointmentAction,
   deleteAppointment: deleteAppointmentAction,
   error: appointmentsErrorAction,

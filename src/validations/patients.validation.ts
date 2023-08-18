@@ -6,18 +6,27 @@ export const registerPatientSchema = yup.object().shape({
   lname: yup.string().required('last name is required'),
   email: yup
     .string()
+    .transform((curr, orig) => (orig === '' ? null : curr))
     .matches(emailRegexPattern, 'invalid email')
-    .required('email is required'),
+    .nullable(),
+  // .required('email is required'),
   phone: yup
     .string()
+    .transform((curr, orig) => (orig === '' ? null : curr))
     .min(10, 'invalid phone number')
-    .max(13, 'invalid phone number')
-    .required('phone number is required'),
+    .max(10, 'invalid phone number')
+    .nullable(),
+  // .required('phone number is required'),
   password: yup.string().required('password is required'),
   nid: yup
     .string()
+    .transform((curr, orig) => (orig === '' ? null : curr))
     .length(16, 'invalid national ID')
-    .required('national Id is required'),
+    .nullable(),
+  // .required('national Id is required'),
+  // branchId: yup.string().required('branch is required'),
+  // userId: yup.string().required('doctor is required'),
+  // serviceId: yup.string().required('service is required'),
   dob: yup.string().required('birth date is required'),
   country: yup.string().required('country is required'),
   province: yup.string().required('province is required'),

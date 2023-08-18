@@ -53,6 +53,7 @@ export default function Signin() {
       .post('/users/signin', data)
       .then((res) => {
         localStorage.setItem('userCredentials', JSON.stringify(res.data.data));
+        console.log(res);
         dispatch(signInUserAction(res.data));
         navigate('/dashboard');
       })

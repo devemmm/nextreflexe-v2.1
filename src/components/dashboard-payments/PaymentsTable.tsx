@@ -160,7 +160,7 @@ function PaymentsTable({ datas, loadingGet, ...props }) {
                 </TableHead>
                 <TableBody>
                   {filteredData.length === 0
-                    ? datas.map((data, index) => {
+                    ? datas?.map((data, index) => {
                         return <Row key={data.id + ' ' + index} data={data} />;
                       })
                     : filteredData.map((data: any, index) => {
