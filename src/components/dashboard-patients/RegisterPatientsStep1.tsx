@@ -31,9 +31,9 @@ function RegisterPatientsStep1({ control, errors }) {
         defaultValue=""
         label="First Name"
         sx={{ maxWidth: '942px' }}
-        {...(errors?.firstName && {
+        {...(errors?.fname && {
           error: true,
-          helperText: errors.firstName.message,
+          helperText: errors.fname.message,
         })}
       />
       <ControlledInputs
@@ -43,9 +43,9 @@ function RegisterPatientsStep1({ control, errors }) {
         defaultValue=""
         label="Last Name"
         sx={{ maxWidth: '942px' }}
-        {...(errors?.lastName && {
+        {...(errors?.lname && {
           error: true,
-          helperText: errors.lastName.message,
+          helperText: errors.lname.message,
         })}
       />
       <ControlledInputs
@@ -80,9 +80,9 @@ function RegisterPatientsStep1({ control, errors }) {
         defaultValue=""
         label="National ID"
         sx={{ maxWidth: '942px' }}
-        {...(errors?.nationalId && {
+        {...(errors?.nid && {
           error: true,
-          helperText: errors.nationalId.message,
+          helperText: errors.nid.message,
         })}
       />
       <ControlledDatePicker
@@ -95,13 +95,13 @@ function RegisterPatientsStep1({ control, errors }) {
           label: 'Birth Date',
           sx: { maxWidth: '942px' },
           inputMode: 'string',
-          ...(errors?.birthDate && {
+          ...(errors?.dob && {
             error: true,
-            helperText: errors.birthDate.message,
+            helperText: errors?.dob?.message,
           }),
         }}
       />
-      <ControlledSelectField
+      {/* <ControlledSelectField
         name="branchId"
         id="branchId"
         defaultValue=""
@@ -111,8 +111,8 @@ function RegisterPatientsStep1({ control, errors }) {
         variant="filled"
         label="Select Branch"
         sx={{ width: '100%', maxWidth: '942px' }}
-        helperText={errors?.province ? errors.province.message : undefined}
-        error={errors?.province ? true : false}
+        helperText={errors?.branchId ? errors?.branchId?.message : undefined}
+        error={errors?.branchId ? true : false}
       >
         {branches?.map((branch) => {
           return (
@@ -132,8 +132,8 @@ function RegisterPatientsStep1({ control, errors }) {
         variant="filled"
         label="Select Doctor"
         sx={{ width: '100%', maxWidth: '942px' }}
-        helperText={errors?.province ? errors.province.message : undefined}
-        error={errors?.province ? true : false}
+        helperText={errors?.userId ? errors?.userId?.message : undefined}
+        error={errors?.userId ? true : false}
       >
         {doctors.map((doctor) => {
           return (
@@ -153,8 +153,8 @@ function RegisterPatientsStep1({ control, errors }) {
         variant="filled"
         label="Select Service"
         sx={{ width: '100%', maxWidth: '942px' }}
-        helperText={errors?.province ? errors.province.message : undefined}
-        error={errors?.province ? true : false}
+        helperText={errors?.serviceId ? errors.serviceId.message : undefined}
+        error={errors?.serviceId ? true : false}
       >
         {services.map((service) => {
           return (
@@ -163,7 +163,7 @@ function RegisterPatientsStep1({ control, errors }) {
             </MenuItem>
           );
         })}
-      </ControlledSelectField>
+      </ControlledSelectField> */}
     </>
   );
 }

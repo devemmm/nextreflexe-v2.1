@@ -30,7 +30,6 @@ const PatientsDetails = ({
   },
 }: any) => {
   const theme = useTheme();
-  const { country, province, district, sector, cell, village } = location;
   const [openCreateModal, setOpenCreateModal] = useState(false);
 
   function createAppointment(data: any) {
@@ -142,27 +141,27 @@ const PatientsDetails = ({
         </CustomStack>
         <CustomStack>
           <DetailsTitle text="Country" />
-          <DetailsBody text={country} />
+          <DetailsBody text={location?.country} />
         </CustomStack>
         <CustomStack>
           <DetailsTitle text="Province" />
-          <DetailsBody text={province} />
+          <DetailsBody text={location?.province} />
         </CustomStack>
         <CustomStack>
           <DetailsTitle text="District" />
-          <DetailsBody text={district} />
+          <DetailsBody text={location?.district} />
         </CustomStack>
         <CustomStack>
           <DetailsTitle text="Sector" />
-          <DetailsBody text={sector} />
+          <DetailsBody text={location?.sector} />
         </CustomStack>
         <CustomStack>
           <DetailsTitle text="Cell" />
-          <DetailsBody text={cell} />
+          <DetailsBody text={location?.cell} />
         </CustomStack>
         <CustomStack>
           <DetailsTitle text="Village" />
-          <DetailsBody text={village} />
+          <DetailsBody text={location?.village} />
         </CustomStack>
       </Box>
       <Box
