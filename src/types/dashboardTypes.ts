@@ -26,3 +26,64 @@ export interface ObjectType {
   [key: string]: any;
 }
 
+export interface VisitProps{
+    id: number;
+        startTime: string;
+        endTime: string;
+        status: string;
+        createdAt: string;
+        updatedAt: string;
+        appointmentId: number;
+        patientId: number;
+        branchId: string;
+        userId: string;
+        serviceId: number
+}
+export interface PatientProps{
+  id: number,
+        fname: string;
+        lname: string;
+        email: string;
+        phone: string;
+        dob: string;
+        nid: string;
+        avatar: string;
+        emailVerified: boolean,
+        phoneVerified: boolean,
+        diagnosis: string;
+        status: string;
+        userType: string;
+        password: string;
+        createdAt: string;
+        updatedAt: string;
+  }
+export interface ServiceProps{
+  id: number;
+  name: string;
+  description: string;
+  avatar: string;
+  status: string;
+  createdBy: string;        
+  createdAt: string;
+  updatedAt: string;
+}
+export interface PaymentProps{
+  id: number;
+  sessionPrice: number;
+  pay: number;
+  debit: number;
+  credit: number;
+  totalPayment: number;
+  totalSession: number;
+  remainsSession: number;
+  paymentMethod: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  visitId: number,
+  patientId: number,
+  serviceId: number,
+  patient:PatientProps;
+  service:ServiceProps;
+  visit:VisitProps;
+}

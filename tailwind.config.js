@@ -7,24 +7,24 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'bag-100': '#FAFAFA',
-        'bag-300': '#999999',
-        'bag-gray-200': '#E6E6E6', //new
-        'bag-gray-300': '#999999', //new
-        'bag-border-gray': '#0006291a', //new
-        'bag-blue-100': '#F7F8FA', //new
-        'bag-blue-200': '#EBEDF2',
-        'bag-blue-300': '#DFE1E6',
-        'bag-blue-400': '#CED2D9', //new
-        'bag-blue-500': '#8F9BB3', //new
-        'bag-blue-600': '#6B7A99', //new
-        'bag-blue-700': '#455473', //new
-        'bag-blue-800': '#303A50',
-        'bag-orange-100': '#FFF4E6', //new
-        'bag-yellow-100': '#F5E673', //new
-        'bag-green-300': '#9df26f', //new
-        primary: '#1A66FF',
-        secondary: '#FF9F1A',
+        'genuine-100': '#FAFAFA',
+        'genuine-300': '#999999',
+        'genuine-gray-200': '#E6E6E6', //new
+        'genuine-gray-300': '#999999', //new
+        'genuine-border-gray': '#0006291a', //new
+        'genuine-blue-100': '#F7F8FA', //new
+        'genuine-blue-200': '#EBEDF2',
+        'genuine-blue-300': '#DFE1E6',
+        'genuine-blue-400': '#CED2D9', //new
+        'genuine-blue-500': '#8F9BB3', //new
+        'genuine-blue-600': '#6B7A99', //new
+        'genuine-blue-700': '#455473', //new
+        'genuine-blue-800': '#303A50',
+        'genuine-orange-100': '#FFF4E6', //new
+        'genuine-yellow-100': '#F5E673', //new
+        'genuine-green-300': '#9df26f', //new
+        primary: '#018F55',
+        secondary: '#F4F4F4',
         'highlight-blue': '#E7F3FF',
         'highlight-orange': '#FFEFD9',
         'highlight-red': '#FFE8E6', //new
@@ -34,7 +34,7 @@ module.exports = {
         'highlight-border-green': '#98D9A3', //new
         success: '#1DBF38',
         error: '#FF401A',
-        'bag-black': '#000629', //new
+        'genuine-black': '#000629', //new
         'secondary-hover': '#1bbf38d9',
         'primary-hover': '#1a66ffde',
         'gradient-start': '#3D9EFF',

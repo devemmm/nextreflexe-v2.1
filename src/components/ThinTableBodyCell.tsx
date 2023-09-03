@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { TableCell, Typography } from '@mui/material';
 
-function ThinTableBodyCell({ text, type }: { text: string; type?: any }) {
+function ThinTableBodyCell({ text, type }: { text: string|number; type?: any }) {
   return (
     <TableCell align="center">
       <Typography
