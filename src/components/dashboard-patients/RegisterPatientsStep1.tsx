@@ -1,22 +1,16 @@
-import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 
-import ControlledDatePicker from '../ControlledDatePicker';
-import ControlledInputs from '../controlledInput';
-import InputFieldFilled from '../InputFieldFilled';
-import ControlledSelectField from '../ControlledSelectField';
-import SelectField from '../SelectField';
-import { useDispatch, useSelector } from 'react-redux';
-import { MenuItem } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import fetchBranchesData from '../../utils/fetchBranchesData';
 import fetchDoctorsData from '../../utils/fetchDoctorsData';
 import fetchServicesData from '../../utils/fetchServicesData';
-import fetchBranchesData from '../../utils/fetchBranchesData';
+import ControlledDatePicker from '../ControlledDatePicker';
+import InputFieldFilled from '../InputFieldFilled';
+import ControlledInputs from '../controlledInput';
 
 function RegisterPatientsStep1({ control, errors }) {
   const dispatch = useDispatch();
-  const { data: doctors } = useSelector((state: any) => state.doctorReducer);
-  const { data: branches } = useSelector((state: any) => state.branchesReducer);
-  const { data: services } = useSelector((state: any) => state.servicesReducer);
   useEffect(() => {
     fetchDoctorsData(dispatch);
     fetchServicesData(dispatch);

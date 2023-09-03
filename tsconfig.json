@@ -9,7 +9,7 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext",
+    "module": "ES2015",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -27,7 +27,7 @@
       "@views/*": ["src/views/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", "tailwind.js", "postcss.config.js"],
+  "include": ["src", "**/*.ts", "**/*.tsx"],
   "extends": "./tsconfig.paths.json",
   "exclude": ["node_modules"]
 }

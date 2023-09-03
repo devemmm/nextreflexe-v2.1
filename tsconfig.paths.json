@@ -6,12 +6,12 @@
       "@components/*": ["src/components/*"],
       "@hooks/*": ["src/hooks/*"],
       "@context/*": ["src/context/*"],
-      "@graphql/*": ["src/generated/*"],
       "@assets/*": ["src/assets/*"],
-      "@clients/*": ["src/clients/*"],
       "@config/*": ["src/config/*"],
-      "@helpers/*": ["src/helpers/*"],
-      "@utils/*": ["src/utils/*"]
+      "@utils/*": ["src/utils/*"],
+      "@styles/*": ["src/styles/*"],
+      "@views/*": ["views/*"]
     }
   }
 }
+
