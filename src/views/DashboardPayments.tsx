@@ -1,6 +1,4 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
-import { Box } from '@mui/material';
 import DashboardHeader from '../components/DashboardHeader';
 import PaymentsTable from '../components/dashboard-payments/PaymentsTable';
 function DashboardPayments() {
@@ -9,20 +7,12 @@ function DashboardPayments() {
   );
 
   return (
-    <>
-      <Box
-        sx={{
-          position: 'relative',
-          width: '100%',
-          height: '100%',
-          display: 'flex',
-          flexFlow: 'column nowrap',
-        }}
+      <div
+      className='relative w-full h-full flex flex-col flex-nowrap'
       >
         <DashboardHeader title="Payments History" />
         <PaymentsTable datas={data} loadingGet={loadingGet} />
-      </Box>
-    </>
+      </div>
   );
 }
 
