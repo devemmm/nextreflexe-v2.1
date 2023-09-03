@@ -87,3 +87,33 @@ export interface PaymentProps{
   service:ServiceProps;
   visit:VisitProps;
 }
+export interface UserProps{
+    id: string;
+    fname: string;
+    lname: string;
+    email: string;
+    phone: string;
+    userType: string;
+    status: string;
+    createdAt: string;
+    emailVerified: boolean;
+    phoneVerified: boolean;
+    avatar: string;
+    dob: string;
+    nid: string;
+    location: LocationProps;
+  }
+export interface LocationProps{
+  branchId: string;
+  cell: string;
+  country: string;
+  createdAt: string;
+  district: string;
+  id: number;
+  patientId: number;
+  province: string;
+  sector: string;
+  updatedAt: string;
+  userId: string;
+  village: string;
+}

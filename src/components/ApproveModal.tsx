@@ -35,7 +35,6 @@ function ApproveModal({
     setOpen(false);
   }
   const updateStatus = (status: any) => {
-    console.log({ visitId });
     axiosInstance
       .patch(
         `/${type === 'appointment' ? 'appointments' : 'visits'}/${visitId}`,

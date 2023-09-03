@@ -24,7 +24,6 @@ function AppointmentsDetails({
   let visitID;
   let visitStartTime;
   let visitEndTime;
-  console.log(id, visit);
   if (visit)
     ({ startTime: visitStartTime, id: visitID, endTime: visitEndTime } = visit);
   const theme = useTheme();

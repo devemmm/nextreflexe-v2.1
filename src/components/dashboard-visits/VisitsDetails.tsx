@@ -122,7 +122,6 @@ function VisitsDetails({
         />
         <PrePaidPaymentModal
           createPayment={(data) => {
-            console.log(data, 'payment data prepaid');
             sendPayment(data);
           }}
           openModal={openCreatePrePaidPayment}

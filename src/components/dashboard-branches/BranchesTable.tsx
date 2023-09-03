@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useState } from 'react';
 
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import EditIcon from '@mui/icons-material/Edit';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import {
-  Box,
-  Collapse,
+  // Collapse,
   IconButton,
   Table,
   TableBody,
@@ -11,20 +13,15 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
-  useTheme,
+  useTheme
 } from '@mui/material';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-import BoldTableHeaderCell from '../BoldTableHeaderCell';
-import ThinTableBodyCell from '../ThinTableBodyCell';
-import Loading from '../Loading';
 import formatDateRow from '../../utils/formatDate_hourFirst';
 import { formatName_surname } from '../../utils/formatName_surname';
+import BoldTableHeaderCell from '../BoldTableHeaderCell';
 import DeleteModal from '../DeleteModal';
+import Loading from '../Loading';
+import ThinTableBodyCell from '../ThinTableBodyCell';
 
 const Row = ({
   data: { id, name, manager, location, createdAt },
@@ -91,26 +88,20 @@ const Row = ({
           </IconButton>
         </TableCell>
       </TableRow>
-      <TableRow>
+      {/* <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
           <Collapse in={showDetails} unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography variant="body1" gutterBottom component="div">
-                "Details
-              </Typography>
-              <Box
-                sx={{
-                  background: '#F4F4F4',
-                  paddingX: { xs: '20px', md: '35px' },
-                  paddingY: '15px',
-                  width: '100%',
-                  height: '300px',
-                }}
-              ></Box>
-            </Box>
+            <div className='m-1'>
+              <div className='m-1 text-primary font-bold text-sm'>
+                Details
+              </div>
+              <div
+                className='bg-secondary px-[20px] py-[15px] w-full flex flex-row gap-2 mb-4'
+              ></div>
+            </div>
           </Collapse>
         </TableCell>
-      </TableRow>
+      </TableRow> */}
     </>
   );
 };
@@ -120,15 +111,8 @@ function BranchesTable({ datas, setOpenUpdateModal, loadingGet, ...props }) {
   const [id, setId] = useState(0);
   return (
     <>
-      <Box
-        sx={{
-          paddingX: '10px',
-          paddingBottom: '10px',
-          width: '100%',
-          height: '100%',
-          overflow: 'auto',
-          position: 'relative',
-        }}
+      <div
+        className='px-[10px pb-[10px] w-full h-full overflow-auto relative'
       >
         {loadingGet ? (
           <Loading />
@@ -168,7 +152,7 @@ function BranchesTable({ datas, setOpenUpdateModal, loadingGet, ...props }) {
             </Table>
           </TableContainer>
         )}
-      </Box>
+      </div>
       <DeleteModal
         open={openDeleteModal}
         setOpen={setOpenDeleteModal}
@@ -179,13 +163,6 @@ function BranchesTable({ datas, setOpenUpdateModal, loadingGet, ...props }) {
     </>
   );
 }
-
-BranchesTable.propTypes = {
-  datas: PropTypes.any.isRequired,
-  loadingGet: PropTypes.bool.isRequired,
-  setOpenUpdateModal: PropTypes.func.isRequired,
-  setOpenDeleteModal: PropTypes.func.isRequired,
-};
 
 export default BranchesTable;
 

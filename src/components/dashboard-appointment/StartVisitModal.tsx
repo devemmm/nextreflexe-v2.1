@@ -62,7 +62,6 @@ function StartVisitModal({
     axiosInstance
       .post('/visits?appointment=true', data)
       .then((res) => {
-        console.log(res);
         dispatch(startVisitAction(res.data));
         fetchVisitsData(dispatch);
         toast.success('Visit Successfully Started');

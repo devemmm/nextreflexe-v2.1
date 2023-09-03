@@ -138,7 +138,7 @@ const {patient,service,visit} = data;
         >
           <Collapse in={showDetails} unmountOnExit>
             <div className='payment-details-container'>
-              <div className='m-1 text-primary font-bold text-[18px]'>
+              <div className='m-1 text-primary font-bold text-sm'>
                 Details
               </div>
               <div className='bg-secondary px-[20px] py-[15px] w-full flex flex-row gap-2 mb-4'

@@ -110,7 +110,6 @@ function GetInTouchForm() {
       return false;
     }
     if (!formData.email.match(pattern)) {
-      console.log('We are here');
       setError({ ...error, email: 'Please enter a  valid email' });
       return false;
     }

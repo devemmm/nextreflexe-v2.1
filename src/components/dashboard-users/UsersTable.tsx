@@ -4,7 +4,6 @@ import { useState } from 'react';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import {
-  Box,
   Collapse,
   IconButton,
   Table,
@@ -13,28 +12,16 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
-  useTheme,
+  useTheme
 } from '@mui/material';
 
+import { UserProps } from 'src/types/dashboardTypes';
 import formatDateRow from '../../utils/formatDate_hourFirst';
 import BoldTableHeaderCell from '../BoldTableHeaderCell';
 import Loading from '../Loading';
 import ThinTableBodyCell from '../ThinTableBodyCell';
-interface RowType {
-  data: {
-    fname: string;
-    lname: string;
-    email: string;
-    phone: string;
-    userType: string;
-    status: string;
-    createdAt: string;
-  };
-}
-const Row = ({
-  data: { fname, lname, email, phone, userType, status, createdAt },
-}: RowType) => {
+
+const Row = ({ data}: {data:UserProps}) => {
   const theme = useTheme();
   const [showDetails, setShowDetails] = useState(false);
 
@@ -58,13 +45,13 @@ const Row = ({
             {showDetails ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <ThinTableBodyCell text={fname} />
-        <ThinTableBodyCell text={lname} />
-        <ThinTableBodyCell text={email} />
-        <ThinTableBodyCell text={phone} />
-        <ThinTableBodyCell text={userType} />
-        <ThinTableBodyCell text={status} />
-        <ThinTableBodyCell text={formatDateRow(createdAt, false)} />
+        <ThinTableBodyCell text={data.fname} />
+        <ThinTableBodyCell text={data.lname} />
+        <ThinTableBodyCell text={data.email} />
+        <ThinTableBodyCell text={data.phone} />
+        <ThinTableBodyCell text={data.userType} />
+        <ThinTableBodyCell text={data.status} />
+        <ThinTableBodyCell text={formatDateRow(data.createdAt, false)} />
       </TableRow>
       <TableRow>
         <TableCell
@@ -76,20 +63,35 @@ const Row = ({
           colSpan={10}
         >
           <Collapse in={showDetails} unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography variant="body1" gutterBottom component="div">
-                "Details
-              </Typography>
-              <Box
-                sx={{
-                  background: '#F4F4F4',
-                  paddingX: { xs: '20px', md: '35px' },
-                  paddingY: '15px',
-                  width: '100%',
-                  height: '300px',
-                }}
-              ></Box>
-            </Box>
+            <div className='payment-details-container'>
+              <div className='m-1 text-primary font-bold text-sm'>
+                Details
+              </div>
+              <div className='bg-secondary px-[20px] py-[15px] w-full flex flex-row gap-2 mb-4'
+              >
+                <div className='flex tems-cente justify-center align-center'>
+                    <img src={data.avatar} alt="avatar" className='w-[50] h-[50px] rounded-full flex'/>
+                </div>
+                <div className='payment-info w-[50%]'>
+                  <span className='text-md p-2 flex justify-between text-xs font-bold'>USER INFO</span>
+                  <div className='flex flex-col gap-2 border p-2'>
+                      <span className='text-sm flex'>NID: {data.nid}</span>
+                      <span className='text-sm flex'>Status: {data.status}</span>
+                      <span className='text-sm flex'>Phone Verified: {data.phoneVerified ? "YES":"NO"}</span>
+                      <span className='text-sm flex'>Role: {data.userType}</span>
+                  </div>
+                </div>
+                <div className=' w-[50%]'>
+                  <span className='text-md p-2 flex justify-between font-bold text-xs'>LOCATION INFO</span>
+                  <div className='flex flex-col gap-2 border p-2'>
+                      <span className='text-sm flex'>Countryy: {data.location.country}</span>
+                      <span className='text-sm flex'>Province: {data.location.province}</span>
+                      <span className='text-sm flex'>Sector: {data.location.sector}</span>
+                      <span className='text-sm flex'>Village: {data.location.village}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </Collapse>
         </TableCell>
       </TableRow>
@@ -97,22 +99,11 @@ const Row = ({
   );
 };
 
-function UsersTable({ datas, loadingGet, ...props }: any) {
-  if (datas && datas.length !== 0) {
-    datas = [...datas];
-  }
+function UsersTable({ datas, loadingGet }: {datas: UserProps[], loadingGet: boolean }) {
   return (
     <>
-      <Box
-        sx={{
-          paddingX: '10px',
-          paddingBottom: '10px',
-          width: '100%',
-          height: '100%',
-          position: 'relative',
-          overflow: 'auto',
-        }}
-        {...props}
+      <div
+        className='px-[10px] pb-[10px] w-full h-full relative overflow-auto'
       >
         {loadingGet ? (
           <Loading />
@@ -136,14 +127,14 @@ function UsersTable({ datas, loadingGet, ...props }: any) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {datas.map((data: any, index: number) => {
+                {datas.map((data, index) => {
                   return <Row key={data.id + ' ' + index} data={data} />;
                 })}
               </TableBody>
             </Table>
           </TableContainer>
         )}
-      </Box>
+      </div>
     </>
   );
 }
