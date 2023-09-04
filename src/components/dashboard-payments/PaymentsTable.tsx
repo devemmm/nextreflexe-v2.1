@@ -204,7 +204,7 @@ export const PaymentSlip = ({payment}:{payment: PaymentProps})=>{
             <img className='w-[120px]' src={logo2} alt="logo" />
         </div>
         <div className='text-black m-4 font-bold text-sm text-[18px] flex justify-center'>
-              SERVICE PAYMENT RECEIPT
+              SERVICE&nbsp;&nbsp;&nbsp;PAYMENT RECEIPT
         </div>
         <div className='bg-secondary m-6 border border- items-center gap-2 flex justify-center'>
           <div className='w-[90%] gap-2 py-8'>
@@ -216,7 +216,7 @@ export const PaymentSlip = ({payment}:{payment: PaymentProps})=>{
                     </div>
                     <div className='flex flex-row justify-between'>
                       <span className='text-sm flex'>Customer Name: </span>
-                      <span>{payment.patient.lname} {payment.patient.fname}</span>
+                      <span>{payment.patient.lname}&nbsp;&nbsp;&nbsp;{payment.patient.fname}</span>
                     </div>
                     <div className='flex flex-row justify-between'>
                       <span className='text-sm flex'>Phone: </span>
@@ -249,7 +249,7 @@ export const PaymentSlip = ({payment}:{payment: PaymentProps})=>{
         <div className='flex-col p-2 mx-6 border items-center gap-2 flex justify-center'>
           <span className='self-start'>Notice:</span>
           <p className='text-xs'>
-Please note that all service payments are final and no refunds will be processed. Once payment is made, it cannot be reversed or refunded. We kindly request you to carefully review your purchase before making a payment. Should you have any concerns or questions, please contact our customer support team at +250 788 596 281. We are here to assist you.
+Please note that all service payments are final and no refunds will be processed. Once payment is made, it cannot be reversed or refunded. We kindly request you to carefully review your purchase before making a payment. Should you have any concerns or questions, please contact our customer support team at +250 788 409 264. We are here to assist you.
           </p>
         </div>
       </div>)
