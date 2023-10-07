@@ -69,6 +69,42 @@ function About() {
           adults, paralysis, sports injuries, accident victims, migraines and
           insomnia.
         </Typography>
+
+        <HeaderTitle data="specialization" />
+        <Typography
+          display="block"
+          sx={{
+            marginX: 'auto',
+            fontWeight: 300,
+            textAlign: 'justify',
+            fontSize: {
+              xs: '14px',
+              md: '16px',
+            },
+            maxWidth: {
+              sm: '500px',
+              md: '600px',
+              lg: '900px',
+            },
+            marginY: {
+              xs: '20px',
+              sm: '30px',
+              lg: '40px',
+            },
+          }}
+        >
+          <p style={{marginBottom: 20, fontWeight: 'bold', fontSize: 20, color: "#018F55"}}>Autism whereby a child fails to speak or in other words have problem in speaking (hyperactivity)</p>
+          They are some sympathetic neurons that attaches to the heart and kidney, so when they get damaged it becomes a problem the small part of the brain. Because of this this sufficient of small amount of blood supplied to the brain and because of more inflation raises it causes ischemic erosion in the temporal law. This results to the loss of concentration, the child neurons responsible to help a child to formulate a sentence don’t work and also loses what to say.
+          <br />
+          <br />
+          Also, a child has a problem of taking the head betting it to the wall in other mostly they have chronic migraines or the head temperature is always up. As a result, to that those children likes to run most of the time because they run the dopamine level in body raises and reduces the pain of the migraine the child has been facing with. 
+          <br />
+          <br />
+          Kunga method press the T1 to T4, this helps a child’s sympathetic neurons works well again and the blood again flows in the brain also the dopamine becomes enough in the body of the child and the child stops running. Also, the supply of blood becomes effective in the pre-frontal cortex and the ischemic erosion reduces.
+        
+        </Typography>
+
+
         <AboutVisitors />
       </Box>
     </Box>
